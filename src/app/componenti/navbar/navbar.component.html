@@ -1,1 +1,35 @@
-<p>navbar works!</p>
+<div class="overlay" *ngIf="showNavbar" (click)="closeNavbar()"></div>
+
+<nav class="navbar navbar-expand-lg py-4 py-lg-0 shadow">
+  <div class="container px-4">
+    <img src="logo.png" alt="">
+    <button class="navbar-toggler border-0" type="button" (click)="toggleNavbar()">
+      <i class="bi bi-columns-gap"></i>
+    </button>
+
+    <div class="offcanvas offcanvas-end" [ngClass]="{'show': showNavbar}" tabindex="-1" id="offcanvasScrolling">
+      <!-- Pulsante per chiudere -->
+      <button class="navbar-toggler border-0" type="button" (click)="toggleNavbar()">
+        <div class="d-flex justify-content-between p-3">
+          <img src="logo.png" alt="">
+        </div>
+        <i class="bi bi-columns-gap"></i>
+      </button>
+
+      <ul class="navbar-nav ms-lg-auto p-4 p-lg-0">
+        <li class="nav-item px-3 px-lg-0 py-1 py-lg-4" (click)="closeNavbar()">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item px-3 px-lg-0 py-1 py-lg-4" (click)="closeNavbar()">
+          <a class="nav-link" routerLink="/carrello">Carrello</a>
+        </li>
+        <li class="nav-item px-3 px-lg-0 py-1 py-lg-4" (click)="closeNavbar()">
+          <a class="nav-link"routerLink="/prodotti">Prodotti</a>
+        </li>
+        <li class="nav-item px-3 px-lg-0 py-1 py-lg-4" (click)="closeNavbar()">
+          <a class="nav-link" routerLink="/dettaglio-prodotto">Prodotto Dettagli</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

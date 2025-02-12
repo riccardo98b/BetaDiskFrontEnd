@@ -8,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  showNavbar: boolean = false;
+
+  // Toggle navbar al click dell'icona
+  toggleNavbar() {
+    this.showNavbar = !this.showNavbar;
+  }
+
+  // Chiudi la navbar quando si clicca su un link
+  closeNavbar() {
+    this.showNavbar = false;
+  }
 }
