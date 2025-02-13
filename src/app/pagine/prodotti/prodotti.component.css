@@ -1,25 +1,30 @@
 .example-card {
-  height: 70vh;
+  height: 30vh;
   display: flex;
   justify-content: space-between;
 }
 
-p {
-  text-align: center;
-}
-
 .immagine-prodotto {
-  height: 300px;
-  width: 300px;
+  height: 150px;
+  width: 150px;
 }
 
 img {
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
-.card-content {
+.card-body {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-prezzo {
+  font-size: 1.3em;
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -11,5 +11,10 @@ export class ProdottiService {
 
   listAll() {
     return this.http.get(this.url + 'list');
+  }
+
+  prodottoPerId(idProdotto: number) {
+    let param = new HttpParams().set('idProdotto', idProdotto.toString());
+    return this.http.get(this.url + 'list?idProdotto=' + idProdotto);
   }
 }

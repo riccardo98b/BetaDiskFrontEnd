@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let prodotto of data">
+  <div class="row g-4">
+    <div class="col-sm-12 col-md-6 col-lg-3" *ngFor="let prodotto of data">
       <div class="card">
         <img
           src="{{ prodotto.immagineProdotto }}"
@@ -8,13 +8,23 @@
           alt="immagine-prodotto"
         />
         <div class="card-body">
-          <h5 class="card-title">{{ prodotto.titolo }}</h5>
-          <p class="card-text">{{ prodotto.artista }}</p>
-          <p class="card-text">{{ prodotto.form }}</p>
+          <div>
+            <h5 class="card-titolo">{{ prodotto.titolo }}</h5>
+            <p class="card-artista">{{ prodotto.artista }}</p>
+            <p class="card-formato">{{ prodotto.formato }}</p>
+          </div>
+          <div>
+            <p class="card-prezzo">{{ prodotto.prezzo | currency : "EUR" }}</p>
+          </div>
+        </div>
+        <div class="card-buttons">
           <button mat-button>Acquista</button>
-          <button mat-button>Maggiori info</button>
+          <button mat-button (click)="dettagliProdotto(prodotto.idProdotto)">
+            Maggiori info
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

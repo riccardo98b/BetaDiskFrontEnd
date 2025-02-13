@@ -10,8 +10,11 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'carrello', component: CarrelloComponent },
   { path: 'prodotti', component: ProdottiComponent },
-  { path: 'dettaglio-prodotto', component: DettaglioProdottoComponent },
   { path: 'profilo', component: ProfiloComponent },
+  {
+    path: 'dettaglio-prodotto/:idProdotto',
+    component: DettaglioProdottoComponent,
+  },
 ];
 
 @NgModule({
