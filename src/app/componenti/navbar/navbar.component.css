@@ -1,0 +1,67 @@
+img{
+  max-width: 150px;
+  width: 100%;
+}
+
+.nav-link{
+  font-weight: 600;
+  color: #000;
+}
+
+.navbar-toggler:focus{
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+}
+.bi-columns-gap{
+  font-size: 1.5rem;
+}
+.navbar-toggler i {
+  font-size: 1.5rem;
+  color: black;
+}
+
+@media(min-width:992px){
+  .dropdown>.dropdown-menu{
+    visibility: hidden;
+    opacity: 0;
+    top: 100%;
+    display: block;
+    transition: all 0.1s ease-out;
+  }
+
+  .dropdown:hover>.dropdown-menu{
+    visibility: visible;
+    opacity: 1;
+    padding: 20px 0;
+    display: block;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .dropdown-item:hover{
+    color: #fff;
+    background-color: black;
+  }
+}
+.offcanvas {
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in-out;
+  z-index: 999;  /* Assicura che sia sopra il resto della pagina */
+}
+
+.offcanvas.show {
+  transform: translateX(0);
+}
+
+ /* Overlay per oscurare lo sfondo  */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Sfondo scuro semi-trasparente */
+  backdrop-filter: blur(5px); /* Effetto sfocato */
+  z-index: 998; /* Appena sotto la navbar */
+  transition: opacity 0.3s ease-in-out;
+}
