@@ -1,5 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Prodotto } from '../../interfacce/Prodotto';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +11,8 @@ export class ProdottiService {
 
   constructor(private http: HttpClient) {}
 
-  listAll() {
-    return this.http.get(this.url + 'list');
+  listAll(): Observable<Prodotto[]> {
+    return this.http.get<Prodotto[]>(this.url + 'list');
   }
 
   prodottoPerId(idProdotto: number) {

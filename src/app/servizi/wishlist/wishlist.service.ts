@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WishlistService {
-
-
   private apiUrl = 'assets/wishlist.json';
 
   constructor(private http: HttpClient) {}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { Router } from '@angular/router';
+import { Prodotto } from '../../interfacce/Prodotto';
 
 @Component({
   selector: 'app-prodotti',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './prodotti.component.css',
 })
 export class ProdottiComponent implements OnInit {
-  prodotto: any;
+  prodotto: Prodotto[];
   response: any;
   data: any;
 
