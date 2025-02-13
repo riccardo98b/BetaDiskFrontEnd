@@ -1,0 +1,4 @@
+.card-gradient-border {
+  border: 2px solid; /* Imposta la larghezza del bordo */
+  border-image: linear-gradient(to right, rgb(231, 122, 20), blue) 1; /* Crea il gradiente dal colore arancione al blu */
+}
