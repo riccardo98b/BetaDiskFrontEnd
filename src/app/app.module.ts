@@ -8,6 +8,8 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +23,7 @@ import { ProfiloComponent } from './pagine/profilo/profilo.component';
 import { DettaglioProdottoComponent } from './pagine/dettaglio-prodotto/dettaglio-prodotto.component';
 import { RecensioneComponent } from './componenti/recensione/recensione.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { CarrelloComponent } from './pagine/carrello/carrello.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
     DettaglioProdottoComponent,
     RecensioneComponent,
     DashboardComponent,
+    CarrelloComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
+    MatAccordion, MatExpansionModule
   ],
   providers: [
     provideClientHydration(withEventReplay()),
