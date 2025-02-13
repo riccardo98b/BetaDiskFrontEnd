@@ -16,9 +16,19 @@
           <p class="card-text">{{ prodotto.descrizione }}</p>
           <p><strong>Price: ${{ prodotto.prezzo }}</strong></p>
           <p>Format: {{ prodotto.formato }} | Year: {{ prodotto.annoPubblicazione }}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+
+          <!-- Bottoni per gestire il prodotto -->
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-success" (click)="addToWishlist(prodotto)">Aggiungi a Carello</button>
+            <button class="btn btn-danger" (click)="removeFromWishlist(prodotto)">Rimuovi da Wishlist</button>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Bottone per rimuovere tutti i prodotti dalla wishlist -->
+  <div class="mt-4 text-center">
+    <button class="btn btn-danger" (click)="clearAllFromWishlist(item)">Svuota Wishlist</button>
   </div>
 </div>
