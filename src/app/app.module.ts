@@ -21,6 +21,7 @@ import { ProfiloComponent } from './pagine/profilo/profilo.component';
 import { DettaglioProdottoComponent } from './pagine/dettaglio-prodotto/dettaglio-prodotto.component';
 import { RecensioneComponent } from './componenti/recensione/recensione.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
     MatGridListModule,
   ],
   providers: [
+    provideHttpClient(withFetch()),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
   ],

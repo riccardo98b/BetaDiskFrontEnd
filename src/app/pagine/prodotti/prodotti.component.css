@@ -1,9 +1,25 @@
 .example-card {
-  max-width: 400px;
-  color: aliceblue;
+  height: 70vh;
+  display: flex;
+  justify-content: space-between;
 }
 
-.example-header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
+p {
+  text-align: center;
+}
+
+.immagine-prodotto {
+  height: 300px;
+  width: 300px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-evenly;
 }
