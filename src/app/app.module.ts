@@ -8,7 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +23,7 @@ import { DettaglioProdottoComponent } from './pagine/dettaglio-prodotto/dettagli
 import { RecensioneComponent } from './componenti/recensione/recensione.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CarrelloComponent } from './pagine/carrello/carrello.component';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { CarrelloComponent } from './pagine/carrello/carrello.component';
     DettaglioProdottoComponent,
     RecensioneComponent,
     DashboardComponent,
-    CarrelloComponent
+    CarrelloComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +45,10 @@ import { CarrelloComponent } from './pagine/carrello/carrello.component';
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [
+    provideHttpClient(withFetch()),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
   ],
