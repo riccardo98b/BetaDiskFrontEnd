@@ -1,0 +1,9 @@
+.container-sm {
+    max-width: 540px;
+}
+
+.button-container, .totale {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

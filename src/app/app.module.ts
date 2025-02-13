@@ -8,8 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
-
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,7 +44,7 @@ import { CarrelloComponent } from './pagine/carrello/carrello.component';
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
-    MatAccordion, MatExpansionModule
+    MatIconModule
   ],
   providers: [
     provideClientHydration(withEventReplay()),

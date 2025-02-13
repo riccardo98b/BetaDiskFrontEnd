@@ -1,25 +1,109 @@
-<div>
+<div class="container">
 
-<h2>Riepilogo del tuo carrello</h2>
+  <h2>Riepilogo del tuo carrello</h2>
 
-<mat-accordion>
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Dettagli Prodotto ordinato </mat-panel-title>
-        <mat-panel-description> This is a summary of the content </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>This is the primary content of the panel.</p>
-    </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Self aware panel </mat-panel-title>
-        <mat-panel-description>
-          Currently I am {{panelOpenState() ? 'open' : 'closed'}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
-    </mat-expansion-panel>
-  </mat-accordion>
-  
-   
+  <div class="container-sm">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="..." class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">TITOLO <span></span></h5>
+                <h6  class="card-title">Artista <span></span></h6>
+                <p class="card-text">
+                  <small class="text-body-secondary">Genere <span></span> </small> 
+                  <small class="text-body-secondary">Formato <span></span></small>
+                </p>
+                <div class="button-container">
+                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <span>1</span>
+                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <button mat-mini-fab disabled aria-label="Example icon button with a menu icon">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="..." class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">TITOLO <span></span></h5>
+                <h6  class="card-title">Artista <span></span></h6>
+                <p class="card-text">
+                  <small class="text-body-secondary">Genere <span></span> </small> 
+                  <small class="text-body-secondary">Formato <span></span></small>
+                </p>
+                <div class="button-container">
+                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <span>1</span>
+                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <button mat-mini-fab disabled aria-label="Example icon button with a menu icon">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="..." class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">TITOLO <span></span></h5>
+                <h6  class="card-title">Artista <span></span></h6>
+                <p class="card-text">
+                  <small class="text-body-secondary">Genere <span></span> </small> 
+                  <small class="text-body-secondary">Formato <span></span></small>
+                </p>
+                <div class="button-container">
+                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <span>1</span>
+                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <button mat-mini-fab disabled aria-label="Example icon button with a menu icon">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="container totale">
+      <h4>Totale da pagare: <span>19.90€</span></h4>
+      <button mat-fab extended>
+        <mat-icon>shopping_cart</mat-icon>
+        Acquista ora
+      </button>
+    </div>
+  </div>
 </div>
