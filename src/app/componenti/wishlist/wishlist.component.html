@@ -1,0 +1,24 @@
+<div *ngFor="let item of wishlist">
+  <!-- Dettagli del cliente -->
+  <div class="mb-4">
+    <h2>Wishlist for {{ item.cliente.nome }} {{ item.cliente.cognome }}</h2>
+    <img [src]="item.cliente.immagineCliente" alt="Customer Image" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
+    <p>Customer since: {{ item.cliente.dataRegistrazione }}</p>
+  </div>
+
+  <!-- Row dei prodotti (prodotti affiancati) -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+    <div *ngFor="let prodotto of item.prodotti" class="col d-flex">
+      <div class="card h-100">
+        <img [src]="prodotto.immagineProdotto" class="card-img-top" alt="Product Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ prodotto.titolo }} - {{ prodotto.artista }}</h5>
+          <p class="card-text">{{ prodotto.descrizione }}</p>
+          <p><strong>Price: ${{ prodotto.prezzo }}</strong></p>
+          <p>Format: {{ prodotto.formato }} | Year: {{ prodotto.annoPubblicazione }}</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
