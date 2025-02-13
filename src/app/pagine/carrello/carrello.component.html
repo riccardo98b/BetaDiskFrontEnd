@@ -1,7 +1,7 @@
 <div class="container">
 
   <h2>Riepilogo del tuo carrello</h2>
-
+<!-- da aggiungere alert per carrello vuoto -->
   <div class="container-sm">
     <ul class="list-group list-group-flush">
       <li class="list-group-item" *ngFor="let prodotto of prodotti">
@@ -20,14 +20,16 @@
                   <small class="text-body-secondary">Formato <span>{{prodotto.prodotto.formato}}</span></small>
                 </p>
                 <div class="button-container">
-                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
-                    <mat-icon>add</mat-icon>
-                  </button>
-                  <span>{{prodotto.quantita}}</span>
-                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
-                    <mat-icon>remove</mat-icon>
-                  </button>
-                  <button mat-mini-fab disabled aria-label="Example icon button with a menu icon">
+                  <div class="button-container">
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                    <span>{{prodotto.quantita}}</span>
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </div>
+                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon">
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>
@@ -40,10 +42,14 @@
     </ul>
     <div class="container totale">
       <h4>Totale da pagare: <span>{{totale | currency:"EUR" }}</span></h4>
-      <button mat-fab extended>
-        <mat-icon>shopping_cart</mat-icon>
-        Acquista ora
+      <button class="del-btn" mat-fab extended>
+        <mat-icon>remove_shopping_cart</mat-icon>
+        Svuota Carrello
       </button>
     </div>
+    <button class="confirm-btn" mat-fab extended>
+      <mat-icon>shopping_cart</mat-icon>
+      Acquista ora
+    </button>
   </div>
 </div>

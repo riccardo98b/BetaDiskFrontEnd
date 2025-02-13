@@ -8,6 +8,22 @@
     align-items: center;
 }
 
+.button-container > span {
+    min-width: 70%;
+    display: flex;
+    justify-content: center;
+}
+
 .card-text {
     max-width: 70%;
+}
+
+.confirm-btn {
+    margin-top: 25px;
+    min-width: 100%;
+}
+
+.del-btn {
+    color: #fff;
+    background-color: firebrick ;
 }
