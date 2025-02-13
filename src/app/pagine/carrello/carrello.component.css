@@ -1,9 +1,33 @@
+h2 {
+    margin-bottom: 20px;
+}
+
 .container-sm {
     max-width: 540px;
 }
 
-.button-container, .totale {
+.button-container, .totale, .card-text {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.button-container > span {
+    min-width: 70%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-text {
+    max-width: 70%;
+}
+
+.confirm-btn {
+    margin-top: 25px;
+    min-width: 100%;
+}
+
+.del-btn {
+    color: #fff;
+    background-color: firebrick ;
 }

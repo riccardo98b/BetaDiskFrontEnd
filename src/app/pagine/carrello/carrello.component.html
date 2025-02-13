@@ -1,32 +1,43 @@
 <div class="container">
 
   <h2>Riepilogo del tuo carrello</h2>
-
-  <div class="container-sm">
+<!-- da aggiungere alert per carrello vuoto -->
+  <div *ngIf="msg != ''">
+    <div class="alert alert-success" *ngIf="rc" role="alert">
+      {{msg}}
+    </div>
+    <div class="alert alert-danger"  *ngIf="!rc" role="alert">
+      {{msg}}
+    </div>    
+  </div>
+  <div class="container-sm"  *ngIf="rc">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">
+      <li class="list-group-item" *ngFor="let prodotto of prodotti">
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="...">
+              <img [src]="prodotto.prodotto.immagineProdotto" class="img-fluid rounded-start" alt="immagine da archivio">
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">TITOLO <span></span></h5>
-                <h6  class="card-title">Artista <span></span></h6>
+                <h5 class="card-title">TITOLO <span>{{prodotto.prodotto.titolo}}</span></h5>
+                <h6  class="card-title">Artista <span>{{prodotto.prodotto.artista}}</span></h6>
                 <p class="card-text">
-                  <small class="text-body-secondary">Genere <span></span> </small> 
-                  <small class="text-body-secondary">Formato <span></span></small>
+                  <small class="text-body-secondary">Genere <span>{{prodotto.prodotto.genere}}</span></small>
+                  
+                  <small class="text-body-secondary">Formato <span>{{prodotto.prodotto.formato}}</span></small>
                 </p>
                 <div class="button-container">
-                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
-                    <mat-icon>add</mat-icon>
-                  </button>
-                  <span>1</span>
-                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
-                    <mat-icon>remove</mat-icon>
-                  </button>
-                  <button mat-mini-fab disabled aria-label="Example icon button with a menu icon">
+                  <div class="button-container">
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                    <span>{{prodotto.quantita}}</span>
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </div>
+                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon">
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>
@@ -38,11 +49,15 @@
       
     </ul>
     <div class="container totale">
-      <h4>Totale da pagare: <span>19.90€</span></h4>
-      <button mat-fab extended>
-        <mat-icon>shopping_cart</mat-icon>
-        Acquista ora
+      <h4>Totale da pagare: <span>{{totale | currency:"EUR" }}</span></h4>
+      <button class="del-btn" mat-fab extended (click)="svuotaCarrello()">
+        <mat-icon>remove_shopping_cart</mat-icon>
+        Svuota Carrello
       </button>
     </div>
+    <button class="confirm-btn" mat-fab extended>
+      <mat-icon>shopping_cart</mat-icon>
+      Acquista ora
+    </button>
   </div>
 </div>
