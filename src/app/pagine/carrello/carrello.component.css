@@ -2,8 +2,12 @@
     max-width: 540px;
 }
 
-.button-container, .totale {
+.button-container, .totale, .card-text {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.card-text {
+    max-width: 70%;
 }

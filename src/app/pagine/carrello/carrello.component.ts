@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CarrelloService } from '../../servizi/carrello/carrello.service';
 
 @Component({
   selector: 'app-carrello',
@@ -7,9 +8,21 @@ import { Component } from '@angular/core';
   styleUrl: './carrello.component.css',
 
 })
-export class CarrelloComponent {
+export class CarrelloComponent implements OnInit {
 
-  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-  originally bred for hunting.`;
+  prodotti: any;
+  totale: number = 0;
+  idCliente = 1;
+
+  constructor(private serv: CarrelloService) {}
+
+  ngOnInit(): void {
+   this.serv.listaProdotti(this.idCliente).subscribe((r : any) => {
+    this.totale = r.dati.totale;
+    this.prodotti = r.dati.prodotti;
+    console.log(this.prodotti);
+   })
+  }
+
+  
 }
