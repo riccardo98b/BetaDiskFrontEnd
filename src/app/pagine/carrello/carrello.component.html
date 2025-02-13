@@ -2,7 +2,15 @@
 
   <h2>Riepilogo del tuo carrello</h2>
 <!-- da aggiungere alert per carrello vuoto -->
-  <div class="container-sm">
+  <div *ngIf="msg != ''">
+    <div class="alert alert-success" *ngIf="rc" role="alert">
+      {{msg}}
+    </div>
+    <div class="alert alert-danger"  *ngIf="!rc" role="alert">
+      {{msg}}
+    </div>    
+  </div>
+  <div class="container-sm"  *ngIf="rc">
     <ul class="list-group list-group-flush">
       <li class="list-group-item" *ngFor="let prodotto of prodotti">
         <div class="card mb-3" style="max-width: 540px;">
@@ -42,7 +50,7 @@
     </ul>
     <div class="container totale">
       <h4>Totale da pagare: <span>{{totale | currency:"EUR" }}</span></h4>
-      <button class="del-btn" mat-fab extended>
+      <button class="del-btn" mat-fab extended (click)="svuotaCarrello()">
         <mat-icon>remove_shopping_cart</mat-icon>
         Svuota Carrello
       </button>
