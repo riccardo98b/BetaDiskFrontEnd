@@ -1,1 +1,196 @@
-<p>profilo works!</p>
+<!-- EDIT MODE: FALSE TEMPLATE PROFILO-->
+
+<div *ngIf="!editMode" class="profile-container mt-4 mb-4">
+  <div class="profile-header">
+    <h2>
+      Profilo Cliente: {{ clienteForm.value.nome }}
+      {{ clienteForm.value.cognome }}
+    </h2>
+  </div>
+
+  <!-- Immagine del profilo -->
+  <div class="profile-image">
+    <img
+      [src]="clienteForm.value.immagineCliente"
+      alt="immagine profilo cliente"
+      class="profile-img"
+    />
+  </div>
+
+  <div>
+    <h5>Nome:</h5>
+    <p>{{ clienteForm.value.nome }}</p>
+  </div>
+
+  <div>
+    <h5>Cognome:</h5>
+    <p>{{ clienteForm.value.cognome }}</p>
+  </div>
+
+  <div class="form-group">
+    <h5>Email:</h5>
+    <p>{{ clienteForm.value.email }}</p>
+  </div>
+
+  <div>
+    <h5>Via:</h5>
+    <p>{{ clienteForm.value.via }}</p>
+  </div>
+
+  <div>
+    <h5>Comune:</h5>
+    <p>{{ clienteForm.value.comune }}</p>
+  </div>
+
+  <div>
+    <h5>Provincia:</h5>
+    <p>{{ clienteForm.value.provincia }}</p>
+  </div>
+
+  <div>
+    <h5>CAP:</h5>
+    <p>{{ clienteForm.value.cap }}</p>
+  </div>
+
+  <button (click)="onEditUser()" class="btn btn-custom-button btn-primary">
+    Modifica
+  </button>
+</div>
+
+<!-- EDIT MODE: TRUE TEMPLATE PROFILO-->
+
+<div *ngIf="editMode" class="profile-container mt-4 mb-4">
+  <div class="profile-header">
+    <h2>
+      Profilo Cliente: {{ clienteForm.value.nome }}
+      {{ clienteForm.value.cognome }}
+    </h2>
+  </div>
+
+  <!-- Immagine del profilo -->
+  <div class="profile-image">
+    <img
+      [src]="clienteForm.value.immagineCliente"
+      alt="immagine profilo cliente"
+      class="profile-img"
+    />
+  </div>
+
+  <!-- Form di modifica profilo -->
+  <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input
+        type="text"
+        id="nome"
+        formControlName="nome"
+        placeholder="Inserisci il tuo nome"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="cognome">Cognome:</label>
+      <input
+        type="text"
+        id="cognome"
+        formControlName="cognome"
+        placeholder="Inserisci il tuo cognome"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="immagineCliente">Immagine cliente:</label>
+      <input
+        type="text"
+        id="immagineCliente"
+        formControlName="immagineCliente"
+        placeholder="Inserisci link immagine profilo cliente"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Inserisci la tua email"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Inserisci la tua password"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="via">Via:</label>
+      <input
+        type="text"
+        id="via"
+        formControlName="via"
+        placeholder="Inserisci la tua via"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="comune">Comune:</label>
+      <input
+        type="text"
+        id="comune"
+        formControlName="comune"
+        placeholder="Inserisci il  comune"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="provincia">Provincia:</label>
+      <input
+        type="text"
+        id="provincia"
+        formControlName="provincia"
+        placeholder="Inserisci la tua provincia"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="cap">CAP:</label>
+      <input
+        type="text"
+        id="cap"
+        formControlName="cap"
+        placeholder="Inserisci il CAP"
+        class="form-control"
+      />
+    </div>
+
+    <div class="d-flex gap-2 align-items-stretch">
+      <button
+        (click)="onEditUser()"
+        class="btn btn-secondary w-50 half-space-btn h-50"
+      >
+        Annulla
+      </button>
+      <button
+        type="submit"
+        [disabled]="clienteForm.invalid"
+        class="btn w-50 btn-primary"
+      >
+        Salva
+      </button>
+    </div>
+  </form>
+</div>
