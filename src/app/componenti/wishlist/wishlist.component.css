@@ -1,4 +1,12 @@
 /* CSS Card  */
+.wishlist-container {
+  padding-top: 70px;
+}
+
+.row {
+  padding-top: 70px;
+}
+
 .card {
   display: flex;
   flex-direction: column;
