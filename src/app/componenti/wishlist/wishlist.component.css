@@ -14,7 +14,6 @@
   max-height: 200px;
 }
 
-
 .card-gradient-border {
   border: 2px solid;
   border-image: linear-gradient(to right, rgb(231, 122, 20), blue) 1;
@@ -24,18 +23,19 @@
 @media (max-width: 1200px) {
   .col-lg-4 {
     flex: 0 0 50%;
+    margin-bottom: 20px; /* Aggiungi un po' di margine per separare le card */
   }
 }
 
 @media (max-width: 768px) {
   .col-md-6 {
     flex: 0 0 100%;
+    margin-bottom: 20px; /* Spazio tra le card */
   }
 
   .card-img-top {
     max-height: 150px;
   }
-
 
   .d-flex {
     flex-direction: column;
@@ -45,8 +45,12 @@
     width: 100%;
     margin-bottom: 10px;
   }
-}
 
+  .card {
+    width: 90%; /* Ridurre la larghezza della card */
+    margin: 0 auto; /* Centra la card */
+  }
+}
 
 .button {
   -webkit-appearance: none;
