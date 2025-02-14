@@ -1,0 +1,57 @@
+.card {
+  height: 100%;
+}
+
+.card-content {
+  text-align: center;
+}
+
+.example-card {
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.immagine-prodotto {
+  height: 150px;
+  width: 150px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 4em;
+}
+
+.card-prezzo {
+  font-size: 1.3em;
+}
+
+@media screen and (min-width: 678px) {
+  .card-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .card-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 1em;
+  }
+  .example-card {
+    width: 40%;
+  }
+}

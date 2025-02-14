@@ -1,22 +1,30 @@
-<div class="card">
-  <img src="" class="example-card" alt="immagine-prodotto" />
-  <div class="card-body">
-    <div>
-      <h5 class="card-titolo">{{ prodottoSelezionato.titolo }}</h5>
-      <p class="card-artista">{{ prodottoSelezionato.artista }}</p>
-      <p class="card-formato">{{ prodottoSelezionato.formato }}</p>
+<div class="row mb-3">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <img
+          src="{{ prodottoSelezionato.immagineProdotto }}"
+          class="example-card"
+          alt="immagine-prodotto"
+        />
+
+        <div class="card-content">
+          <h5 class="card-titolo">{{ prodottoSelezionato.titolo }}</h5>
+          <p class="card-artista">{{ prodottoSelezionato.artista }}</p>
+          <p class="card-artista">{{ prodottoSelezionato.descrizione }}</p>
+          <p class="card-artista">{{ prodottoSelezionato.genere }}</p>
+          <p class="card-formato">{{ prodottoSelezionato.formato }}</p>
+          <div>
+            <p class="card-prezzo"></p>
+            {{ prodottoSelezionato.prezzo | currency : "EUR" }}
+          </div>
+
+          <div class="card-buttons">
+            <button mat-fab extended>Acquista</button>
+            <button mat-fab extended>Recensioni</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <p class="card-prezzo">{{ prodottoSelezionato.prezzo }} €</p>
-    </div>
-    <div>
-      <p>Anno pubblicazione: {{ prodottoSelezionato.annoPubblicazione }}</p>
-      <p>Genere {{ prodottoSelezionato.genere }}</p>
-      <p>Descrizione {{ prodottoSelezionato.descrizione }}</p>
-      <p>Quantità rimaste: {{ prodottoSelezionato.quantita }}</p>
-    </div>
-  </div>
-  <div class="card-buttons">
-    <button mat-button>Acquista</button>
   </div>
 </div>

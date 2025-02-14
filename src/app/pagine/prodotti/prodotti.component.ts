@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
+import { log } from 'console';
 
 @Component({
   selector: 'app-prodotti',
@@ -10,9 +11,8 @@ import { Prodotto } from '../../interfacce/Prodotto';
   styleUrl: './prodotti.component.css',
 })
 export class ProdottiComponent implements OnInit {
-  prodotto: Prodotto[];
   response: any;
-  data: any;
+  data: Prodotto[];
 
   constructor(private service: ProdottiService, private route: Router) {}
 
@@ -20,7 +20,6 @@ export class ProdottiComponent implements OnInit {
     this.service.listAll().subscribe((resp) => {
       this.response = resp;
       this.data = this.response.dati;
-      console.log(this.data);
     });
   }
 
