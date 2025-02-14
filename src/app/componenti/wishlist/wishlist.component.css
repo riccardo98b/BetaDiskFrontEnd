@@ -1,3 +1,4 @@
+/* CSS Card  */
 .card {
   display: flex;
   flex-direction: column;
@@ -9,24 +10,43 @@
 }
 
 .card-img-top {
-  object-fit: cover; /* Mantieni la proporzione dell'immagine */
-  max-height: 200px; /* Puoi regolare questa altezza */
+  object-fit: cover;
+  max-height: 200px;
 }
+
 
 .card-gradient-border {
   border: 2px solid;
   border-image: linear-gradient(to right, rgb(231, 122, 20), blue) 1;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aggiungi un'ombra opzionale */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-  .card-img-top {
-    max-height: 150px; /* Regola l'altezza per schermi più piccoli */
+@media (max-width: 1200px) {
+  .col-lg-4 {
+    flex: 0 0 50%;
   }
 }
 
+@media (max-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 100%;
+  }
 
-/*CSS BUTTON */
+  .card-img-top {
+    max-height: 150px;
+  }
+
+
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
 
 .button {
   -webkit-appearance: none;
@@ -93,7 +113,7 @@
   width: calc(100% - 8px);
   height: calc(100% - 10px);
   box-sizing: content-box;
-  background-color: #803;
+  background-color: orange;
   background-image: radial-gradient(4px 8px at 4px calc(100% - 8px), rgba(255, 255, 255, .25), transparent), radial-gradient(4px 8px at calc(100% - 4px) calc(100% - 8px), rgba(255, 255, 255, .25), transparent), radial-gradient(16px at -4px 0, white, transparent), radial-gradient(16px at calc(100% + 4px) 0, white, transparent);
   box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5), inset 0 -1px 3px 3px rgba(0, 0, 0, .4);
   transition-property: border-radius, padding-top;
