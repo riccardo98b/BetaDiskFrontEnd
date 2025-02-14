@@ -10,8 +10,20 @@
 
         <!-- Action buttons -->
         <div class="d-flex justify-content-between">
-          <button class="btn btn-success" (click)="addToWishlist(prodotto)">Aggiungi a Carello</button>
-          <button class="btn btn-danger" (click)="removeFromWishlist(prodotto)">Rimuovi da Wishlist</button>
+          <div class="container">
+            <button (click)="addToWishlist(prodotto)" type="button" class="button">
+              <div class="button-top">Aggiungi a Carello</div>
+              <div class="button-bottom"></div>
+              <div class="button-base"></div>
+            </button>
+          </div>
+          <div class="container">
+            <button  (click)="removeFromWishlist(prodotto)" type="button" class="button">
+              <div class="button-top">Rimuovi da Wishlist</div>
+              <div class="button-bottom"></div>
+              <div class="button-base"></div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -20,5 +32,11 @@
 
 <!-- Button to clear all products from wishlist -->
 <div class="mt-4 text-center">
-  <button class="btn btn-danger" (click)="clearAllFromWishlist()">Svuota Wishlist</button>
+  <div class="container">
+    <button (click)="clearAllFromWishlist()" type="button" class="button">
+      <div class="button-top">Svuota Wishlist</div>
+      <div class="button-bottom"></div>
+      <div class="button-base"></div>
+    </button>
+  </div>
 </div>
