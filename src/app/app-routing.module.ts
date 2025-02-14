@@ -5,13 +5,18 @@ import { CarrelloComponent } from './pagine/carrello/carrello.component';
 import { ProfiloComponent } from './pagine/profilo/profilo.component';
 import { ProdottiComponent } from './pagine/prodotti/prodotti.component';
 import { DettaglioProdottoComponent } from './pagine/dettaglio-prodotto/dettaglio-prodotto.component';
+import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'carrello', component: CarrelloComponent },
   { path: 'prodotti', component: ProdottiComponent },
-  { path: 'dettaglio-prodotto', component: DettaglioProdottoComponent },
   { path: 'profilo', component: ProfiloComponent },
+  {
+    path: 'dettaglio-prodotto/:idProdotto',
+    component: DettaglioProdottoComponent,
+  },
+  { path: 'wishlist', component: WishlistComponent },
 ];
 
 @NgModule({

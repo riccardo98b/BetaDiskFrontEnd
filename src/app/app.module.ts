@@ -24,6 +24,8 @@ import { RecensioneComponent } from './componenti/recensione/recensione.componen
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CarrelloComponent } from './pagine/carrello/carrello.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { WishlistComponent } from './componenti/wishlist/wishlist.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     RecensioneComponent,
     DashboardComponent,
     CarrelloComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     MatCardModule,
     MatGridListModule,
     MatIconModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideHttpClient(withFetch()),

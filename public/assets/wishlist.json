@@ -1,0 +1,100 @@
+[
+  {
+    "idWishlist": 1,
+    "prodotti": [
+      {
+        "idProdotto": 1,
+        "formato": "CD",
+        "titolo": "The Dark Side of the Moon",
+        "artista": "Pink Floyd",
+        "genere": "Progressive Rock",
+        "descrizione": "Un capolavoro della musica psichedelica.",
+        "annoPubblicazione": 1973,
+        "prezzo": 19.99,
+        "quantita": 1,
+        "immagineProdotto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThuCFuVI0buSKHH5Iexw5SRW0tyGfV7jigOQ&s"
+      },
+      {
+        "idProdotto": 2,
+        "formato": "CD",
+        "titolo": "The Dark Side of the Moon",
+        "artista": "Pink Floyd",
+        "genere": "Progressive Rock",
+        "descrizione": "Un capolavoro della musica psichedelica.",
+        "annoPubblicazione": 1973,
+        "prezzo": 19.99,
+        "quantita": 1,
+        "immagineProdotto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThuCFuVI0buSKHH5Iexw5SRW0tyGfV7jigOQ&s"
+      },
+      {
+        "idProdotto": 3,
+        "formato": "CD",
+        "titolo": "The Dark Side of the Moon",
+        "artista": "Pink Floyd",
+        "genere": "Progressive Rock",
+        "descrizione": "Un capolavoro della musica psichedelica.",
+        "annoPubblicazione": 1973,
+        "prezzo": 19.99,
+        "quantita": 1,
+        "immagineProdotto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThuCFuVI0buSKHH5Iexw5SRW0tyGfV7jigOQ&s"
+      },
+      {
+        "idProdotto": 4,
+        "formato": "CD",
+        "titolo": "The Dark Side of the Moon",
+        "artista": "Pink Floyd",
+        "genere": "Progressive Rock",
+        "descrizione": "Un capolavoro della musica psichedelica.",
+        "annoPubblicazione": 1973,
+        "prezzo": 19.99,
+        "quantita": 1,
+        "immagineProdotto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThuCFuVI0buSKHH5Iexw5SRW0tyGfV7jigOQ&s"
+      }
+    ],
+    "cliente": {
+      "idCliente": 1,
+      "nome": "Giovanni",
+      "cognome": "Rossi",
+      "telefono": "1234567890",
+      "immagineCliente": "data:image/webp;base64,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",
+      "dataRegistrazione": "2021-05-01"
+    }
+  },
+  {
+    "idWishlist": 2,
+    "prodotti": [
+      {
+        "idProdotto": 3,
+        "formato": "CD",
+        "titolo": "Hotel California",
+        "artista": "Eagles",
+        "genere": "Rock",
+        "descrizione": "Un classico dell'album rock degli Eagles.",
+        "annoPubblicazione": 1976,
+        "prezzo": 22.99,
+        "quantita": 1,
+        "immagineProdotto": "https://example.com/images/hotel-california.jpg"
+      },
+      {
+        "idProdotto": 4,
+        "formato": "Vinile",
+        "titolo": "Back in Black",
+        "artista": "AC/DC",
+        "genere": "Hard Rock",
+        "descrizione": "L'album iconico di AC/DC.",
+        "annoPubblicazione": 1980,
+        "prezzo": 24.99,
+        "quantita": 1,
+        "immagineProdotto": "https://example.com/images/back-in-black.jpg"
+      }
+    ],
+    "cliente": {
+      "idCliente": 2,
+      "nome": "Maria",
+      "cognome": "Bianchi",
+      "telefono": "0987654321",
+      "immagineCliente": "https://example.com/images/cliente-maria.jpg",
+      "dataRegistrazione": "2022-06-15"
+    }
+  }
+]
