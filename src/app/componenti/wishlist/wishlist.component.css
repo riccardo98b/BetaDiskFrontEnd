@@ -1,4 +1,26 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body {
+  flex-grow: 1;
+}
+
+.card-img-top {
+  object-fit: cover; /* Mantieni la proporzione dell'immagine */
+  max-height: 200px; /* Puoi regolare questa altezza */
+}
+
 .card-gradient-border {
-  border: 2px solid; /* Imposta la larghezza del bordo */
-  border-image: linear-gradient(to right, rgb(231, 122, 20), blue) 1; /* Crea il gradiente dal colore arancione al blu */
+  border: 2px solid;
+  border-image: linear-gradient(to right, rgb(231, 122, 20), blue) 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aggiungi un'ombra opzionale */
+}
+
+@media (max-width: 768px) {
+  .card-img-top {
+    max-height: 150px; /* Regola l'altezza per schermi più piccoli */
+  }
 }

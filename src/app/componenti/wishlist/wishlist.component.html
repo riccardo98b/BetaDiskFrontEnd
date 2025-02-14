@@ -1,34 +1,24 @@
-<div *ngFor="let item of wishlist">
-  <!-- Dettagli del cliente -->
-  <div class="mb-4">
-    <h2>Wishlist for {{ item.cliente.nome }} {{ item.cliente.cognome }}</h2>
-    <img [src]="item.cliente.immagineCliente" alt="Customer Image" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
-    <p>Customer since: {{ item.cliente.dataRegistrazione }}</p>
-  </div>
+<div class="row g-3 justify-content-center">
+  <div *ngFor="let prodotto of wishlist" class="col-lg-4 col-md-6 col-12 d-flex justify-content-center">
+    <div class="card h-100 card-gradient-border">
+      <img [src]="prodotto.immagineProdotto" class="card-img-top" alt="Product Image">
+      <div class="card-body">
+        <h5 class="card-title">{{ prodotto.titolo }} - {{ prodotto.artista }}</h5>
+        <p class="card-text">{{ prodotto.descrizione }}</p>
+        <p><strong>Price: ${{ prodotto.prezzo }}</strong></p>
+        <p>Format: {{ prodotto.formato }} | Year: {{ prodotto.annoPubblicazione }}</p>
 
-  <!-- Row dei prodotti (prodotti affiancati) -->
-  <div class="row g-3">
-    <div *ngFor="let prodotto of item.prodotti" class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
-      <div class="card h-100 card-gradient-border">
-        <img [src]="prodotto.immagineProdotto" class="card-img-top" alt="Product Image">
-        <div class="card-body">
-          <h5 class="card-title">{{ prodotto.titolo }} - {{ prodotto.artista }}</h5>
-          <p class="card-text">{{ prodotto.descrizione }}</p>
-          <p><strong>Price: ${{ prodotto.prezzo }}</strong></p>
-          <p>Format: {{ prodotto.formato }} | Year: {{ prodotto.annoPubblicazione }}</p>
-
-          <!-- Bottoni per gestire il prodotto -->
-          <div class="d-flex justify-content-between">
-            <button class="btn btn-success" (click)="addToWishlist(prodotto)">Aggiungi a Carello</button>
-            <button class="btn btn-danger" (click)="removeFromWishlist(prodotto)">Rimuovi da Wishlist</button>
-          </div>
+        <!-- Action buttons -->
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-success" (click)="addToWishlist(prodotto)">Aggiungi a Carello</button>
+          <button class="btn btn-danger" (click)="removeFromWishlist(prodotto)">Rimuovi da Wishlist</button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Bottone per rimuovere tutti i prodotti dalla wishlist -->
-  <div class="mt-4 text-center">
-    <button class="btn btn-danger" (click)="clearAllFromWishlist(item)">Svuota Wishlist</button>
-  </div>
+<!-- Button to clear all products from wishlist -->
+<div class="mt-4 text-center">
+  <button class="btn btn-danger" (click)="clearAllFromWishlist()">Svuota Wishlist</button>
 </div>
