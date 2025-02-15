@@ -8,6 +8,13 @@ interface Prodotto {
   prezzo: number;
   formato: string;
   annoPubblicazione: number;
+  artista: string;  // Ensure artista is included here
+}
+
+interface ApiResponse {
+  rc: boolean;
+  msg: string;
+  dati: Prodotto[]; // The "dati" field is an array of products
 }
 
 @Component({
@@ -17,32 +24,37 @@ interface Prodotto {
   styleUrls: ['./wishlist.component.css'],
 })
 export class WishlistComponent implements OnInit {
-  wishlist: any[] = [];
+  wishlist: Prodotto[] = [];
   currentUserId: number = 1; // ID del cliente corrente (simulato per ora)
 
   constructor(private wishlistService: WishlistService) {}
 
   ngOnInit(): void {
-    this.wishlistService.getWishlist().subscribe((data) => {
-      // Filtra le wishlist per mostrare solo quella dell'utente corrente
-      this.wishlist = data.filter(
-        (item) => item.cliente.idCliente === this.currentUserId
-      );
-    });
+    this.wishlistService.getWishlist(this.currentUserId).subscribe(
+      (data: ApiResponse) => { // Expecting ApiResponse here
+        console.log('Dati ricevuti dalla API:', data);
+        this.wishlist = data.dati; // Assign the 'dati' array to the wishlist
+      },
+      (error) => {
+        console.error('Errore durante la richiesta:', error);
+      }
+    );
   }
 
+  // Aggiungi prodotto alla wishlist
   addToWishlist(prodotto: Prodotto): void {
-    console.log('Aggiunto alla wishlist', prodotto);
+    console.log('Aggiunto al carrello', prodotto);
   }
 
+  // Rimuovi prodotto dalla wishlist
   removeFromWishlist(prodotto: Prodotto): void {
     console.log('Rimosso dalla wishlist', prodotto);
-    this.wishlist.forEach((item) => {
-      item.prodotti = item.prodotti.filter((p: Prodotto) => p !== prodotto);
-    });
+    this.wishlist = this.wishlist.filter(item => item !== prodotto);
   }
 
-  clearAllFromWishlist(item: any): void {
+  // Svuota tutta la wishlist
+  clearAllFromWishlist(): void {
     console.log('Tutti i prodotti rimossi dalla wishlist');
+    this.wishlist = []; // Svuota la wishlist
   }
 }

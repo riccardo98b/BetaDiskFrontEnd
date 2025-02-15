@@ -24,8 +24,10 @@ import { RecensioneComponent } from './componenti/recensione/recensione.componen
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CarrelloComponent } from './pagine/carrello/carrello.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Pagina404Component } from './pagine/pagina404/pagina404.component';
+import { WishlistComponent } from './componenti/wishlist/wishlist.component';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RecensioneComponent,
     DashboardComponent,
     CarrelloComponent,
-    WishlistComponent,
+    Pagina404Component,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
