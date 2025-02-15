@@ -1,36 +1,4 @@
-.card {
-  height: 100%;
-}
-
-.example-card {
-  height: 80%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.immagine-prodotto {
-  height: 150px;
-  width: 150px;
-}
-
-img {
-  height: 100%;
-  width: 100%;
-  object-fit: fill;
-}
-
-.card-body {
-  text-align: center;
+#card-buttons {
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
-}
-
-.card-buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.card-prezzo {
-  font-size: 1.3em;
 }

@@ -1,0 +1,47 @@
+.card {
+  height: 100%;
+}
+
+.card-body {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.example-card {
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.immagine-prodotto {
+  height: 150px;
+  width: 150px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+.card-prezzo {
+  font-size: 1.3em;
+}
+
+@media screen and (min-width: 678px) {
+  .responsive-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .responsive-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 1em;
+  }
+  .responsive-img {
+    width: 40%;
+  }
+}

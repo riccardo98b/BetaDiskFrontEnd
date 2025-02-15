@@ -27,6 +27,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { WishlistComponent } from './componenti/wishlist/wishlist.component';
+import { CardComponent } from './componenti/card/card.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { WishlistComponent } from './componenti/wishlist/wishlist.component';
     DashboardComponent,
     CarrelloComponent,
     Pagina404Component,
-    WishlistComponent
+    WishlistComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

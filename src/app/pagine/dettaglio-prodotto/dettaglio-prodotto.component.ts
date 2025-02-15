@@ -17,8 +17,10 @@ export class DettaglioProdottoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.paramMap);
+    this.getProdotto();
+  }
 
+  getProdotto() {
     this.service.prodottoPerId(this.idProdotto).subscribe((response: any) => {
       console.log(response);
 
