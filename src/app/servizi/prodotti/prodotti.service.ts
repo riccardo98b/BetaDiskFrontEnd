@@ -18,4 +18,8 @@ export class ProdottiService {
   prodottoPerId(idProdotto: number): Observable<Prodotto> {
     return this.http.get<Prodotto>(this.url + 'list?idProdotto=' + idProdotto);
   }
+
+  prodottoPerFormato(formato: string): Observable<Prodotto> {
+    return this.http.get<Prodotto>(this.url + 'listFormato?formato=' + formato);
+  }
 }

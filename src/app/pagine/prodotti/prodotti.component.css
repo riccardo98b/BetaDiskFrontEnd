@@ -2,3 +2,30 @@
   display: flex;
   justify-content: space-around;
 }
+
+#filtri-prodotti {
+  position: fixed;
+  left: 0;
+  width: 12%;
+}
+
+.main-content {
+  padding-left: 5em;
+}
+
+@media (max-width: 678px) {
+  #filtri-prodotti {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 99;
+    background-color: white;
+  }
+
+  .main-content {
+    padding-left: 0;
+    margin-top: 1em;
+  }
+}
