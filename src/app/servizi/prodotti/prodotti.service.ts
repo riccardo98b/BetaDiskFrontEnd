@@ -22,4 +22,12 @@ export class ProdottiService {
   prodottoPerFormato(formato: string): Observable<Prodotto> {
     return this.http.get<Prodotto>(this.url + 'listFormato?formato=' + formato);
   }
+
+  prodottoPerGenere(genere: string): Observable<Prodotto> {
+    return this.http.get<Prodotto>(this.url + 'list?genere=' + genere);
+  }
+
+  prodottoPerArtista(artista: string): Observable<Prodotto> {
+    return this.http.get<Prodotto>(this.url + 'list?artista=' + artista);
+  }
 }

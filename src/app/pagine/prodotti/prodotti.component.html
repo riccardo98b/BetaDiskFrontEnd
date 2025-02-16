@@ -6,14 +6,15 @@
           <a
             class="nav-link dropdown-toggle"
             data-bs-toggle="dropdown"
-            href="#"
             role="button"
             aria-expanded="false"
             >Formati</a
           >
           <ul class="dropdown-menu">
             <li *ngFor="let formato of listaFormati">
-              <a class="dropdown-item" href="#">{{ formato }}</a>
+              <a class="dropdown-item" (click)="prodottoPerFormato(formato)">{{
+                formato
+              }}</a>
             </li>
           </ul>
         </li>
@@ -21,14 +22,15 @@
           <a
             class="nav-link dropdown-toggle"
             data-bs-toggle="dropdown"
-            href="#"
             role="button"
             aria-expanded="false"
             >Genere</a
           >
           <ul class="dropdown-menu">
             <li *ngFor="let genere of listaGeneri">
-              <a class="dropdown-item" href="#">{{ genere.toUpperCase() }}</a>
+              <a class="dropdown-item" (click)="prodottoPerGenere(genere)">{{
+                genere.toUpperCase()
+              }}</a>
             </li>
           </ul>
         </li>
@@ -36,19 +38,24 @@
           <a
             class="nav-link dropdown-toggle"
             data-bs-toggle="dropdown"
-            href="#"
             role="button"
             aria-expanded="false"
             >Artisti</a
           >
           <ul class="dropdown-menu">
             <li *ngFor="let artista of listaArtisti">
-              <a class="dropdown-item" href="#">{{ artista.toUpperCase() }}</a>
+              <a class="dropdown-item" (click)="prodottoPerArtista(artista)">{{
+                artista.toUpperCase()
+              }}</a>
             </li>
           </ul>
         </li>
       </ul>
     </div>
+  </div>
+
+  <div class="spinner">
+    <ng-content><app-loader *ngIf="isLoading"></app-loader></ng-content>
   </div>
   <div class="row g-4 main-content">
     <div

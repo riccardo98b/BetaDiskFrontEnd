@@ -28,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 import { CardComponent } from './componenti/card/card.component';
+import { LoaderComponent } from './componenti/loader/loader.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { CardComponent } from './componenti/card/card.component';
     CarrelloComponent,
     Pagina404Component,
     WishlistComponent,
-    CardComponent
+    CardComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
