@@ -1,0 +1,35 @@
+.immagine-cliente {
+  width: 50px;
+  height: 50px;
+}
+img {
+  border-radius: 100%;
+}
+
+.quotes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.quotes-info {
+  flex-grow: 1;
+  margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.card {
+  padding: 2em;
+}
+
+.data-creazione {
+  display: flex;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+h5 {
+  text-align: center;
+  margin: 2em 0;
+}

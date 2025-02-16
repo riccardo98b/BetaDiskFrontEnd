@@ -28,8 +28,8 @@ export class ProdottiComponent implements OnInit {
     this.isLoading = true;
     this.service.listAll().subscribe((resp) => {
       this.response = resp;
-      this.data = this.response.dati;
       if (this.response.rc === true) {
+        this.data = this.response.dati;
       } else {
       }
       this.isLoading = false;

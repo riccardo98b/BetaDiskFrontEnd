@@ -54,7 +54,8 @@
             </li>
           </ul>
         </li>
-        <li class="nav-link" *ngIf="filtriPresenti">
+
+        <li class="nav-link togli-filtri" *ngIf="filtriPresenti">
           <a (click)="togliFiltri()" role="button">
             Togli filtri
             <i class="bi bi-x-lg"></i>
@@ -75,7 +76,7 @@
           <button
             mat-fab
             extended
-            (click)="dettagliProdotto(prodotto.idProdotto)"
+            (click)="dettagliProdotto(prodotto?.idProdotto)"
           >
             Maggiori info
           </button>

@@ -1,21 +1,21 @@
 <div class="card">
   <div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
     <img
-      src="{{ prodotto.immagineProdotto }}"
+      src="{{ prodotto?.immagineProdotto }}"
       class="example-card"
       [ngClass]="{ 'responsive-img': responsive }"
       alt="immagine-prodotto"
     />
     <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
-      <h5 class="card-titolo">{{ prodotto.titolo }}</h5>
-      <p class="card-artista">{{ prodotto.artista }}</p>
+      <h5 class="card-titolo">{{ prodotto?.titolo }}</h5>
+      <p class="card-artista">{{ prodotto?.artista }}</p>
 
       <ng-content for="div#card-infos"></ng-content>
 
-      <p class="card-formato">{{ prodotto.formato }}</p>
+      <p class="card-formato">{{ prodotto?.formato }}</p>
 
       <div>
-        <p class="card-prezzo">{{ prodotto.prezzo | currency : "EUR" }}</p>
+        <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
       </div>
 
       <ng-content for="div#card-buttons"></ng-content>

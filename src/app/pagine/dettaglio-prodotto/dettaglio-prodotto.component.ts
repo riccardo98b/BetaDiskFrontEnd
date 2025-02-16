@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Prodotto } from '../../interfacce/Prodotto';
+import { response } from 'express';
 
 @Component({
   selector: 'app-dettaglio-prodotto',
@@ -10,7 +12,10 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 })
 export class DettaglioProdottoComponent implements OnInit {
   idProdotto: number;
-  prodottoSelezionato: any;
+  prodottoSelezionato: Prodotto;
+  recensioni: [];
+  isLoading: boolean;
+  response: any;
 
   constructor(private service: ProdottiService, private route: ActivatedRoute) {
     this.idProdotto = +this.route.snapshot.paramMap.get('idProdotto')!;
@@ -21,10 +26,15 @@ export class DettaglioProdottoComponent implements OnInit {
   }
 
   getProdotto() {
-    this.service.prodottoPerId(this.idProdotto).subscribe((response: any) => {
-      console.log(response);
-
-      this.prodottoSelezionato = response.dati[0];
+    this.isLoading = true;
+    this.service.prodottoPerId(this.idProdotto).subscribe((resp) => {
+      this.response = resp;
+      if (this.response.rc === true) {
+        this.prodottoSelezionato = this.response.dati[0];
+        this.recensioni = this.response.dati[0].recensioni;
+      } else {
+      }
+      this.isLoading = false;
     });
   }
 }

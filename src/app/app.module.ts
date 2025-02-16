@@ -10,6 +10,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/it';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -30,6 +34,7 @@ import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 import { CardComponent } from './componenti/card/card.component';
 import { LoaderComponent } from './componenti/loader/loader.component';
 
+registerLocaleData(localeIt, 'it');
 
 @NgModule({
   declarations: [
@@ -46,7 +51,7 @@ import { LoaderComponent } from './componenti/loader/loader.component';
     Pagina404Component,
     WishlistComponent,
     CardComponent,
-    LoaderComponent
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,7 @@ import { LoaderComponent } from './componenti/loader/loader.component';
     provideHttpClient(withFetch()),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
+    { provide: LOCALE_ID, useValue: 'it' },
   ],
   bootstrap: [AppComponent],
 })

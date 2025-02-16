@@ -6,7 +6,7 @@
 #filtri-prodotti {
   position: fixed;
   left: 0;
-  width: 12%;
+  width: 30%;
   padding-top: 1em;
   padding-bottom: 1em;
 }
@@ -30,4 +30,12 @@
     padding-left: 0;
     margin-top: 1em;
   }
+}
+
+.togli-filtri {
+  width: 120px;
+}
+
+.container-filtri {
+  margin-left: 2em;
 }
