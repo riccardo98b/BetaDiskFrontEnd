@@ -7,6 +7,8 @@
   position: fixed;
   left: 0;
   width: 12%;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .main-content {
@@ -28,9 +30,4 @@
     padding-left: 0;
     margin-top: 1em;
   }
-}
-
-.spinner {
-  display: flex;
-  justify-content: center;
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
-import { log } from 'console';
 
 @Component({
   selector: 'app-prodotti',
@@ -17,6 +16,7 @@ export class ProdottiComponent implements OnInit {
   listaGeneri: string[] = [];
   listaArtisti: string[] = [];
   isLoading: boolean;
+  filtriPresenti: boolean = false;
 
   constructor(private service: ProdottiService, private route: Router) {}
 
@@ -30,16 +30,25 @@ export class ProdottiComponent implements OnInit {
       this.response = resp;
       this.data = this.response.dati;
       if (this.response.rc === true) {
-        this.isLoading = false;
-        this.getFormati();
-        this.getGeneri();
-        this.getArtisti();
+      } else {
       }
+      this.isLoading = false;
     });
   }
 
   dettagliProdotto(idProdotto: any) {
     this.route.navigate(['/dettaglio-prodotto', idProdotto]);
+  }
+
+  //Logica Filtri
+
+  filtriMostrati() {
+    this.filtriPresenti = true;
+  }
+
+  togliFiltri() {
+    this.filtriPresenti = false;
+    this.getTuttiProdotti();
   }
 
   // Logica dei Formati
@@ -52,11 +61,13 @@ export class ProdottiComponent implements OnInit {
   }
 
   prodottoPerFormato(formato: string) {
+    this.filtriMostrati();
     this.isLoading = true;
     this.service.prodottoPerFormato(formato).subscribe((resp) => {
       this.response = resp;
-      this.data = this.response.dati;
-      this.response.rc === true ? (this.isLoading = false) : null;
+
+      this.response.rc === true ? (this.data = this.response.dati) : null;
+      this.isLoading = false;
     });
   }
 
@@ -69,11 +80,13 @@ export class ProdottiComponent implements OnInit {
   }
 
   prodottoPerGenere(genere: string) {
+    this.filtriMostrati();
     this.isLoading = true;
     this.service.prodottoPerGenere(genere).subscribe((resp) => {
       this.response = resp;
-      this.data = this.response.dati;
-      this.response.rc === true ? (this.isLoading = false) : null;
+
+      this.response.rc === true ? (this.data = this.response.dati) : null;
+      this.isLoading = false;
     });
   }
 
@@ -86,11 +99,13 @@ export class ProdottiComponent implements OnInit {
   }
 
   prodottoPerArtista(artista: string) {
+    this.filtriMostrati();
     this.isLoading = true;
     this.service.prodottoPerArtista(artista).subscribe((resp) => {
       this.response = resp;
-      this.data = this.response.dati;
-      this.response.rc === true ? (this.isLoading = false) : null;
+
+      this.response.rc === true ? (this.data = this.response.dati) : null;
+      this.isLoading = false;
     });
   }
 }

@@ -1,4 +1,5 @@
 <div class="container d-flex flex-column container-filtri">
+  <app-loader *ngIf="isLoading"></app-loader>
   <div id="filtri-prodotti" class="row">
     <div class="col-sm-12">
       <ul class="nav flex-column nav-ul">
@@ -8,6 +9,7 @@
             data-bs-toggle="dropdown"
             role="button"
             aria-expanded="false"
+            (click)="getFormati()"
             >Formati</a
           >
           <ul class="dropdown-menu">
@@ -24,6 +26,7 @@
             data-bs-toggle="dropdown"
             role="button"
             aria-expanded="false"
+            (click)="getGeneri()"
             >Genere</a
           >
           <ul class="dropdown-menu">
@@ -40,6 +43,7 @@
             data-bs-toggle="dropdown"
             role="button"
             aria-expanded="false"
+            (click)="getArtisti()"
             >Artisti</a
           >
           <ul class="dropdown-menu">
@@ -50,13 +54,16 @@
             </li>
           </ul>
         </li>
+        <li class="nav-link" *ngIf="filtriPresenti">
+          <a (click)="togliFiltri()" role="button">
+            Togli filtri
+            <i class="bi bi-x-lg"></i>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 
-  <div class="spinner">
-    <ng-content><app-loader *ngIf="isLoading"></app-loader></ng-content>
-  </div>
   <div class="row g-4 main-content">
     <div
       class="col-sm-12 col-md-6 col-lg-4 col-xl-4"

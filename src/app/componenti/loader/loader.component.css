@@ -1,3 +1,16 @@
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #515c8366;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .spin {
   animation: spin 1s linear infinite;
   width: 130px;
