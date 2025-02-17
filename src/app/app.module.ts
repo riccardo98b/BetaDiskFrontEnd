@@ -26,6 +26,7 @@ import { CarrelloComponent } from './pagine/carrello/carrello.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SigninComponent } from './pagine/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     CarrelloComponent,
     WishlistComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,

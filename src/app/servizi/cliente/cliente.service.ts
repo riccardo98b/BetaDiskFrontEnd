@@ -17,4 +17,8 @@ export class ClienteService {
     let param = new HttpParams().set('idCliente', idCliente.toString());
     return this.http.get(this.url + 'listById?id=' + idCliente);
   }
+
+  updateCliente(body: {}) {
+    return this.http.post(this.url + 'update', body);
+  }
 }
