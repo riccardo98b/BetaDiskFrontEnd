@@ -10,7 +10,8 @@ import { Prodotto } from '../../interfacce/Prodotto';
 })
 export class WishlistComponent implements OnInit {
   wishlist: Prodotto[] = [];
-  currentUserId: number = 1; // ID del cliente corrente (simulato)
+  isLoading: boolean = true;
+  currentUserId: number = 1;
 
   constructor(private wishlistService: WishlistService) {}
 
@@ -25,29 +26,27 @@ export class WishlistComponent implements OnInit {
           console.warn('La wishlist è vuota o non è stata caricata correttamente.');
           this.wishlist = [];
         }
-
       },
       error: (error) => {
         console.error('Errore durante la richiesta:', error);
       },
       complete: () => {
+        this.isLoading = false;
         console.log('Caricamento wishlist completato.');
       }
     });
   }
 
-  // Aggiungi prodotto al carrello
   addToWishlist(prodotto: Prodotto): void {
     console.log('Aggiunto al carrello', prodotto);
+    // Logica per aggiungere al carrello
   }
 
-  // Rimuovi prodotto dalla wishlist
   removeFromWishlist(prodotto: Prodotto): void {
     console.log('Rimosso dalla wishlist', prodotto);
     this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto);
   }
 
-  // Svuota tutta la wishlist
   clearAllFromWishlist(): void {
     console.log('Tutti i prodotti rimossi dalla wishlist');
     this.wishlist = [];

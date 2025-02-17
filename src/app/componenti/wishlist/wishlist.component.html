@@ -1,3 +1,7 @@
+<div *ngIf="isLoading" class="loader-container">
+  <app-loader></app-loader>  <!-- Mostra il loader durante il caricamento -->
+</div>
+
 <div class="wishlist-container">
   <div class="row g-3 justify-content-center">
     <div *ngFor="let prodotto of wishlist" class="col-lg-4 col-md-6 col-12 d-flex justify-content-center">
@@ -13,7 +17,7 @@
           <div class="d-flex justify-content-between">
             <div class="container">
               <button (click)="addToWishlist(prodotto)" type="button" class="button">
-                <div class="button-top">Aggiungi a Carello</div>
+                <div class="button-top">Aggiungi a Carrello</div>
                 <div class="button-bottom"></div>
                 <div class="button-base"></div>
               </button>
