@@ -8,11 +8,18 @@ import { DettaglioProdottoComponent } from './pagine/dettaglio-prodotto/dettagli
 import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { SigninComponent } from './pagine/signin/signin.component';
+import { CheckoutComponent } from './pagine/checkout/checkout.component';
+import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'carrello', component: CarrelloComponent },
+  { path: 'carrello', component: PaginaCarrelloComponent,
+    children: [
+      { path: '', component: CarrelloComponent },
+      { path: 'checkout', component: CheckoutComponent }
+    ]
+   },
   { path: 'prodotti', component: ProdottiComponent },
   { path: 'profilo', component: ProfiloComponent },
   {

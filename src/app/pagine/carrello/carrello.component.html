@@ -1,4 +1,4 @@
-<!-- <div class="container"> -->
+
   <app-loader *ngIf="isLoading"></app-loader>
 
   <h2>Riepilogo del tuo carrello</h2>
@@ -60,9 +60,9 @@
         Svuota Carrello
       </button>
     </div>
-    <button class="confirm-btn" mat-fab extended>
+    <button class="confirm-btn" mat-fab extended (click)="ordina()">
       <mat-icon>shopping_cart</mat-icon>
       Acquista ora
     </button>
   </div>
-<!-- </div> -->
+

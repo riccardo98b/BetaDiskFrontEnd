@@ -34,6 +34,8 @@ import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 import { CardComponent } from './componenti/card/card.component';
 import { LoaderComponent } from './componenti/loader/loader.component';
 import { SigninComponent } from './pagine/signin/signin.component';
+import { CheckoutComponent } from './pagine/checkout/checkout.component';
+import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -54,6 +56,8 @@ registerLocaleData(localeIt, 'it');
     CardComponent,
     LoaderComponent,
     SigninComponent,
+    CheckoutComponent,
+    PaginaCarrelloComponent,
   ],
   imports: [
     BrowserModule,

@@ -106,4 +106,8 @@ export class CarrelloComponent implements OnInit {
       });
     })
   }
+
+  ordina(){
+    this.router.navigate(['carrello/checkout']);
+  }
 }
