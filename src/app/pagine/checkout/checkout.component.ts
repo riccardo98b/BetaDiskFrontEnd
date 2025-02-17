@@ -8,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class CheckoutComponent {
 
+  idCliente = +sessionStorage.getItem('idCliente')!;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { Router } from '@angular/router';
 import { Carrello } from '../../interfacce/Carrello';
+import { ProdottoCarrello } from '../../interfacce/ProdottoCarrello';
 
 @Component({
   selector: 'app-carrello',
@@ -10,9 +11,9 @@ import { Carrello } from '../../interfacce/Carrello';
   styleUrl: './carrello.component.css',
 })
 export class CarrelloComponent implements OnInit {
-  prodottiCarrello: any;
+  prodottiCarrello: ProdottoCarrello[];
   totale: number = 0;
-  idCliente = 1;
+  idCliente = +sessionStorage.getItem('idCliente')!;
   msg: string = '';
   rc: boolean = true;
   isLoading: boolean;

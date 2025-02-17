@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +6,15 @@ import { Component } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
+
   showNavbar: boolean = false;
   logged: any;
+  utenteId = 0;
 
+  ngOnInit(): void {
+    this.utenteId = +sessionStorage.getItem('idUtente')!;
+  }
   // Toggle navbar al click dell'icona
   toggleNavbar() {
     this.showNavbar = !this.showNavbar;
