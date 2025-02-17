@@ -11,7 +11,7 @@ import { Prodotto } from '../../interfacce/Prodotto';
 export class WishlistComponent implements OnInit {
   wishlist: Prodotto[] = [];
   isLoading: boolean = true;
-  currentUserId: number = 1;
+  currentUserId: number = 2;
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
 
