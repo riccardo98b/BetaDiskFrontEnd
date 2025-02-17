@@ -11,38 +11,38 @@
       {{msg}}
     </div>    
   </div>
-  <div class="container-sm"  *ngIf="rc">
+  <div class="container-sm" *ngIf="rc">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let prodotto of prodotti">
+      <li class="list-group-item" *ngFor="let prodottoCarrello of prodottiCarrello">
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <a (click)="dettagliProdotto(prodotto.prodotto?.idProdotto)">
-                <img [src]="prodotto.prodotto.immagineProdotto" class="img-fluid rounded-start" alt="immagine da archivio">
+              <a (click)="dettagliProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                <img [src]="prodottoCarrello.prodotto.immagineProdotto" class="img-fluid rounded-start" alt="immagine da archivio">
               </a>
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <a (click)="dettagliProdotto(prodotto.prodotto?.idProdotto)">
-                  <h5 class="card-title">TITOLO <span>{{prodotto.prodotto.titolo}}</span></h5>
+                <a (click)="dettagliProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                  <h5 class="card-title">TITOLO <span>{{prodottoCarrello.prodotto.titolo}}</span></h5>
                 </a>
-                <h6  class="card-title">Artista <span>{{prodotto.prodotto.artista}}</span></h6>
+                <h6  class="card-title">Artista <span>{{prodottoCarrello.prodotto.artista}}</span></h6>
                 <p class="card-text">
-                  <small class="text-body-secondary">Genere <span>{{prodotto.prodotto.genere}}</span></small>
+                  <small class="text-body-secondary">Genere <span>{{prodottoCarrello.prodotto.genere}}</span></small>
                   
-                  <small class="text-body-secondary">Formato <span>{{prodotto.prodotto.formato}}</span></small>
+                  <small class="text-body-secondary">Formato <span>{{prodottoCarrello.prodotto.formato}}</span></small>
                 </p>
                 <div class="button-container">
                   <div class="button-container">
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="rimuoviProdotto(prodotto.prodotto?.idProdotto)">
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="rimuoviProdotto(prodottoCarrello.prodotto?.idProdotto)">
                       <mat-icon>remove</mat-icon>
                     </button>
-                    <span>{{prodotto.quantita}}</span>
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="aggiungiProdotto(prodotto.prodotto?.idProdotto)">
+                    <span>{{prodottoCarrello.quantita}}</span>
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="aggiungiProdotto(prodottoCarrello.prodotto?.idProdotto)">
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
-                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon" (click)="eliminaProdotto(prodotto.prodotto?.idProdotto, prodotto.quantita)" >
+                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon" (click)="eliminaProdotto(prodottoCarrello.prodotto?.idProdotto, prodottoCarrello.quantita)" >
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>

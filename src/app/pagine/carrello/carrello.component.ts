@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { Router } from '@angular/router';
+import { Carrello } from '../../interfacce/Carrello';
 
 @Component({
   selector: 'app-carrello',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './carrello.component.css',
 })
 export class CarrelloComponent implements OnInit {
-  prodotti: any;
+  prodottiCarrello: any;
   totale: number = 0;
   idCliente = 1;
   msg: string = '';
@@ -27,7 +28,7 @@ export class CarrelloComponent implements OnInit {
           this.rc = false;
           this.msg= "Il carrello è vuoto, inizia a fare acquisti da noi!"
         } else {
-          this.prodotti = r.dati.prodotti;
+          this.prodottiCarrello = r.dati.prodotti;
         }
       } else {
         this.rc = r.rc;
