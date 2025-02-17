@@ -33,6 +33,7 @@ import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { WishlistComponent } from './componenti/wishlist/wishlist.component';
 import { CardComponent } from './componenti/card/card.component';
 import { LoaderComponent } from './componenti/loader/loader.component';
+import { SigninComponent } from './pagine/signin/signin.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -52,6 +53,7 @@ registerLocaleData(localeIt, 'it');
     WishlistComponent,
     CardComponent,
     LoaderComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
