@@ -3,8 +3,8 @@
 <div *ngIf="!editMode" class="profile-container mt-4 mb-4">
   <div class="profile-header">
     <h2>
-      Profilo Cliente: {{ clienteForm.value.nome }}
-      {{ clienteForm.value.cognome }}
+      Profilo Cliente:
+      <span>{{ clienteForm.value.nome }} {{ clienteForm.value.cognome }} </span>
     </h2>
   </div>
 
@@ -27,9 +27,18 @@
     <p>{{ clienteForm.value.cognome }}</p>
   </div>
 
-  <div class="form-group">
+  <div>
     <h5>Email:</h5>
     <p>{{ clienteForm.value.email }}</p>
+  </div>
+
+  <div>
+    <h5>Username:</h5>
+    <p>{{ clienteForm.value.username }}</p>
+  </div>
+  <div>
+    <h5>Telefono:</h5>
+    <p>{{ clienteForm.value.telefono }}</p>
   </div>
 
   <div>
@@ -52,7 +61,11 @@
     <p>{{ clienteForm.value.cap }}</p>
   </div>
 
-  <button (click)="onEditUser()" class="btn btn-custom-button btn-primary">
+  <div>
+    <h5>Data di Registrazione:</h5>
+    <p>Utente dal {{ dataRegistrazione | date : "dd/MM/yyyy" }}</p>
+  </div>
+  <button (click)="onEditUser()" mat-fab extended class="w-100">
     Modifica
   </button>
 </div>
@@ -123,6 +136,27 @@
     </div>
 
     <div class="form-group">
+      <label for="email">Telefono:</label>
+      <input
+        type="tel"
+        id="telefono"
+        formControlName="telefono"
+        placeholder="Inserisci il telefono"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input
+        type="username"
+        id="username"
+        formControlName="username"
+        placeholder="Inserisci il tuo username"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
       <label for="password">Password:</label>
       <input
         type="password"
@@ -179,15 +213,19 @@
 
     <div class="d-flex gap-2 align-items-stretch">
       <button
+        mat-fab
+        extended
         (click)="onEditUser()"
-        class="btn btn-secondary w-50 half-space-btn h-50"
+        class="btn-secondary-fab w-50"
       >
         Annulla
       </button>
       <button
+        class="w-50"
+        mat-fab
+        extended
         type="submit"
         [disabled]="clienteForm.invalid"
-        class="btn w-50 btn-primary"
       >
         Salva
       </button>

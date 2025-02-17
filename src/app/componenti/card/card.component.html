@@ -7,7 +7,7 @@
       alt="immagine-prodotto"
     />
     <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
-      <h5 class="card-titolo">{{ prodotto?.titolo }}</h5>
+      <h5 class="card-titolo" [ngClass]="{'titolo-dettaglio' : responsive}">{{ prodotto?.titolo }}</h5>
       <p class="card-artista">{{ prodotto?.artista }}</p>
 
       <ng-content for="div#card-infos"></ng-content>

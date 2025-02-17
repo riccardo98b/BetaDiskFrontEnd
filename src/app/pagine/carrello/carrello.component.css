@@ -1,15 +1,21 @@
 h2 {
     margin-bottom: 20px;
+    margin-left: 3%;
 }
 
 .container-sm {
     max-width: 540px;
 }
 
+ul {
+    padding-left: 0rem;
+}
+
 .button-container, .totale, .card-text {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0;
 }
 
 .button-container > span {
@@ -30,4 +36,8 @@ h2 {
 .del-btn {
     color: #fff;
     background-color: firebrick ;
+}
+
+.card a {
+    cursor: pointer;
 }

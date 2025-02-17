@@ -1,27 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../servizi/cliente/cliente.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UtenteService } from '../../servizi/utente/utente.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-profilo',
   standalone: false,
   templateUrl: './profilo.component.html',
-  styleUrl: './profilo.component.css',
+  styleUrls: ['./profilo.component.css'],
 })
 export class ProfiloComponent implements OnInit {
-  clienteId: number = 1;
+  clienteId: number = 0;
+  utenteId: number = 0;
   clienteForm!: FormGroup;
   editMode: boolean = false;
-  constructor(private clienteService: ClienteService) {}
+  dataRegistrazione: Date;
+  constructor(
+    private clienteService: ClienteService,
+    private utenteService: UtenteService
+  ) {}
+
   ngOnInit(): void {
-    // this.clienteService.listAllCliente().subscribe((response: any) => {
-    //   console.log(response);
-    // });
+    this.clienteId = +sessionStorage.getItem('idCliente')!;
+    this.utenteId = +sessionStorage.getItem('idUtente')!;
     this.clienteForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
       immagineCliente: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
+      telefono: new FormControl('', [Validators.required]),
+      username: new FormControl(''),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -32,63 +41,86 @@ export class ProfiloComponent implements OnInit {
       cap: new FormControl('', [Validators.required]),
     });
 
-    //getCliente
     this.clienteService.getCliente(this.clienteId).subscribe(
       (response: any) => {
-        const clienteData = response.dati; // Questo è il dato cliente che ti interessa
-
-        // this.cliente = response;
-        //console.log(this.cliente);
+        const clienteData = response.dati;
+        this.dataRegistrazione = clienteData.dataRegistrazione;
         this.clienteForm.patchValue({
           nome: clienteData.nome,
           cognome: clienteData.cognome,
           immagineCliente: clienteData.immagineCliente,
-          email: clienteData.utente?.email || '',
-          password: clienteData.utente?.password || '',
+          email: clienteData.utente.email,
+          telefono: clienteData.telefono,
+          username: clienteData.utente.username,
+          password: clienteData.utente.password,
           via: clienteData.via,
           comune: clienteData.comune,
           provincia: clienteData.provincia,
           cap: clienteData.cap,
-          dataRegistrazione: clienteData.dataRegistrazione,
         });
+
         console.log(response);
       },
       (error: any) => {
-        console.log('Error:', error);
+        console.error('Errore:', error);
       }
     );
   }
-  // Creazione oggetto
-  cliente: {
-    nome: string;
-    cognome: string;
-    email: string;
-    immagineCliente: string;
-    password: string;
-    dataRegistrazione: string;
-    via: string;
-    comune: string;
-    provincia: string;
-    cap: string;
-  } = {
-    nome: '',
-    cognome: '',
-    email: '',
-    immagineCliente: '',
-    password: '',
-    dataRegistrazione: '',
-    via: '',
-    comune: '',
-    provincia: '',
-    cap: '',
-  };
 
   onEditUser() {
     this.editMode = !this.editMode;
   }
 
-  // TODO: Da implementare
   onSubmit() {
     console.log('Dati inviati');
+
+    let clienteInvioForm = {
+      idCliente: this.clienteId,
+      nome: this.clienteForm.value.nome,
+      cognome: this.clienteForm.value.cognome,
+      immagineCliente: this.clienteForm.value.immagineCliente,
+      telefono: this.clienteForm.value.telefono,
+      via: this.clienteForm.value.via,
+      comune: this.clienteForm.value.comune,
+      provincia: this.clienteForm.value.provincia,
+      cap: this.clienteForm.value.cap,
+    };
+
+    let utenteInvioForm = {
+      idUtente: this.utenteId,
+      idCliente: this.clienteId,
+      email: this.clienteForm.value.email,
+      password: this.clienteForm.value.password
+        ? this.clienteForm.value.password
+        : null,
+      username: this.clienteForm.value.username,
+      roles: 'USER',
+      isAdmin: false,
+    };
+
+    let isAdmin = false;
+    if (isAdmin) {
+      utenteInvioForm.isAdmin = true;
+    }
+    console.log('Cliente da inviare:', clienteInvioForm);
+    console.log('Utente da inviare:', utenteInvioForm);
+    // aggiorno le 2 entita
+    this.clienteService
+      .updateCliente(clienteInvioForm)
+      .pipe(
+        switchMap((clienteResponse) => {
+          console.log('Cliente aggiornato:', clienteResponse);
+          return this.utenteService.updateUtente(utenteInvioForm);
+        })
+      )
+      .subscribe(
+        (utenteResponse) => {
+          console.log('Utente aggiornato:', utenteResponse);
+          this.editMode = false;
+        },
+        (error) => {
+          console.log("Errore durante l'aggiornamento:", error);
+        }
+      );
   }
 }

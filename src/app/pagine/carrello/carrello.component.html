@@ -1,4 +1,5 @@
-<div class="container">
+
+  <app-loader *ngIf="isLoading"></app-loader>
 
   <h2>Riepilogo del tuo carrello</h2>
 <!-- da aggiungere alert per carrello vuoto -->
@@ -10,34 +11,38 @@
       {{msg}}
     </div>    
   </div>
-  <div class="container-sm"  *ngIf="rc">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let prodotto of prodotti">
-        <div class="card mb-3" style="max-width: 540px;">
+  <div class="container-sm" *ngIf="rc">
+    <ul class="list-group-flush">
+      <li class="list-group-item" *ngFor="let prodottoCarrello of prodottiCarrello">
+        <div class="card mb-3">
           <div class="row g-0">
             <div class="col-md-4">
-              <img [src]="prodotto.prodotto.immagineProdotto" class="img-fluid rounded-start" alt="immagine da archivio">
+              <a (click)="dettagliProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                <img [src]="prodottoCarrello.prodotto.immagineProdotto" class="img-fluid rounded-start" alt="immagine da archivio">
+              </a>
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">TITOLO <span>{{prodotto.prodotto.titolo}}</span></h5>
-                <h6  class="card-title">Artista <span>{{prodotto.prodotto.artista}}</span></h6>
+                <a (click)="dettagliProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                  <h5 class="card-title">TITOLO <span>{{prodottoCarrello.prodotto.titolo}}</span></h5>
+                </a>
+                <h6  class="card-title">Artista <span>{{prodottoCarrello.prodotto.artista}}</span></h6>
                 <p class="card-text">
-                  <small class="text-body-secondary">Genere <span>{{prodotto.prodotto.genere}}</span></small>
+                  <small class="text-body-secondary">Genere <span>{{prodottoCarrello.prodotto.genere}}</span></small>
                   
-                  <small class="text-body-secondary">Formato <span>{{prodotto.prodotto.formato}}</span></small>
+                  <small class="text-body-secondary">Formato <span>{{prodottoCarrello.prodotto.formato}}</span></small>
                 </p>
                 <div class="button-container">
                   <div class="button-container">
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
-                      <mat-icon>add</mat-icon>
-                    </button>
-                    <span>{{prodotto.quantita}}</span>
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="rimuoviProdotto(prodottoCarrello.prodotto?.idProdotto)">
                       <mat-icon>remove</mat-icon>
                     </button>
+                    <span>{{prodottoCarrello.quantita}}</span>
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="aggiungiProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                      <mat-icon>add</mat-icon>
+                    </button>
                   </div>
-                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon">
+                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon" (click)="eliminaProdotto(prodottoCarrello.prodotto?.idProdotto, prodottoCarrello.quantita)" >
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>
@@ -48,16 +53,16 @@
       </li>
       
     </ul>
-    <div class="container totale">
+    <div class="container totale my-5">
       <h4>Totale da pagare: <span>{{totale | currency:"EUR" }}</span></h4>
       <button class="del-btn" mat-fab extended (click)="svuotaCarrello()">
         <mat-icon>remove_shopping_cart</mat-icon>
         Svuota Carrello
       </button>
     </div>
-    <button class="confirm-btn" mat-fab extended>
+    <button class="confirm-btn my-0" mat-fab extended (click)="ordina()">
       <mat-icon>shopping_cart</mat-icon>
       Acquista ora
     </button>
   </div>
-</div>
+
