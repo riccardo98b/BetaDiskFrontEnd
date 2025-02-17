@@ -1,6 +1,6 @@
 .loader {
   position: fixed;
-  top: 0;
+  top: -100px;
   left: 0;
   width: 100vw;
   height: 100vh;
