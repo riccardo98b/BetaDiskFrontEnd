@@ -14,7 +14,7 @@ export class ClienteService {
   }
 
   getCliente(idCliente: number) {
-    let param = new HttpParams().set('idCliente', idCliente.toString());
+    //let param = new HttpParams().set('idCliente', idCliente.toString());
     return this.http.get(this.url + 'listById?id=' + idCliente);
   }
 
