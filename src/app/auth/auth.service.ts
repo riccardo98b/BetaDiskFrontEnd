@@ -31,6 +31,7 @@ export class AuthService {
     // pulisco la session storage
     sessionStorage.clear();
     this.router.navigate(['/']);
+    window.location.reload();
     console.log('Logout effettuato con successo');
   }
 

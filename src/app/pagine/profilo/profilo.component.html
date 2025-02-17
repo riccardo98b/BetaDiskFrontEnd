@@ -65,7 +65,7 @@
     <h5>Data di Registrazione:</h5>
     <p>Utente dal {{ dataRegistrazione | date : "dd/MM/yyyy" }}</p>
   </div>
-  <button (click)="onEditUser()" class="btn btn-custom-button btn-primary">
+  <button (click)="onEditUser()" mat-fab extended class="w-100">
     Modifica
   </button>
 </div>
@@ -213,15 +213,19 @@
 
     <div class="d-flex gap-2 align-items-stretch">
       <button
+        mat-fab
+        extended
         (click)="onEditUser()"
-        class="btn btn-secondary w-50 half-space-btn h-50"
+        class="btn-secondary-fab w-50"
       >
         Annulla
       </button>
       <button
+        class="w-50"
+        mat-fab
+        extended
         type="submit"
         [disabled]="clienteForm.invalid"
-        class="btn w-50 btn-primary"
       >
         Salva
       </button>
