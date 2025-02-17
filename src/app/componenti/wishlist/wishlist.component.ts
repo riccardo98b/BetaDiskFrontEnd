@@ -1,21 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
-
-interface Prodotto {
-  immagineProdotto: string;
-  titolo: string;
-  descrizione: string;
-  prezzo: number;
-  formato: string;
-  annoPubblicazione: number;
-  artista: string;  // Ensure artista is included here
-}
-
-interface ApiResponse {
-  rc: boolean;
-  msg: string;
-  dati: Prodotto[]; // The "dati" field is an array of products
-}
+import { Prodotto } from '../../interfacce/Prodotto';
 
 @Component({
   selector: 'app-wishlist',
@@ -25,23 +10,33 @@ interface ApiResponse {
 })
 export class WishlistComponent implements OnInit {
   wishlist: Prodotto[] = [];
-  currentUserId: number = 1; // ID del cliente corrente (simulato per ora)
+  currentUserId: number = 1; // ID del cliente corrente (simulato)
 
   constructor(private wishlistService: WishlistService) {}
 
   ngOnInit(): void {
-    this.wishlistService.getWishlist(this.currentUserId).subscribe(
-      (data: ApiResponse) => { // Expecting ApiResponse here
+    this.wishlistService.getWishlist(this.currentUserId).subscribe({
+      next: (data) => {
         console.log('Dati ricevuti dalla API:', data);
-        this.wishlist = data.dati; // Assign the 'dati' array to the wishlist
+
+        if (data && Array.isArray(data.dati)) {
+          this.wishlist = data.dati;
+        } else {
+          console.warn('La wishlist è vuota o non è stata caricata correttamente.');
+          this.wishlist = [];
+        }
+
       },
-      (error) => {
+      error: (error) => {
         console.error('Errore durante la richiesta:', error);
+      },
+      complete: () => {
+        console.log('Caricamento wishlist completato.');
       }
-    );
+    });
   }
 
-  // Aggiungi prodotto alla wishlist
+  // Aggiungi prodotto al carrello
   addToWishlist(prodotto: Prodotto): void {
     console.log('Aggiunto al carrello', prodotto);
   }
@@ -49,12 +44,12 @@ export class WishlistComponent implements OnInit {
   // Rimuovi prodotto dalla wishlist
   removeFromWishlist(prodotto: Prodotto): void {
     console.log('Rimosso dalla wishlist', prodotto);
-    this.wishlist = this.wishlist.filter(item => item !== prodotto);
+    this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto);
   }
 
   // Svuota tutta la wishlist
   clearAllFromWishlist(): void {
     console.log('Tutti i prodotti rimossi dalla wishlist');
-    this.wishlist = []; // Svuota la wishlist
+    this.wishlist = [];
   }
 }

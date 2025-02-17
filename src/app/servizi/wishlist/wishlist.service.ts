@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Prodotto } from '../../interfacce/Prodotto';
+import { ApiResponse } from '../../interfacce/Wishlist';
 
-interface ApiResponse {
-  rc: boolean;
-  msg: string;
-  dati: Prodotto[];
-}
 
 @Injectable({
   providedIn: 'root',
