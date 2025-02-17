@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
+import { CarrelloService } from '../../servizi/carrello/carrello.service';
 
 @Component({
   selector: 'app-prodotti',
@@ -18,7 +19,11 @@ export class ProdottiComponent implements OnInit {
   isLoading: boolean;
   filtriPresenti: boolean = false;
 
-  constructor(private service: ProdottiService, private route: Router) {}
+  constructor(
+    private service: ProdottiService,
+    private route: Router,
+    private serviceCarrello: CarrelloService
+  ) {}
 
   ngOnInit(): void {
     this.getTuttiProdotti();
@@ -36,7 +41,7 @@ export class ProdottiComponent implements OnInit {
     });
   }
 
-  dettagliProdotto(idProdotto: any) {
+  dettagliProdotto(idProdotto: number) {
     this.route.navigate(['/dettaglio-prodotto', idProdotto]);
   }
 
@@ -107,5 +112,14 @@ export class ProdottiComponent implements OnInit {
       this.response.rc === true ? (this.data = this.response.dati) : null;
       this.isLoading = false;
     });
+  }
+
+  //Aggiungi prodotto al carrello
+  aggiungiProdotto(idProdotto: number) {
+    this.serviceCarrello
+      .addProdotto({ idProdotto: idProdotto, idCliente: 2, quantita: 1 })
+      .subscribe((resp) => {
+        this.response = resp;
+      });
   }
 }

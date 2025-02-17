@@ -72,7 +72,13 @@
     >
       <app-card [prodotto]="prodotto" [responsive]="false">
         <div id="card-buttons">
-          <button mat-fab extended>Acquista</button>
+          <button
+            mat-fab
+            extended
+            (click)="aggiungiProdotto(prodotto?.idProdotto)"
+          >
+            Acquista
+          </button>
           <button
             mat-fab
             extended
