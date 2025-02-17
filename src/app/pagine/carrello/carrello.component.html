@@ -14,7 +14,7 @@
   <div class="container-sm" *ngIf="rc">
     <ul class="list-group-flush">
       <li class="list-group-item" *ngFor="let prodottoCarrello of prodottiCarrello">
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card mb-3">
           <div class="row g-0">
             <div class="col-md-4">
               <a (click)="dettagliProdotto(prodottoCarrello.prodotto?.idProdotto)">
@@ -53,14 +53,14 @@
       </li>
       
     </ul>
-    <div class="container totale">
+    <div class="container totale my-5">
       <h4>Totale da pagare: <span>{{totale | currency:"EUR" }}</span></h4>
       <button class="del-btn" mat-fab extended (click)="svuotaCarrello()">
         <mat-icon>remove_shopping_cart</mat-icon>
         Svuota Carrello
       </button>
     </div>
-    <button class="confirm-btn" mat-fab extended (click)="ordina()">
+    <button class="confirm-btn my-0" mat-fab extended (click)="ordina()">
       <mat-icon>shopping_cart</mat-icon>
       Acquista ora
     </button>

@@ -6,10 +6,15 @@ h2 {
     max-width: 540px;
 }
 
+ul {
+    padding-left: 0rem;
+}
+
 .button-container, .totale, .card-text {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0;
 }
 
 .button-container > span {
