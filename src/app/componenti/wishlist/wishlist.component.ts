@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
 import { Prodotto } from '../../interfacce/Prodotto';
 
@@ -12,7 +12,8 @@ export class WishlistComponent implements OnInit {
   wishlist: Prodotto[] = [];
   isLoading: boolean = true;
   currentUserId: number = 1;
-
+  @Input() prodotto: Prodotto;
+  @Input() responsive: boolean;
   constructor(private wishlistService: WishlistService) {}
 
   ngOnInit(): void {
