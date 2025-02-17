@@ -6,11 +6,10 @@ import { ProfiloComponent } from './pagine/profilo/profilo.component';
 import { ProdottiComponent } from './pagine/prodotti/prodotti.component';
 import { DettaglioProdottoComponent } from './pagine/dettaglio-prodotto/dettaglio-prodotto.component';
 import { WishlistComponent } from './componenti/wishlist/wishlist.component';
-import { SigninComponent } from './pagine/signin/signin.component';
+import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
-  { path: 'signin', component: SigninComponent },
   { path: 'carrello', component: CarrelloComponent },
   { path: 'prodotti', component: ProdottiComponent },
   { path: 'profilo', component: ProfiloComponent },
@@ -19,6 +18,7 @@ const routes: Routes = [
     component: DettaglioProdottoComponent,
   },
   { path: 'wishlist', component: WishlistComponent },
+  { path: '**', component: Pagina404Component },
 ];
 
 @NgModule({

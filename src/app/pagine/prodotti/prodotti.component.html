@@ -1,30 +1,93 @@
-<div class="container">
-  <div class="row g-4">
-    <div class="col-sm-12 col-md-6 col-lg-3" *ngFor="let prodotto of data">
-      <div class="card">
-        <img
-          src="{{ prodotto.immagineProdotto }}"
-          class="example-card"
-          alt="immagine-prodotto"
-        />
-        <div class="card-body">
-          <div>
-            <h5 class="card-titolo">{{ prodotto.titolo }}</h5>
-            <p class="card-artista">{{ prodotto.artista }}</p>
-            <p class="card-formato">{{ prodotto.formato }}</p>
-          </div>
-          <div>
-            <p class="card-prezzo">{{ prodotto.prezzo | currency : "EUR" }}</p>
-          </div>
-        </div>
-        <div class="card-buttons">
-          <button mat-button>Acquista</button>
-          <button mat-button (click)="dettagliProdotto(prodotto.idProdotto)">
+<div class="container d-flex flex-column container-filtri">
+  <app-loader *ngIf="isLoading"></app-loader>
+  <div id="filtri-prodotti" class="row">
+    <div class="col-sm-12">
+      <ul class="nav flex-column nav-ul">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            role="button"
+            aria-expanded="false"
+            (click)="getFormati()"
+            >Formati</a
+          >
+          <ul class="dropdown-menu">
+            <li *ngFor="let formato of listaFormati">
+              <a class="dropdown-item" (click)="prodottoPerFormato(formato)">{{
+                formato
+              }}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            role="button"
+            aria-expanded="false"
+            (click)="getGeneri()"
+            >Genere</a
+          >
+          <ul class="dropdown-menu">
+            <li *ngFor="let genere of listaGeneri">
+              <a class="dropdown-item" (click)="prodottoPerGenere(genere)">{{
+                genere.toUpperCase()
+              }}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            role="button"
+            aria-expanded="false"
+            (click)="getArtisti()"
+            >Artisti</a
+          >
+          <ul class="dropdown-menu">
+            <li *ngFor="let artista of listaArtisti">
+              <a class="dropdown-item" (click)="prodottoPerArtista(artista)">{{
+                artista.toUpperCase()
+              }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-link togli-filtri" *ngIf="filtriPresenti">
+          <a (click)="togliFiltri()" role="button">
+            Togli filtri
+            <i class="bi bi-x-lg"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row g-4 main-content">
+    <div
+      class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
+      *ngFor="let prodotto of data"
+    >
+      <app-card [prodotto]="prodotto" [responsive]="false">
+        <div id="card-buttons">
+          <button
+            mat-fab
+            extended
+            (click)="aggiungiProdotto(prodotto?.idProdotto)"
+          >
+            Acquista
+          </button>
+          <button
+            mat-fab
+            extended
+            (click)="dettagliProdotto(prodotto?.idProdotto)"
+          >
             Maggiori info
           </button>
-        </div>
-      </div>
+        </div></app-card
+      >
     </div>
   </div>
 </div>
-<router-outlet></router-outlet>
