@@ -4,10 +4,19 @@
     <app-card [prodotto]="prodottoSelezionato" [responsive]="true">
       <div id="card-infos">
         <p class="card-artista">{{ prodottoSelezionato?.descrizione }}</p>
-        <p class="card-artista">{{ prodottoSelezionato?.genere }}</p>
+        <em class="card-artista">{{ prodottoSelezionato?.genere }}</em>
+        <div class="recensioni mt-3">
+          <p>Recensioni: {{prodottoSelezionato.recensioni.length}}</p>
+          <p>stelle</p>
+        </div>
       </div>
       <div id="card-buttons">
-        <button mat-fab extended>Acquista</button>
+        <form [formGroup]="qntForm" (ngSubmit)="aggiungiProdotto()" method="post" class="qnt-form">
+          <select formControlName="qnt" name="qnt" id="qnt" class="form-select form-select-lg mb-3">
+            <option [value]="i+1" *ngFor="let item of [].constructor(qnt); index as i">{{i+1}}</option>
+          </select>
+          <button mat-fab extended type="submit">Acquista</button>
+        </form>
       </div>
     </app-card>
   </div>

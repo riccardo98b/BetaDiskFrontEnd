@@ -2,6 +2,10 @@
   height: 100%;
 }
 
+.titolo-dettaglio {
+  font-size: 2rem;
+}
+
 .card-body {
   text-align: center;
   display: flex;

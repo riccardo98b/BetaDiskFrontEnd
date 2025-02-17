@@ -3,6 +3,8 @@ import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { response } from 'express';
+import { CarrelloService } from '../../servizi/carrello/carrello.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dettaglio-prodotto',
@@ -16,13 +18,22 @@ export class DettaglioProdottoComponent implements OnInit {
   recensioni: [];
   isLoading: boolean;
   response: any;
+  qnt: number;
+  idCliente = +sessionStorage.getItem('idCliente')!;
+  qntForm: FormGroup;
 
-  constructor(private service: ProdottiService, private route: ActivatedRoute) {
+  constructor(private service: ProdottiService, private route: ActivatedRoute,
+    private serv: CarrelloService,
+    private formBuilder: FormBuilder
+  ) {
     this.idProdotto = +this.route.snapshot.paramMap.get('idProdotto')!;
   }
 
   ngOnInit(): void {
     this.getProdotto();
+    this.qntForm =this.formBuilder.group({
+         qnt: 0
+        });
   }
 
   getProdotto() {
@@ -32,9 +43,30 @@ export class DettaglioProdottoComponent implements OnInit {
       if (this.response.rc === true) {
         this.prodottoSelezionato = this.response.dati[0];
         this.recensioni = this.response.dati[0].recensioni;
+        this.qnt = this.prodottoSelezionato.quantita;
       } else {
       }
       this.isLoading = false;
     });
+  }
+
+  aggiungiProdotto() {
+    if (this.qntForm.value.qnt > 0){
+      let request = {
+        idCliente : this.idCliente,
+        idProdotto : this.idProdotto,
+        quantita: this.qntForm.value.qnt
+      }
+    
+      this.serv.addProdotto(request).subscribe((r:any) => {
+        // this.msg = r.msg;
+        // this.rc = r.rc;
+        // this.router.navigate(['/carrello']).then(() => {
+        //   setTimeout(() => {
+        //     window.location.reload();
+        //   }, 1500);
+        // });
+      })
+   }
   }
 }

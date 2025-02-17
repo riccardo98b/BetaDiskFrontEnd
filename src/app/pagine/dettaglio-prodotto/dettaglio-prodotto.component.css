@@ -1,3 +1,16 @@
 #card-buttons {
-  margin-top: 4em;
+  margin-top: 1rem;
+}
+
+.recensioni, .qnt-form {
+  display: flex;
+  justify-content:space-evenly;
+}
+
+.qnt-form>select {
+  width: 33%;
+  margin: 5px auto;;
+}
+.qnt-form>button {
+  width: 50%;
 }
