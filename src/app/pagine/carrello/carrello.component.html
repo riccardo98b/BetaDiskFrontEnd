@@ -1,4 +1,5 @@
-<div class="container">
+<!-- <div class="container"> -->
+  <app-loader *ngIf="isLoading"></app-loader>
 
   <h2>Riepilogo del tuo carrello</h2>
 <!-- da aggiungere alert per carrello vuoto -->
@@ -16,11 +17,15 @@
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <img [src]="prodotto.prodotto.immagineProdotto" class="img-fluid rounded-start" alt="immagine da archivio">
+              <a (click)="dettagliProdotto(prodotto.prodotto?.idProdotto)">
+                <img [src]="prodotto.prodotto.immagineProdotto" class="img-fluid rounded-start" alt="immagine da archivio">
+              </a>
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">TITOLO <span>{{prodotto.prodotto.titolo}}</span></h5>
+                <a (click)="dettagliProdotto(prodotto.prodotto?.idProdotto)">
+                  <h5 class="card-title">TITOLO <span>{{prodotto.prodotto.titolo}}</span></h5>
+                </a>
                 <h6  class="card-title">Artista <span>{{prodotto.prodotto.artista}}</span></h6>
                 <p class="card-text">
                   <small class="text-body-secondary">Genere <span>{{prodotto.prodotto.genere}}</span></small>
@@ -29,15 +34,15 @@
                 </p>
                 <div class="button-container">
                   <div class="button-container">
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="rimuoviProdotto(prodotto.prodotto?.idProdotto)">
                       <mat-icon>remove</mat-icon>
                     </button>
                     <span>{{prodotto.quantita}}</span>
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="aggiungiProdotto(prodotto.prodotto?.idProdotto)">
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
-                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon">
+                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon" (click)="eliminaProdotto(prodotto.prodotto?.idProdotto, prodotto.quantita)" >
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>
@@ -60,4 +65,4 @@
       Acquista ora
     </button>
   </div>
-</div>
+<!-- </div> -->
