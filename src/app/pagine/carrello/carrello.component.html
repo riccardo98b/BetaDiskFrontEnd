@@ -32,6 +32,10 @@
                   
                   <small class="text-body-secondary">Formato <span>{{prodottoCarrello.prodotto.formato}}</span></small>
                 </p>
+                <div class="card-text">
+                  <p class="text-body-secondary">Prezzo: {{prodottoCarrello.prodotto.prezzo | currency: "EUR" }}</p> 
+                  <p>Totale articolo: {{prodottoCarrello.prodotto.prezzo * prodottoCarrello.quantita | currency: "EUR"}}</p>
+                </div>
                 <div class="button-container">
                   <div class="button-container">
                     <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="rimuoviProdotto(prodottoCarrello.prodotto?.idProdotto)">
