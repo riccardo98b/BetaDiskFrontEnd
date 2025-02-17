@@ -39,9 +39,12 @@ export class DettaglioProdottoComponent implements OnInit {
   getProdotto() {
     this.isLoading = true;
     this.service.prodottoPerId(this.idProdotto).subscribe((resp) => {
+      console.log('Response ricevuta:', resp);
       this.response = resp;
+
       if (this.response.rc === true) {
         this.prodottoSelezionato = this.response.dati[0];
+
         this.recensioni = this.response.dati[0].recensioni;
         this.qnt = this.prodottoSelezionato.quantita;
       } else {

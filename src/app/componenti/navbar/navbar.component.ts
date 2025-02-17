@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit{
-
+export class NavbarComponent implements OnInit {
   showNavbar: boolean = false;
-  logged: any;
-  utenteId = 0;
+  utenteId: number = 0;
+  logged: boolean = false;
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.utenteId = +sessionStorage.getItem('idUtente')!;
@@ -18,6 +19,18 @@ export class NavbarComponent implements OnInit{
   // Toggle navbar al click dell'icona
   toggleNavbar() {
     this.showNavbar = !this.showNavbar;
+  }
+
+  displayLoginElement(): void {
+    this.logged = this.authService.isAuthenticated();
+  }
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.logged = false;
   }
 
   // Chiudi la navbar quando si clicca su un link

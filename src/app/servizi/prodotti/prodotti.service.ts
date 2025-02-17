@@ -30,4 +30,8 @@ export class ProdottiService {
   prodottoPerArtista(artista: string): Observable<Prodotto> {
     return this.http.get<Prodotto>(this.url + 'list?artista=' + artista);
   }
+
+  topTenProdotti(): Observable<Prodotto> {
+    return this.http.get<Prodotto>(this.url + 'topTenProdotti');
+  }
 }

@@ -1,0 +1,10 @@
+.carousel-prodotto img {
+  width: 60%;
+  height: auto;
+  max-height: 60vh;
+  .scale-down {
+    object-fit: scale-down;
+  }
+  margin: 0 auto;
+  display: block;
+}
