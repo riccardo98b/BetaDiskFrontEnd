@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+  <form class="mb-5" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <p *ngIf="!logged && messaggioErrore" class="text-danger">
+      {{ messaggioErrore }}
+    </p>
+
+    <p class="form-title">Accedi al tuo account</p>
+
+    <div class="form-group">
+      <label for="email">Username:</label>
+      <input
+        type="text"
+        id="email"
+        formControlName="username"
+        placeholder="Inserisci il tuo username"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          signinForm.get('username')?.invalid &&
+          signinForm.get('username')?.touched
+        "
+        class="text-danger"
+      >
+        <small *ngIf="signinForm.get('username')?.hasError('required')"
+          >L'username è obbligatoria</small
+        >
+        <small *ngIf="signinForm.get('username')?.hasError('email')"
+          >Inserisci un username esistente</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Inserisci la tua password"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          signinForm.get('password')?.invalid &&
+          signinForm.get('password')?.touched
+        "
+        class="text-danger"
+      >
+        <small *ngIf="signinForm.get('password')?.hasError('required')"
+          >La password è obbligatoria</small
+        >
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="submit btn btn-primary"
+      [disabled]="!signinForm.valid"
+    >
+      Accedi
+    </button>
+
+    <p class="signup-link">
+      Non hai un account?
+      <a class="text-decoration-underline" routerLink="/registrazione"
+        >Registrati</a
+      >
+    </p>
+  </form>
+</div>

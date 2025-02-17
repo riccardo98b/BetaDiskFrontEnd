@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
   selector: 'app-navbar',
   standalone: false,
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-
   showNavbar: boolean = false;
+  logged: any;
 
   // Toggle navbar al click dell'icona
   toggleNavbar() {

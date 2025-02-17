@@ -1,1 +1,37 @@
-<p>recensione works!</p>
+<div>
+  <h5>Cosa dicono i nostri clienti</h5>
+  <div class="card">
+    <div *ngIf="!prodotto?.recensioni || prodotto?.recensioni.length === 0">
+      Non ci sono ancora delle recensioni
+    </div>
+    <div class="card-body" *ngFor="let recensione of prodotto?.recensioni">
+      <blockquote class="blockquote mb-0 quotes">
+        <span class="immagine-cliente">
+          <img
+            width="100%"
+            src="{{ recensione?.cliente.immagineCliente }}"
+            alt="avatar-cliente"
+          />
+        </span>
+
+        <div class="quotes-info">
+          <div class="stelle">
+            <i
+              class="bi bi-star-fill"
+              *ngFor="let stella of [].constructor(recensione.stelle)"
+            ></i>
+          </div>
+          <p>
+            {{ recensione?.descrizione }}
+          </p>
+          <footer class="blockquote-footer">
+            <cite title="Source Title">{{ recensione?.cliente?.nome }}</cite>
+          </footer>
+        </div>
+        <div class="data-creazione">
+          <span>{{ recensione?.dataCreazione | date : "longDate" }}</span>
+        </div>
+      </blockquote>
+    </div>
+  </div>
+</div>

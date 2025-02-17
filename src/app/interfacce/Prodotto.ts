@@ -1,4 +1,7 @@
 import { Ordine } from './Ordine';
+import { ProdottoCarrello } from './ProdottoCarrello';
+import { Recensione } from './Recensione';
+import { Wishlist } from './Wishlist';
 
 export interface Prodotto {
   idProdotto: number;
@@ -12,5 +15,7 @@ export interface Prodotto {
   quantita: number;
   immagineProdotto: string;
   ordini: Ordine[];
-  recensioni: [];
+  recensioni: Recensione[];
+  prodottiCarrello: ProdottoCarrello[];
+  prodottiWishlist: Wishlist[];
 }
