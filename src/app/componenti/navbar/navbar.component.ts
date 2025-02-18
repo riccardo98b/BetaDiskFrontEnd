@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.utenteId = +sessionStorage.getItem('idUtente')!;
+    this.utenteId = +localStorage.getItem('idUtente')!;
   }
   // Toggle navbar al click dell'icona
   toggleNavbar() {

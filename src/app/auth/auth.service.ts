@@ -29,17 +29,17 @@ export class AuthService {
   }
   logout(): void {
     // pulisco la session storage
-    sessionStorage.clear();
+    localStorage.clear();
     this.router.navigate(['/']);
     window.location.reload();
     console.log('Logout effettuato con successo');
   }
 
   isAuthenticated(): boolean {
-    return sessionStorage.getItem('idUtente') !== null;
+    return localStorage.getItem('idUtente') !== null;
   }
 
   getUserRole(): string | null {
-    return sessionStorage.getItem('ruoloUtente');
+    return localStorage.getItem('ruoloUtente');
   }
 }
