@@ -26,8 +26,8 @@ export class ProfiloComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.clienteId = +sessionStorage.getItem('idCliente')!;
-    this.utenteId = +sessionStorage.getItem('idUtente')!;
+    this.clienteId = +localStorage.getItem('idCliente')!;
+    this.utenteId = +localStorage.getItem('idUtente')!;
     (this.clienteForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
@@ -35,10 +35,7 @@ export class ProfiloComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       telefono: new FormControl('', [Validators.required]),
       username: new FormControl(''),
-      vecchiaPassword: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-      ]),
+
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
