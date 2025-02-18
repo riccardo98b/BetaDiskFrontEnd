@@ -19,7 +19,7 @@ export class DettaglioProdottoComponent implements OnInit {
   isLoading: boolean;
   response: any;
   qnt: number;
-  idCliente = +sessionStorage.getItem('idCliente')!;
+  idCliente = +localStorage.getItem('idCliente')!;
   qntForm: FormGroup;
 
   constructor(private service: ProdottiService, private route: ActivatedRoute,

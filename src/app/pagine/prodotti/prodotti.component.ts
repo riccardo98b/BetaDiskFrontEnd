@@ -18,6 +18,7 @@ export class ProdottiComponent implements OnInit {
   listaArtisti: string[] = [];
   isLoading: boolean;
   filtriPresenti: boolean = false;
+  idCliente = +localStorage.getItem('idCliente')!;
 
   constructor(
     private service: ProdottiService,
@@ -117,7 +118,7 @@ export class ProdottiComponent implements OnInit {
   //Aggiungi prodotto al carrello
   aggiungiProdotto(idProdotto: number) {
     this.serviceCarrello
-      .addProdotto({ idProdotto: idProdotto, idCliente: 2, quantita: 1 })
+      .addProdotto({ idProdotto: idProdotto, idCliente: this.idCliente, quantita: 1 })
       .subscribe((resp) => {
         this.response = resp;
       });

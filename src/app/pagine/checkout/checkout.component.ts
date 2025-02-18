@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit{
     private mailServ: MailService,
      private router: Router,){}
 
-  idCliente = +sessionStorage.getItem('idCliente')!;
+  idCliente = +localStorage.getItem('idCliente')!;
   isLoading: boolean;
   prodottiCarrello: ProdottoCarrello[];
   totale=0;

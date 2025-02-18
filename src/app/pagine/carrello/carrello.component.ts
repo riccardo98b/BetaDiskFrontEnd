@@ -13,7 +13,7 @@ import { ProdottoCarrello } from '../../interfacce/ProdottoCarrello';
 export class CarrelloComponent implements OnInit {
   prodottiCarrello: ProdottoCarrello[];
   totale: number = 0;
-  idCliente = +sessionStorage.getItem('idCliente')!;
+  idCliente = +localStorage.getItem('idCliente')!;
   msg: string = '';
   rc: boolean = true;
   isLoading: boolean;
