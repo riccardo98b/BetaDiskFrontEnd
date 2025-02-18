@@ -43,7 +43,7 @@ export class WishlistComponent implements OnInit {
     });
   }
 
-  addToWishlist(prodotto: Prodotto): void {
+  addToCarrello(prodotto: Prodotto): void {
     console.log('Aggiunto al carrello', prodotto);
   }
 
