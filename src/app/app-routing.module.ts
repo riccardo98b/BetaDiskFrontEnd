@@ -10,6 +10,7 @@ import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
+import { OrdiniComponent } from './pagine/ordini/ordini/ordini.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -21,11 +22,9 @@ const routes: Routes = [
     ]
    },
   { path: 'prodotti', component: ProdottiComponent },
+  { path: 'dettaglio-prodotto/:idProdotto', component: DettaglioProdottoComponent},
   { path: 'profilo', component: ProfiloComponent },
-  {
-    path: 'dettaglio-prodotto/:idProdotto',
-    component: DettaglioProdottoComponent,
-  },
+  { path: 'profilo/ordini', component: OrdiniComponent},
   { path: 'wishlist', component: WishlistComponent },
   { path: '**', component: Pagina404Component },
 ];

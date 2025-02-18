@@ -1,0 +1,14 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="container">
+    <h2 class="mb-4">Riepilogo degli ordini effettuati</h2>
+    <mat-accordion>
+        <mat-expansion-panel hideToggle *ngFor="let ordine of ordini">
+          <mat-expansion-panel-header>
+            <mat-panel-title> Ordine del: {{ordine.dataOrdine | date : "dd/MM/yyyy"}} </mat-panel-title>
+            <mat-panel-description> {{ordine.prodotti.length}} articoli ordinati  - Totale {{ordine.totaleImporto | currency: "EUR"}}</mat-panel-description>
+            <span *ngIf="ordine.spedito"><mat-icon> local_shipping</mat-icon></span>
+          </mat-expansion-panel-header>
+          <p *ngFor="let prodotto of ordine.prodotti">{{prodotto.prodotto.titolo}} - qnt: {{prodotto.quantita}} - {{prodotto.prezzoAcquisto | currency: "EUR"}} - totale articolo: {{prodotto.prezzoAcquisto * prodotto.quantita}}</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

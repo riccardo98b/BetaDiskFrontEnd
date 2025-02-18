@@ -14,4 +14,8 @@ export class OrdineService {
     return this.http.post(this.url + "create", body)
   }
 
+  listaOrdini(id: number) {
+    return this.http.get(this.url + "lista?id=" + id)
+  }
+
 }
