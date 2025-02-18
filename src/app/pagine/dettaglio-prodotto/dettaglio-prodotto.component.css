@@ -2,15 +2,22 @@
   margin-top: 1rem;
 }
 
-.recensioni, .qnt-form {
+.recensioni,
+.qnt-form {
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
 }
 
-.qnt-form>select {
+.qnt-form > select {
   width: 33%;
-  margin: 5px auto;;
+  margin: 5px auto;
 }
-.qnt-form>button {
+.qnt-form > button {
   width: 50%;
+}
+
+.container {
+  min-height: 70vh;
+  margin-top: 100px;
+  margin-bottom: 40px;
 }

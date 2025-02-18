@@ -1,57 +1,38 @@
-<div *ngIf="isLoading" class="loader-container">
-  <app-loader></app-loader>  <!-- Mostra il loader durante il caricamento -->
-</div>
-
-<div class="wishlist-container">
-  <div class="row g-3 justify-content-center">
-    <div *ngFor="let prodotto of wishlist" class="col-lg-4 col-md-6 col-12 d-flex justify-content-center">
-      <div class="card">
-        <div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
-          <img
-            src="{{ prodotto?.immagineProdotto }}"
-            class="example-card"
-            [ngClass]="{ 'responsive-img': responsive }"
-            alt="immagine-prodotto"
-          />
-          <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
-            <h5 class="card-titolo">{{ prodotto?.titolo }}</h5>
-            <p class="card-artista">{{ prodotto?.artista }}</p>
-            <p class="card-formato">{{ prodotto?.formato }}</p>
-            <div>
-              <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
-            </div>
-
-            <!-- Action buttons -->
-            <div class="d-flex justify-content-between">
-              <div class="container">
-                <button (click)="addToWishlist(prodotto)" type="button" class="button">
-                  <div class="button-top">Aggiungi a Carrello</div>
-                  <div class="button-bottom"></div>
-                  <div class="button-base"></div>
-                </button>
-              </div>
-              <div class="container">
-                <button (click)="removeFromWishlist(prodotto)" type="button" class="button">
-                  <div class="button-top">Rimuovi da Wishlist</div>
-                  <div class="button-bottom"></div>
-                  <div class="button-base"></div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="container d-flex flex-column container-wishlist">
+  <div *ngIf="isLoading" class="loader-container">
+    <app-loader></app-loader>
   </div>
-</div>
 
-<!-- Button to clear all products from wishlist -->
-<div class="mt-4 text-center">
-  <div class="container">
-    <button (click)="clearAllFromWishlist()" type="button" class="button">
-      <div class="button-top">Svuota Wishlist</div>
-      <div class="button-bottom"></div>
-      <div class="button-base"></div>
-    </button>
+  <!-- Bottone per svuotare tutta la wishlist, posizionato al centro sopra i prodotti -->
+  <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
+    <button (click)="clearAllFromWishlist()">Svuota la wishlist</button>
+  </div>
+
+  <!-- Mostra la wishlist se i dati sono caricati -->
+  <div *ngIf="!isLoading" class="row g-4 main-content">
+    <div
+      class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
+      *ngFor="let prodotto of wishlist"
+    >
+      <app-card [prodotto]="prodotto" [responsive]="true">
+        <div id="card-buttons">
+          <!-- I bottoni saranno disposti verticalmente ora -->
+          <button
+            mat-fab
+            extended
+            (click)="removeFromWishlist(prodotto)"
+          >
+            Rimuovi
+          </button>
+          <button
+            mat-fab
+            extended
+            (click)="addToWishlist(prodotto)"
+          >
+            Maggiori info
+          </button>
+        </div>
+      </app-card>
+    </div>
   </div>
 </div>
