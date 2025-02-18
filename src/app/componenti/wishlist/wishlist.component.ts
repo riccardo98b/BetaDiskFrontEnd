@@ -12,6 +12,11 @@ export class WishlistComponent implements OnInit {
   wishlist: Prodotto[] = [];
   isLoading: boolean = true;
   currentUserId: number = 2;
+
+  utente = {
+    nome: 'Giovanni',
+    cognome: 'Rossi'
+  };
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
 
@@ -61,7 +66,7 @@ clearAllFromWishlist(): void {
   this.wishlistService.clearAllWishlist(this.currentUserId).subscribe({
       next: (response) => {
           console.log('Risposta dal server:', response);
-          this.wishlist = []; 
+          this.wishlist = [];
           console.log('Tutti i prodotti sono stati rimossi dalla wishlist nel DB');
       },
       error: (error) => {

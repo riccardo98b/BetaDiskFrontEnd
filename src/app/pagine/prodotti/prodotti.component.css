@@ -39,3 +39,9 @@
 .container-filtri {
   margin-left: 2em;
 }
+
+.container {
+  min-height: 70vh;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
