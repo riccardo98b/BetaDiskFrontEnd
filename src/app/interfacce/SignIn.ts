@@ -4,4 +4,5 @@ export interface SignIn {
   role: string;
   idUtente: number;
   idCliente: number;
+  password: string;
 }

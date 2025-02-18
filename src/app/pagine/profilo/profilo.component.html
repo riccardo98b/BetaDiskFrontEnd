@@ -11,7 +11,7 @@
   <!-- Immagine del profilo -->
   <div class="profile-image">
     <img
-      [src]="clienteForm.value.immagineCliente"
+      [src]="clienteForm.value.immagineCliente || immagineDefault"
       alt="immagine profilo cliente"
       class="profile-img"
     />
@@ -71,7 +71,6 @@
 </div>
 
 <!-- EDIT MODE: TRUE TEMPLATE PROFILO-->
-
 <div *ngIf="editMode" class="profile-container mt-4 mb-4">
   <div class="profile-header">
     <h2>
@@ -91,125 +90,156 @@
 
   <!-- Form di modifica profilo -->
   <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="nome">Nome:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Immagine cliente</mat-label>
       <input
-        type="text"
-        id="nome"
+        matInput
+        formControlName="immagineCliente"
+        placeholder="Inserisci link immagine profilo"
+      />
+      <mat-error
+        *ngIf="clienteForm.get('immagineCliente')?.hasError('required')"
+      >
+        L'immagine è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Nome</mat-label>
+      <input
+        matInput
         formControlName="nome"
         placeholder="Inserisci il tuo nome"
-        class="form-control"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('nome')?.hasError('required')">
+        Il nome è obbligatorio.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="cognome">Cognome:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Cognome</mat-label>
       <input
-        type="text"
-        id="cognome"
+        matInput
         formControlName="cognome"
         placeholder="Inserisci il tuo cognome"
-        class="form-control"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('cognome')?.hasError('required')">
+        Il cognome è obbligatorio.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="immagineCliente">Immagine cliente:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Email</mat-label>
       <input
-        type="text"
-        id="immagineCliente"
-        formControlName="immagineCliente"
-        placeholder="Inserisci link immagine profilo cliente"
-        class="form-control"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input
+        matInput
         type="email"
-        id="email"
         formControlName="email"
         placeholder="Inserisci la tua email"
-        class="form-control"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('email')?.hasError('required')">
+        L'email è obbligatoria.
+      </mat-error>
+      <mat-error *ngIf="clienteForm.get('email')?.hasError('email')">
+        Inserisci una email valida.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="email">Telefono:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Telefono</mat-label>
       <input
+        matInput
         type="tel"
-        id="telefono"
         formControlName="telefono"
         placeholder="Inserisci il telefono"
-        class="form-control"
       />
-    </div>
-    <div class="form-group">
-      <label for="username">Username:</label>
+      <mat-error *ngIf="clienteForm.get('telefono')?.hasError('required')">
+        Il telefono è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Username</mat-label>
       <input
-        type="username"
-        id="username"
+        matInput
         formControlName="username"
         placeholder="Inserisci il tuo username"
-        class="form-control"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('username')?.hasError('required')">
+        Lo username è obbligatorio.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="password">Password:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Password</mat-label>
       <input
+        matInput
         type="password"
-        id="password"
         formControlName="password"
         placeholder="Inserisci la tua password"
-        class="form-control"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('password')?.hasError('required')">
+        La password è obbligatoria.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="via">Via:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Conferma Password</mat-label>
       <input
-        type="text"
-        id="via"
+        matInput
+        type="password"
+        formControlName="passwordDiConferma"
+        placeholder="Conferma la tua password"
+      />
+      <mat-error
+        *ngIf="clienteForm.get('passwordDiConferma')?.hasError('required')"
+      >
+        La conferma password è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Via</mat-label>
+      <input
+        matInput
         formControlName="via"
         placeholder="Inserisci la tua via"
-        class="form-control"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('via')?.hasError('required')">
+        La via è obbligatoria.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="comune">Comune:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Comune</mat-label>
       <input
-        type="text"
-        id="comune"
+        matInput
         formControlName="comune"
-        placeholder="Inserisci il  comune"
-        class="form-control"
+        placeholder="Inserisci il comune"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('comune')?.hasError('required')">
+        Il comune è obbligatorio.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="provincia">Provincia:</label>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Provincia</mat-label>
       <input
-        type="text"
-        id="provincia"
+        matInput
         formControlName="provincia"
         placeholder="Inserisci la tua provincia"
-        class="form-control"
       />
-    </div>
+      <mat-error *ngIf="clienteForm.get('provincia')?.hasError('required')">
+        La provincia è obbligatorio.
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="cap">CAP:</label>
-      <input
-        type="text"
-        id="cap"
-        formControlName="cap"
-        placeholder="Inserisci il CAP"
-        class="form-control"
-      />
-    </div>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>CAP</mat-label>
+      <input matInput formControlName="cap" placeholder="Inserisci il CAP" />
+      <mat-error *ngIf="clienteForm.get('cap')?.hasError('required')">
+        Il CAP è obbligatorio.
+      </mat-error>
+    </mat-form-field>
 
     <div class="d-flex gap-2 align-items-stretch">
       <button

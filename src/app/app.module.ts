@@ -9,6 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field'; // Aggiungi MatFormFieldModule
+import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputModule
+import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
+import { MatError } from '@angular/material/form-field';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -72,6 +76,10 @@ registerLocaleData(localeIt, 'it');
     MatGridListModule,
     MatIconModule,
     ReactiveFormsModule,
+    MatError,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
   ],
   providers: [
     provideHttpClient(withFetch()),

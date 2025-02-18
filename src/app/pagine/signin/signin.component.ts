@@ -47,9 +47,9 @@ export class SigninComponent {
           this.idUtente = response.idUtente;
           this.idCliente = response.idCliente;
 
-          sessionStorage.setItem('idUtente', this.idUtente.toString());
-          sessionStorage.setItem('idCliente', this.idCliente.toString());
-          sessionStorage.setItem('ruoloUtente', this.ruoloUtente);
+          localStorage.setItem('idUtente', this.idUtente.toString());
+          localStorage.setItem('idCliente', this.idCliente.toString());
+          localStorage.setItem('ruoloUtente', this.ruoloUtente);
 
           this.router.navigate(['/']);
         } else {

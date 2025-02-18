@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../servizi/cliente/cliente.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtenteService } from '../../servizi/utente/utente.service';
-import { switchMap } from 'rxjs';
-
+import { catchError, of, switchMap } from 'rxjs';
+import { messaggiErroreCliente } from '../../shared/messaggiErrore';
 @Component({
   selector: 'app-profilo',
   standalone: false,
@@ -16,33 +16,56 @@ export class ProfiloComponent implements OnInit {
   clienteForm!: FormGroup;
   editMode: boolean = false;
   dataRegistrazione: Date;
+  immagineDefault: string =
+    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+  // Messaggi di errore
+  messaggiErroreCliente = messaggiErroreCliente;
   constructor(
     private clienteService: ClienteService,
     private utenteService: UtenteService
   ) {}
 
-  ngOnInit(): void {
-    this.clienteId = +sessionStorage.getItem('idCliente')!;
-    this.utenteId = +sessionStorage.getItem('idUtente')!;
-    this.clienteForm = new FormGroup({
+  inizializzaForm(): void {
+    (this.clienteForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
       immagineCliente: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
       telefono: new FormControl('', [Validators.required]),
       username: new FormControl(''),
+
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
       ]),
+      passwordDiConferma: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]), // Aggiungi questo campo
+
       via: new FormControl('', [Validators.required]),
       comune: new FormControl('', [Validators.required]),
       provincia: new FormControl('', [Validators.required]),
       cap: new FormControl('', [Validators.required]),
-    });
+    })),
+      { validators: this.passwordMatchValidator };
+  }
 
-    this.clienteService.getCliente(this.clienteId).subscribe(
-      (response: any) => {
+  loadDatiCliente(): void {
+    this.clienteId = +localStorage.getItem('idCliente')!;
+    this.utenteId = +localStorage.getItem('idUtente')!;
+    this.clienteService
+      .getCliente(this.clienteId)
+      .pipe(
+        catchError((error) => {
+          console.error(
+            'Errore durante il caricamento dei dati del cliente:',
+            error
+          );
+          return of(null);
+        })
+      )
+      .subscribe((response: any) => {
         const clienteData = response.dati;
         this.dataRegistrazione = clienteData.dataRegistrazione;
         this.clienteForm.patchValue({
@@ -57,22 +80,40 @@ export class ProfiloComponent implements OnInit {
           comune: clienteData.comune,
           provincia: clienteData.provincia,
           cap: clienteData.cap,
-        });
+        }),
+          console.log(response);
+      });
+  }
 
-        console.log(response);
-      },
-      (error: any) => {
-        console.error('Errore:', error);
-      }
-    );
+  ngOnInit(): void {
+    this.inizializzaForm();
+    this.loadDatiCliente();
   }
 
   onEditUser() {
     this.editMode = !this.editMode;
   }
 
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password')?.value;
+    const passwordDiConferma = formGroup.get('passwordDiConferma')?.value;
+
+    if (password !== passwordDiConferma) {
+      formGroup.get('passwordDiConferma')?.setErrors({ mismatch: true });
+    } else {
+      return;
+    }
+  }
+
   onSubmit() {
     console.log('Dati inviati');
+    if (
+      this.clienteForm.value.password !==
+      this.clienteForm.value.passwordDiConferma
+    ) {
+      console.log('Le password non corrispondono.');
+      return;
+    }
 
     let clienteInvioForm = {
       idCliente: this.clienteId,
@@ -111,16 +152,27 @@ export class ProfiloComponent implements OnInit {
         switchMap((clienteResponse) => {
           console.log('Cliente aggiornato:', clienteResponse);
           return this.utenteService.updateUtente(utenteInvioForm);
+        }),
+        catchError((errore) => {
+          console.log("Errore durante l'aggiornamento:", errore);
+          return of(null);
         })
       )
-      .subscribe(
-        (utenteResponse) => {
+      .subscribe((utenteResponse) => {
+        if (utenteResponse) {
           console.log('Utente aggiornato:', utenteResponse);
+          this.resetPasswordAfterSubmit();
           this.editMode = false;
-        },
-        (error) => {
-          console.log("Errore durante l'aggiornamento:", error);
+        } else {
+          console.log("Non è stato possibile aggiornare l'utente");
         }
-      );
+      });
+  }
+
+  resetPasswordAfterSubmit() {
+    this.clienteForm.patchValue({
+      password: '',
+      passwordDiConferma: '',
+    });
   }
 }
