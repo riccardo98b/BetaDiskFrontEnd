@@ -26,3 +26,19 @@
 .clear-wishlist-btn-container button:hover {
   background-color: #d32f2f;
 }
+
+.welcome-message {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.welcome-message h3 {
+  font-size: 24px;
+  color: #333;
+}
+
+.welcome-message p {
+  font-size: 16px;
+  color: #666;
+}

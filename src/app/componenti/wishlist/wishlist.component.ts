@@ -12,6 +12,11 @@ export class WishlistComponent implements OnInit {
   wishlist: Prodotto[] = [];
   isLoading: boolean = true;
   currentUserId: number = 2;
+
+  utente = {
+    nome: 'Giovanni',
+    cognome: 'Rossi'
+  };
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
 

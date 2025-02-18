@@ -3,12 +3,16 @@
     <app-loader></app-loader>
   </div>
 
-  <!-- Bottone per svuotare tutta la wishlist, posizionato al centro sopra i prodotti -->
+  <!-- Introduzione dell'utente -->
+  <div *ngIf="!isLoading && utente" class="welcome-message">
+    <h3>Benvenuto, {{ utente.nome }} {{ utente.cognome }}!</h3>
+    <p>Questa è la tua wishlist. Goditi gli articoli e facci sapere la tua esperienza con noi</p>
+  </div>
+
   <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
     <button (click)="clearAllFromWishlist()">Svuota la wishlist</button>
   </div>
 
-  <!-- Mostra la wishlist se i dati sono caricati -->
   <div *ngIf="!isLoading" class="row g-4 main-content">
     <div
       class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
@@ -16,7 +20,7 @@
     >
       <app-card [prodotto]="prodotto" [responsive]="true">
         <div id="card-buttons">
-          <!-- I bottoni saranno disposti verticalmente ora -->
+
           <button
             mat-fab
             extended
