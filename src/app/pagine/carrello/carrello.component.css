@@ -28,6 +28,14 @@ ul {
     max-width: 70%;
 }
 
+div.card-text {
+    max-width: 90%;
+}
+
+div.card-text p {
+    max-width: 38%;
+}
+
 .confirm-btn {
     margin-top: 25px;
     min-width: 100%;

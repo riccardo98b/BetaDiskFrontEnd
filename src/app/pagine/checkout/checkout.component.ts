@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ClienteService } from '../../servizi/cliente/cliente.service';
 import { ProdottoCarrello } from '../../interfacce/ProdottoCarrello';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OrdineService } from '../../servizi/ordine/ordine.service';
+import { MailService } from '../../servizi/mail/mail.service';
 
 @Component({
   selector: 'app-checkout',
@@ -15,6 +17,8 @@ export class CheckoutComponent implements OnInit{
   
   constructor(private carrelloServ: CarrelloService,
     private clienteServ: ClienteService,
+    private ordineServ: OrdineService,
+    private mailServ: MailService,
      private router: Router,){}
 
   idCliente = +sessionStorage.getItem('idCliente')!;
@@ -22,6 +26,8 @@ export class CheckoutComponent implements OnInit{
   prodottiCarrello: ProdottoCarrello[];
   totale=0;
   clienteForm!: FormGroup;
+  msg: string = '';
+  rc: boolean = true;
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -50,6 +56,29 @@ export class CheckoutComponent implements OnInit{
           comune: clienteData.comune,
           provincia: clienteData.provincia,
           cap: clienteData.cap,
+        });
+    });
+    this.isLoading=false;
+  }
+
+  onSubmit(){
+    this.isLoading=true;
+    let request = {
+      idCliente : this.idCliente
+    }
+    this.ordineServ.inviaOrdine(request).subscribe((r:any) => {
+        this.msg = r.msg;
+        this.rc = r.rc;
+        if (r.rc) {
+          let mailRequest = {
+            to : this.clienteForm.value.email
+          }
+          this.mailServ.confermaOrdine(mailRequest).subscribe();
+        }
+        this.router.navigate(['/carrello']).then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         });
     });
     this.isLoading=false;
