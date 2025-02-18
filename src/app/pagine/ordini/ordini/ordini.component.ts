@@ -33,4 +33,21 @@ export class OrdiniComponent implements OnInit{
     this.isLoading=false;
   }
 
+  eliminaOrdine(id:number) {
+    this.isLoading=true;
+    let request = {
+      idOrdine : id
+    }
+    this.serv.eliminaOrdine(request).subscribe((r:any) => {
+      this.msg = r.msg;
+      this.rc = r.rc;
+      this.router.navigate(['/profilo/ordini']).then(() => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      });
+    });
+    this.isLoading=false;
+
+  }
 }

@@ -18,4 +18,8 @@ export class OrdineService {
     return this.http.get(this.url + "lista?id=" + id)
   }
 
+  eliminaOrdine(body: {}) {
+    return this.http.post(this.url + "delete", body)
+  }
+
 }
