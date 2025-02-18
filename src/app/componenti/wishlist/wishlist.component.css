@@ -1,9 +1,25 @@
-#card-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+
+.welcome-message {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
+
+.welcome-message h3 {
+  font-size: 24px;
+  color: #333;
+}
+
+.welcome-message p {
+  font-size: 16px;
+  color: #666;
+}
+
+
+.main-content {
+  margin-bottom: 30px;
+}
+
 
 .clear-wishlist-btn-container {
   display: flex;
@@ -15,30 +31,35 @@
 .clear-wishlist-btn-container button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #f44336;
-  color: white;
+
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 .clear-wishlist-btn-container button:hover {
   background-color: #d32f2f;
+  color: white;
 }
 
-.welcome-message {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 5px;
+#wishlist-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.welcome-message h3 {
-  font-size: 24px;
-  color: #333;
+.wishlist-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 1s ease;
+  margin-bottom: 10px;
 }
 
-.welcome-message p {
-  font-size: 16px;
-  color: #666;
+.wishlist-button:hover {
+  background-color: green;
+  color: white;
 }

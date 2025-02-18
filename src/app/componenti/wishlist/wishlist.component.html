@@ -9,34 +9,42 @@
     <p>Questa è la tua wishlist. Goditi gli articoli e facci sapere la tua esperienza con noi</p>
   </div>
 
+  <!-- Aggiungi bottone per svuotare la wishlist -->
   <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
-    <button (click)="clearAllFromWishlist()">Svuota la wishlist</button>
+    <button mat-raised-button color="warn" (click)="clearAllFromWishlist()">
+      Svuota la Wishlist
+    </button>
   </div>
 
-  <div *ngIf="!isLoading" class="row g-4 main-content">
-    <div
-      class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
-      *ngFor="let prodotto of wishlist"
-    >
-      <app-card [prodotto]="prodotto" [responsive]="true">
-        <div id="card-buttons">
+  <div class="container-fluid d-flex flex-column container-filtri">
+    <app-loader *ngIf="isLoading"></app-loader>
 
-          <button
-            mat-fab
-            extended
-            (click)="removeFromWishlist(prodotto)"
-          >
-            Rimuovi
-          </button>
-          <button
-            mat-fab
-            extended
-            (click)="addToWishlist(prodotto)"
-          >
-            Maggiori info
-          </button>
-        </div>
-      </app-card>
+    <div class="row g-4 main-content">
+      <div
+        class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
+        *ngFor="let prodotto of wishlist"
+      >
+        <app-card [prodotto]="prodotto" [responsive]="false">
+          <div id="card-buttons">
+            <button
+              mat-fab
+              extended
+              (click)="addToWishlist(prodotto)"
+              class="wishlist-button"
+            >
+              Aggiungi alla Wishlist
+            </button>
+            <button
+              mat-fab
+              extended
+              (click)="removeFromWishlist(prodotto)"
+              class="wishlist-button"
+            >
+              Rimuovi dalla Wishlist
+            </button>
+          </div>
+        </app-card>
+      </div>
     </div>
   </div>
 </div>
