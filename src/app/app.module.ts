@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputMo
 import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
 import { MatError } from '@angular/material/form-field';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 import { LOCALE_ID } from '@angular/core';
@@ -84,7 +85,8 @@ registerLocaleData(localeIt, 'it');
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ],
   providers: [
     provideHttpClient(withFetch()),

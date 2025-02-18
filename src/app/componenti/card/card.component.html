@@ -17,6 +17,12 @@
       <div>
         <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
       </div>
+      <div>
+        <div *ngIf="prodotto?.prodottiCarrello.length != 0">
+          <mat-icon [matBadge]="prodotto?.prodottiCarrello[0].quantita" >shopping_cart</mat-icon>
+        </div>
+        
+      </div>
 
       <ng-content for="div#card-buttons"></ng-content>
     </div>
