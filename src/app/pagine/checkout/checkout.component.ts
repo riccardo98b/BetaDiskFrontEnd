@@ -54,4 +54,8 @@ export class CheckoutComponent implements OnInit{
     });
     this.isLoading=false;
   }
+
+  onSubmit(){
+    this.isLoading=true;
+  }
 }
