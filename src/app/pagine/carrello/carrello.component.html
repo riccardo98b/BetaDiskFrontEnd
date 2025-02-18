@@ -38,15 +38,15 @@
                 </div>
                 <div class="button-container">
                   <div class="button-container">
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="rimuoviProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                    <button mat-mini-fab aria-label="Pulsante rimuovi in articolo" (click)="rimuoviProdotto(prodottoCarrello.prodotto?.idProdotto)">
                       <mat-icon>remove</mat-icon>
                     </button>
                     <span>{{prodottoCarrello.quantita}}</span>
-                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="aggiungiProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                    <button mat-mini-fab aria-label="Pulsante aggiungi un articolo" (click)="aggiungiProdotto(prodottoCarrello.prodotto?.idProdotto)">
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
-                  <button mat-mini-fab class="del-btn" aria-label="Example icon button with a menu icon" (click)="eliminaProdotto(prodottoCarrello.prodotto?.idProdotto, prodottoCarrello.quantita)" >
+                  <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina" (click)="eliminaProdotto(prodottoCarrello.prodotto?.idProdotto, prodottoCarrello.quantita)" >
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>

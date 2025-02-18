@@ -13,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // Aggiungi M
 import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputModule
 import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
 import { MatError } from '@angular/material/form-field';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -42,6 +44,7 @@ import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
+import { OrdiniComponent } from './pagine/ordini/ordini/ordini.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -66,6 +69,7 @@ registerLocaleData(localeIt, 'it');
     CheckoutComponent,
     PaginaCarrelloComponent,
     PresentazioneSectionComponent,
+    OrdiniComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +84,7 @@ registerLocaleData(localeIt, 'it');
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatExpansionModule
   ],
   providers: [
     provideHttpClient(withFetch()),
