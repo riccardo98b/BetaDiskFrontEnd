@@ -25,9 +25,7 @@ export class ProfiloComponent implements OnInit {
     private utenteService: UtenteService
   ) {}
 
-  ngOnInit(): void {
-    this.clienteId = +localStorage.getItem('idCliente')!;
-    this.utenteId = +localStorage.getItem('idUtente')!;
+  inizializzaForm(): void {
     (this.clienteForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
@@ -51,9 +49,23 @@ export class ProfiloComponent implements OnInit {
       cap: new FormControl('', [Validators.required]),
     })),
       { validators: this.passwordMatchValidator };
+  }
 
-    this.clienteService.getCliente(this.clienteId).subscribe(
-      (response: any) => {
+  loadDatiCliente(): void {
+    this.clienteId = +localStorage.getItem('idCliente')!;
+    this.utenteId = +localStorage.getItem('idUtente')!;
+    this.clienteService
+      .getCliente(this.clienteId)
+      .pipe(
+        catchError((error) => {
+          console.error(
+            'Errore durante il caricamento dei dati del cliente:',
+            error
+          );
+          return of(null);
+        })
+      )
+      .subscribe((response: any) => {
         const clienteData = response.dati;
         this.dataRegistrazione = clienteData.dataRegistrazione;
         this.clienteForm.patchValue({
@@ -70,11 +82,12 @@ export class ProfiloComponent implements OnInit {
           cap: clienteData.cap,
         }),
           console.log(response);
-      },
-      (error: any) => {
-        console.error('Errore:', error);
-      }
-    );
+      });
+  }
+
+  ngOnInit(): void {
+    this.inizializzaForm();
+    this.loadDatiCliente();
   }
 
   onEditUser() {
