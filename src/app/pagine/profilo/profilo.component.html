@@ -74,13 +74,19 @@
 <div *ngIf="editMode" class="profile-container mt-4 mb-4">
   <div class="profile-header">
     <h2>
-      Profilo Cliente: {{ clienteForm.value.nome }}
-      {{ clienteForm.value.cognome }}
+      {{
+        isRegistrazione
+          ? "Registrazione"
+          : "Profilo Cliente: " +
+            (clienteForm.value.nome || "") +
+            " " +
+            (clienteForm.value.cognome || "")
+      }}
     </h2>
   </div>
 
   <!-- Immagine del profilo -->
-  <div class="profile-image">
+  <div class="profile-image" *ngIf="!isRegistrazione">
     <img
       [src]="clienteForm.value.immagineCliente"
       alt="immagine profilo cliente"
@@ -89,7 +95,11 @@
   </div>
 
   <!-- Form di modifica profilo -->
-  <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+  <form
+    *ngIf="!isRegistrazione"
+    [formGroup]="clienteForm"
+    (ngSubmit)="onSubmit()"
+  >
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>Immagine cliente</mat-label>
       <input
@@ -242,7 +252,9 @@
     </mat-form-field>
 
     <div class="d-flex gap-2 align-items-stretch">
+      <!-- Bottoni modalita profilo-->
       <button
+        *ngIf="!isRegistrazione"
         mat-fab
         extended
         (click)="onEditUser()"
@@ -251,6 +263,7 @@
         Annulla
       </button>
       <button
+        *ngIf="!isRegistrazione"
         class="w-50"
         mat-fab
         extended
@@ -258,6 +271,180 @@
         [disabled]="clienteForm.invalid"
       >
         Salva
+      </button>
+    </div>
+  </form>
+  <!-- FORM MODALITA REGISTRAZIONE-->
+  <form
+    *ngIf="isRegistrazione"
+    [formGroup]="clienteForm"
+    (ngSubmit)="onRegistraCliente()"
+  >
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Immagine cliente</mat-label>
+      <input
+        matInput
+        formControlName="immagineCliente"
+        placeholder="Inserisci link immagine profilo"
+      />
+      <mat-error
+        *ngIf="clienteForm.get('immagineCliente')?.hasError('required')"
+      >
+        L'immagine è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Nome</mat-label>
+      <input
+        matInput
+        formControlName="nome"
+        placeholder="Inserisci il tuo nome"
+      />
+      <mat-error *ngIf="clienteForm.get('nome')?.hasError('required')">
+        Il nome è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Cognome</mat-label>
+      <input
+        matInput
+        formControlName="cognome"
+        placeholder="Inserisci il tuo cognome"
+      />
+      <mat-error *ngIf="clienteForm.get('cognome')?.hasError('required')">
+        Il cognome è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        placeholder="Inserisci la tua email"
+      />
+      <mat-error *ngIf="clienteForm.get('email')?.hasError('required')">
+        L'email è obbligatoria.
+      </mat-error>
+      <mat-error *ngIf="clienteForm.get('email')?.hasError('email')">
+        Inserisci una email valida.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Telefono</mat-label>
+      <input
+        matInput
+        type="tel"
+        formControlName="telefono"
+        placeholder="Inserisci il telefono"
+      />
+      <mat-error *ngIf="clienteForm.get('telefono')?.hasError('required')">
+        Il telefono è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        formControlName="username"
+        placeholder="Inserisci il tuo username"
+      />
+      <mat-error *ngIf="clienteForm.get('username')?.hasError('required')">
+        Lo username è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Inserisci la tua password"
+      />
+      <mat-error *ngIf="clienteForm.get('password')?.hasError('required')">
+        La password è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Conferma Password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="passwordDiConferma"
+        placeholder="Conferma la tua password"
+      />
+      <mat-error
+        *ngIf="clienteForm.get('passwordDiConferma')?.hasError('required')"
+      >
+        La conferma password è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Via</mat-label>
+      <input
+        matInput
+        formControlName="via"
+        placeholder="Inserisci la tua via"
+      />
+      <mat-error *ngIf="clienteForm.get('via')?.hasError('required')">
+        La via è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Comune</mat-label>
+      <input
+        matInput
+        formControlName="comune"
+        placeholder="Inserisci il comune"
+      />
+      <mat-error *ngIf="clienteForm.get('comune')?.hasError('required')">
+        Il comune è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Provincia</mat-label>
+      <input
+        matInput
+        formControlName="provincia"
+        placeholder="Inserisci la tua provincia"
+      />
+      <mat-error *ngIf="clienteForm.get('provincia')?.hasError('required')">
+        La provincia è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>CAP</mat-label>
+      <input matInput formControlName="cap" placeholder="Inserisci il CAP" />
+      <mat-error *ngIf="clienteForm.get('cap')?.hasError('required')">
+        Il CAP è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="d-flex gap-2 align-items-stretch">
+      <!-- Bottoni modalita registrazione-->
+
+      <button mat-fab extended routerLink="/" class="btn-secondary-fab w-50">
+        Torna alla home
+      </button>
+      <button
+        class="w-50"
+        mat-fab
+        extended
+        type="submit"
+        [disabled]="clienteForm.invalid"
+      >
+        Registrati
       </button>
     </div>
   </form>

@@ -13,4 +13,8 @@ export class UtenteService {
   updateUtente(body: {}): Observable<Utente> {
     return this.http.post<Utente>(this.url + 'update', body);
   }
+
+  createUtente(body: {}): Observable<Utente> {
+    return this.http.post<Utente>(this.url + 'create', body);
+  }
 }

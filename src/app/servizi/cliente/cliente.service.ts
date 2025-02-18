@@ -1,5 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Cliente } from '../../interfacce/Cliente';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,11 @@ export class ClienteService {
     return this.http.get(this.url + 'listById?id=' + idCliente);
   }
 
-  updateCliente(body: {}) {
-    return this.http.post(this.url + 'update', body);
+  updateCliente(body: {}): Observable<Cliente> {
+    return this.http.post<Cliente>(this.url + 'update', body);
+  }
+
+  createCliente(body: {}): Observable<Cliente> {
+    return this.http.post<Cliente>(this.url + 'create', body);
   }
 }
