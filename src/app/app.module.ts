@@ -42,6 +42,9 @@ import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
+import { CreaProdottoComponent } from './admin/crea-prodotto/crea-prodotto.component';
+import { PopUpComponent } from './componenti/pop-up/pop-up.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 registerLocaleData(localeIt, 'it');
 
@@ -66,6 +69,8 @@ registerLocaleData(localeIt, 'it');
     CheckoutComponent,
     PaginaCarrelloComponent,
     PresentazioneSectionComponent,
+    CreaProdottoComponent,
+    PopUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +85,9 @@ registerLocaleData(localeIt, 'it');
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+
+    MatDialogModule,
+    PopUpComponent,
   ],
   providers: [
     provideHttpClient(withFetch()),

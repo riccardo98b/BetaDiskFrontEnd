@@ -10,18 +10,30 @@ import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { CreaProdottoComponent } from './admin/crea-prodotto/crea-prodotto.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'carrello', component: PaginaCarrelloComponent,
+  {
+    path: 'carrello',
+    component: PaginaCarrelloComponent,
     children: [
       { path: '', component: CarrelloComponent },
-      { path: 'checkout', component: CheckoutComponent }
-    ]
-   },
+      { path: 'checkout', component: CheckoutComponent },
+    ],
+  },
   { path: 'prodotti', component: ProdottiComponent },
   { path: 'profilo', component: ProfiloComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: '', redirectTo: 'crea-prodotto', pathMatch: 'full' },
+      { path: 'crea-prodotto', component: CreaProdottoComponent },
+    ],
+  },
   {
     path: 'dettaglio-prodotto/:idProdotto',
     component: DettaglioProdottoComponent,
