@@ -27,3 +27,7 @@
     min-width: 30%;
 }
 
+.flex > :last-child {
+    display: flex;
+    justify-content: flex-end;
+}
