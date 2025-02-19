@@ -18,10 +18,10 @@
         <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
       </div>
       <div class="d-flex justify-content-around my-2">
-        <div *ngIf="prodotto?.prodottiCarrello.length != 0">
-          <mat-icon [matBadge]="prodotto?.prodottiCarrello[0].quantita" >shopping_cart</mat-icon>
+        <div *ngIf="cartBadge[prodotto.idProdotto] > 0">
+          <mat-icon [matBadge]="cartBadge[prodotto.idProdotto]" >shopping_cart</mat-icon>
         </div>
-        <div *ngIf="prodotto?.prodottiCarrello.length == 0"><mat-icon></mat-icon></div> <!--mat-icon vuoto per posizionamento verticale-->
+        <div *ngIf="cartBadge[prodotto.idProdotto] == null"><mat-icon></mat-icon></div> <!--mat-icon vuoto per posizionamento verticale-->
         <mat-icon *ngIf="prodotto?.prodottiWishlist.length == 0">heart_broken</mat-icon>
         <mat-icon *ngIf="prodotto?.prodottiWishlist.length != 0">favorite</mat-icon>
       </div>
