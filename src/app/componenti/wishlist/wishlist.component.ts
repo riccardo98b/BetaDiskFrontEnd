@@ -9,14 +9,10 @@ import { Prodotto } from '../../interfacce/Prodotto';
   styleUrls: ['./wishlist.component.css'],
 })
 export class WishlistComponent implements OnInit {
-  wishlist: Prodotto[] = [];  // Assicurati che sia sempre un array di Prodotto
+  wishlist: Prodotto[] = [];
   isLoading: boolean = true;
   currentUserId: number = 2;
-
-  utente = {
-    nome: 'Giovanni',
-    cognome: 'Rossi'
-  };
+  wishlistNonEsiste: boolean = false;
 
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
@@ -24,7 +20,7 @@ export class WishlistComponent implements OnInit {
   constructor(private wishlistService: WishlistService) {}
 
   ngOnInit(): void {
-    // Chiamata per ottenere la wishlist
+    this.inizializzaWishlist();
     this.wishlistService.getWishlist(this.currentUserId).subscribe({
       next: (data) => {
         console.log('Dati ricevuti dalla API:', data);
@@ -38,7 +34,7 @@ export class WishlistComponent implements OnInit {
           });
         } else {
           console.warn('La wishlist è vuota o non è stata caricata correttamente.');
-          this.wishlist = [];  
+          this.wishlist = [];
         }
       },
       error: (error) => {
@@ -50,6 +46,33 @@ export class WishlistComponent implements OnInit {
       }
     });
   }
+
+  createWishlist(): void {
+    this.wishlistService.createWishlist(this.currentUserId).subscribe({
+      next: (response) => {
+        console.log("Wishlist creata con successo:", response);
+        this.wishlist = []; // La wishlist è vuota inizialmente
+      },
+      error: (error) => {
+        console.error("Errore durante la creazione della wishlist:", error);
+      }
+    });
+  }
+
+
+  inizializzaWishlist(): void {
+    // Recupero l'ID utente dal localStorage
+    const storedUserId = localStorage.getItem('idCliente');
+
+    if (storedUserId) {
+      this.currentUserId = +storedUserId;
+      this.checkOrCreateWishlist();
+    } else {
+      console.error("Nessun utente loggato trovato.");
+      this.isLoading = false;
+    }
+  }
+
 
   addToCarrello(prodotto: Prodotto): void {
     console.log('Aggiunto al carrello', prodotto);
@@ -82,6 +105,27 @@ export class WishlistComponent implements OnInit {
       },
       error: (error) => {
         console.error('Errore durante lo svuotamento della wishlist:', error);
+      }
+    });
+  }
+
+  checkOrCreateWishlist(): void {
+    this.wishlistService.getWishlist(this.currentUserId).subscribe({
+      next: (data) => {
+        if (data && Array.isArray(data.dati) && data.dati.length > 0) {
+          this.wishlist = data.dati;
+          this.wishlistNonEsiste = false;
+        } else {
+          console.log("Wishlist non trovata.");
+          this.wishlistNonEsiste = true;
+        }
+      },
+      error: (error) => {
+        console.error("Errore nel recupero della wishlist:", error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     });
   }
