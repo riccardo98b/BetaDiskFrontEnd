@@ -11,7 +11,7 @@ import { Prodotto } from '../../interfacce/Prodotto';
 export class WishlistComponent implements OnInit {
   wishlist: Prodotto[] = [];  // Assicurati che sia sempre un array di Prodotto
   isLoading: boolean = true;
-  currentUserId: number = 1;
+  currentUserId: number = 2;
 
   utente = {
     nome: 'Giovanni',
@@ -24,20 +24,21 @@ export class WishlistComponent implements OnInit {
   constructor(private wishlistService: WishlistService) {}
 
   ngOnInit(): void {
+    // Chiamata per ottenere la wishlist
     this.wishlistService.getWishlist(this.currentUserId).subscribe({
       next: (data) => {
-        console.log('Dati ricevuti dalla API:', data);  // Verifica i dati
+        console.log('Dati ricevuti dalla API:', data);
         if (data && Array.isArray(data.dati)) {
           this.wishlist = data.dati.map(prodotto => {
             return {
               ...prodotto,
-              prodottiCarrello: prodotto.prodottiCarrello || [], // Inizializza come array vuoto
-              prodottiWishlist: prodotto.prodottiWishlist || []  // Inizializza come array vuoto
+              prodottiCarrello: prodotto.prodottiCarrello || [],
+              prodottiWishlist: prodotto.prodottiWishlist || []
             };
           });
         } else {
           console.warn('La wishlist è vuota o non è stata caricata correttamente.');
-          this.wishlist = [];  // Protezione in caso di array vuoto
+          this.wishlist = [];  
         }
       },
       error: (error) => {

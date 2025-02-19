@@ -1,39 +1,30 @@
-<div class="card">
-  <div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
-    <img
-      src="{{ prodotto?.immagineProdotto }}"
-      class="example-card"
-      [ngClass]="{ 'responsive-img': responsive }"
-      alt="immagine-prodotto"
-    />
-    <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
-      <h5 class="card-titolo" [ngClass]="{'titolo-dettaglio' : responsive}">{{ prodotto?.titolo }}</h5>
-      <p class="card-artista">{{ prodotto?.artista }}</p>
+<div class="container-fluid d-flex flex-column container-filtri container">
+  <!-- Loader: Mostra durante il caricamento -->
+  <app-loader *ngIf="isLoading"></app-loader>
 
-      <ng-content for="div#card-infos"></ng-content>
+  <!-- Bottone 'Clear All Wishlist' centrato in alto sopra le card -->
+  <div class="clear-wishlist-btn-container">
+    <button (click)="clearAllFromWishlist()">Clear All Wishlist</button>
+  </div>
 
-      <p class="card-formato">{{ prodotto?.formato }}</p>
-
-      <div>
-        <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
-      </div>
-
-      <div class="d-flex justify-content-around my-2">
-        <!-- Verifica se 'prodottiCarrello' è un array valido -->
-        <div *ngIf="prodotto?.prodottiCarrello && prodotto.prodottiCarrello.length > 0">
-          <mat-icon [matBadge]="prodotto.prodottiCarrello[0].quantita">shopping_cart</mat-icon>
+  <!-- Mostra la wishlist -->
+  <div class="row g-4 main-content">
+    <div
+      class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
+      *ngFor="let prodotto of wishlist; trackBy: trackById"
+    >
+      <!-- Usa il componente app-card per la visualizzazione del prodotto -->
+      <app-card [prodotto]="prodotto" [responsive]="false">
+        <!-- Bottoni specifici per la wishlist -->
+        <div id="card-buttons">
+          <button mat-fab extended (click)="removeFromWishlist(prodotto)">
+            Rimuovi dalla Wishlist
+          </button>
+          <button mat-fab extended (click)="addToCarrello(prodotto)">
+            Aggiungi al Carrello
+          </button>
         </div>
-        <div *ngIf="!prodotto?.prodottiCarrello || prodotto.prodottiCarrello.length === 0">
-          <mat-icon></mat-icon> <!--mat-icon vuoto per posizionamento verticale-->
-        </div>
-
-        <!-- Verifica se 'prodottiWishlist' è un array valido -->
-        <mat-icon *ngIf="!prodotto?.prodottiWishlist || prodotto.prodottiWishlist.length === 0">heart_broken</mat-icon>
-        <mat-icon *ngIf="prodotto?.prodottiWishlist && prodotto.prodottiWishlist.length > 0">favorite</mat-icon>
-      </div>
-
-
-      <ng-content for="div#card-buttons"></ng-content>
+      </app-card>
     </div>
   </div>
 </div>
