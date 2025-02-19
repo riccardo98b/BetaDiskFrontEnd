@@ -13,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // Aggiungi M
 import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputModule
 import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
 import { MatError } from '@angular/material/form-field';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -85,9 +87,9 @@ registerLocaleData(localeIt, 'it');
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
-
+    MatSidenavModule,
     MatDialogModule,
-    PopUpComponent,
+    MatListModule,
   ],
   providers: [
     provideHttpClient(withFetch()),
