@@ -46,6 +46,7 @@ import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
+import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -71,6 +72,7 @@ registerLocaleData(localeIt, 'it');
     PaginaCarrelloComponent,
     PresentazioneSectionComponent,
     OrdiniComponent,
+    RecensioniComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,15 @@ import { Injectable } from '@angular/core';
 })
 export class RecensioneService {
 
-  constructor() { }
+ url = "http://localhost:9090/rest/recensione/"
+   
+   constructor(private http: HttpClient ) { }
+ 
+   listaRecensioni(id: number) {
+     return this.http.get(this.url + "listById?id=" + id)
+   }
+ 
+  //  eliminaOrdine(body: {}) {
+  //    return this.http.post(this.url + "delete", body)
+  //  }
 }
