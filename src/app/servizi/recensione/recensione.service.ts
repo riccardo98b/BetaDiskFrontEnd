@@ -11,10 +11,18 @@ export class RecensioneService {
    constructor(private http: HttpClient ) { }
  
    listaRecensioniUtente(id: number) {
-     return this.http.get(this.url + "lista-recensioni?id=" + id)
+     return this.http.get(this.url + "lista-recensioni?id=" + id);
    }
  
-  //  eliminaOrdine(body: {}) {
-  //    return this.http.post(this.url + "delete", body)
-  //  }
+   eliminaRecensione(body: {}) {
+     return this.http.post(this.url + "delete", body);
+   }
+
+   creaRecensione(body: {}) {
+    return this.http.post(this.url + "create", body);
+  }
+
+  // modificaRecensione(body: {}) {
+  //   return this.http.post(this.url + "update", body);
+  // }
 }
