@@ -8,7 +8,12 @@
           <em class="card-artista">{{ prodottoSelezionato?.genere }}</em>
           <div class="recensioni mt-3">
             <p>Recensioni: {{ prodottoSelezionato.recensioni.length }}</p>
-            <p>stelle</p>
+            <div class="stelle">
+              <i
+                class="bi bi-star-fill"
+                *ngFor="let stella of [].constructor(stelle)"
+              ></i>
+            </div>
           </div>
         </div>
         <div id="card-buttons">

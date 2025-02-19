@@ -9,10 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field'; // Aggiungi MatFormFieldModule
+import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputModule
+import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
 import { MatError } from '@angular/material/form-field';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -42,7 +45,8 @@ import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
-import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
+import { OrdiniComponent } from './pagine/ordini/ordini.component';
+import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -67,7 +71,8 @@ registerLocaleData(localeIt, 'it');
     CheckoutComponent,
     PaginaCarrelloComponent,
     PresentazioneSectionComponent,
-    RegistrazioneComponent,
+    OrdiniComponent,
+    RecensioniComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +87,8 @@ registerLocaleData(localeIt, 'it');
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatExpansionModule,
+    MatBadgeModule
   ],
   providers: [
     provideHttpClient(withFetch()),

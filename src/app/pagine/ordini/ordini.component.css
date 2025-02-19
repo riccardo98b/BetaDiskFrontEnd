@@ -1,0 +1,33 @@
+.del-btn {
+    color: #fff;
+    background-color: firebrick ;
+    z-index: 999;
+    margin: 1% auto;
+    box-shadow: none;
+}
+
+.del-btn:hover {
+    box-shadow: none;
+}
+
+.spedito {
+    width: 40px;
+    height: 40px;
+    margin: 1% auto;
+    padding: 30% 21%;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex > :first-child,
+.flex > :last-child {
+    min-width: 30%;
+}
+
+.flex > :last-child {
+    display: flex;
+    justify-content: flex-end;
+}
