@@ -10,7 +10,7 @@ import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
-import { OrdiniComponent } from './pagine/ordini/ordini/ordini.component';
+import { OrdiniComponent } from './pagine/ordini/ordini.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },

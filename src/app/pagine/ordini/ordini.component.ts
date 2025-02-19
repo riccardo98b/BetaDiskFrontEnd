@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OrdineService } from '../../../servizi/ordine/ordine.service';
+import { OrdineService } from '../../servizi/ordine/ordine.service';
 import { Router } from '@angular/router';
-import { Ordine } from '../../../interfacce/Ordine';
+import { Ordine } from '../../interfacce/Ordine';
+
 
 @Component({
   selector: 'app-ordini',
