@@ -5,6 +5,7 @@
 
 #filtri-prodotti {
   position: fixed;
+  top: 150px;
   left: 0;
   width: 30%;
   padding-top: 1em;

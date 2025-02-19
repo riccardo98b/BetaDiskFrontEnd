@@ -10,7 +10,9 @@ import { Pagina404Component } from './pagine/pagina404/pagina404.component';
 import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
-import { OrdiniComponent } from './pagine/ordini/ordini/ordini.component';
+import { OrdiniComponent } from './pagine/ordini/ordini.component';
+import { RecensioneComponent } from './componenti/recensione/recensione.component';
+import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -25,6 +27,7 @@ const routes: Routes = [
   { path: 'dettaglio-prodotto/:idProdotto', component: DettaglioProdottoComponent},
   { path: 'profilo', component: ProfiloComponent },
   { path: 'profilo/ordini', component: OrdiniComponent},
+  { path: 'profilo/recensioni', component: RecensioniComponent},
   { path: 'wishlist', component: WishlistComponent },
   { path: '**', component: Pagina404Component },
 ];
