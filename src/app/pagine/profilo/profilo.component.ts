@@ -201,8 +201,11 @@ export class ProfiloComponent implements OnInit {
           if (clienteResponse) {
             console.log('Cliente creato:', clienteResponse);
 
-            const clienteId = clienteResponse.id;
-            console.log('Cliente creato con ID:', clienteResponse.id);
+            const clienteId = clienteResponse.dati.idCliente;
+            console.log(
+              'Cliente creato con ID:',
+              clienteResponse.dati.idCliente
+            );
 
             let utenteInvioForm = {
               email: this.clienteForm.value.email,

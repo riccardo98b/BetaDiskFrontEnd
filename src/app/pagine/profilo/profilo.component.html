@@ -63,7 +63,7 @@
 
   <div>
     <h5>Data di Registrazione:</h5>
-    <p>Utente dal {{ dataRegistrazione | date : "dd/MM/yyyy" }}</p>
+    <p>{{ dataRegistrazione | date : "dd/MM/yyyy" }}</p>
   </div>
   <button (click)="onEditUser()" mat-fab extended class="w-100">
     Modifica
