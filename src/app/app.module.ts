@@ -13,9 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // Aggiungi M
 import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputModule
 import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
 import { MatError } from '@angular/material/form-field';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatBadgeModule} from '@angular/material/badge';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -47,6 +46,7 @@ import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrell
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
+import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -73,6 +73,7 @@ registerLocaleData(localeIt, 'it');
     PresentazioneSectionComponent,
     OrdiniComponent,
     RecensioniComponent,
+    RegistrazioneComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +89,7 @@ registerLocaleData(localeIt, 'it');
     MatInputModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
   providers: [
     provideHttpClient(withFetch()),
