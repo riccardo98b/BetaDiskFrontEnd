@@ -10,8 +10,8 @@ export class RecensioneService {
    
    constructor(private http: HttpClient ) { }
  
-   listaRecensioni(id: number) {
-     return this.http.get(this.url + "listById?id=" + id)
+   listaRecensioniUtente(id: number) {
+     return this.http.get(this.url + "lista-recensioni?id=" + id)
    }
  
   //  eliminaOrdine(body: {}) {
