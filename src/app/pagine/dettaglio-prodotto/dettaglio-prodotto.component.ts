@@ -21,6 +21,7 @@ export class DettaglioProdottoComponent implements OnInit {
   qnt: number;
   idCliente = +localStorage.getItem('idCliente')!;
   qntForm: FormGroup;
+  stelle : number = 0;
 
   constructor(private service: ProdottiService, private route: ActivatedRoute,
     private serv: CarrelloService,
@@ -46,6 +47,13 @@ export class DettaglioProdottoComponent implements OnInit {
         this.prodottoSelezionato = this.response.dati[0];
 
         this.recensioni = this.response.dati[0].recensioni;
+        if (this.recensioni.length == 0) {
+          this.stelle=0;
+        } else {
+          this.stelle = this.recensioni?.reduce((sum, r:any) => sum + r.stelle, 0) || 0;
+          this.stelle = Math.round(this.stelle / this.recensioni.length);
+          console.log(this.stelle);
+        }
         this.qnt = this.prodottoSelezionato.quantita;
       } else {
       }
