@@ -1,17 +1,17 @@
 <app-loader *ngIf="isLoading"></app-loader>
 <div class="container">
-    <h2 class="mb-4">Riepilogo degli ordini effettuati</h2>
+    <h2 class="mb-4">Riepilogo prodotti ordinati e recensiti</h2>
     <mat-accordion>
-        <mat-expansion-panel hideToggle *ngFor="let ordine of recensioni">
-          <!-- <mat-expansion-panel-header>
-            <mat-panel-title> Ordine del: {{ordine.dataOrdine | date : "dd/MM/yyyy"}} </mat-panel-title>
-            <mat-panel-description> {{ordine.prodotti.length}} articoli ordinati  - Totale {{ordine.totaleImporto | currency: "EUR"}}</mat-panel-description>
-            <span *ngIf="ordine.spedito"><mat-icon class="spedito"> local_shipping</mat-icon></span>
+        <mat-expansion-panel hideToggle *ngFor="let recensione of recensioni">
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{recensione.prodotto.titolo}} </mat-panel-title>
+            <mat-panel-description>Data recensione: {{recensione.dataCreazione | date : "dd/MM/yyyy"}}</mat-panel-description>
+            <!-- <span *ngIf="ordine.spedito"><mat-icon class="spedito"> local_shipping</mat-icon></span>
             <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina" (click)="$event.stopPropagation(); eliminaOrdine(ordine.idOrdine)" *ngIf="!ordine.spedito">
                 <mat-icon>close</mat-icon>
-            </button>
-            </mat-expansion-panel-header>
-          <div *ngFor="let prodotto of ordine.prodotti" class="flex"><span>{{prodotto.prodotto.titolo}}</span><span><em>quantità: </em>{{prodotto.quantita}} x {{prodotto.prezzoAcquisto | currency: "EUR"}}</span><span><em class="mx-2">totale articolo: </em>{{prodotto.prezzoAcquisto * prodotto.quantita | currency: "EUR"}}</span></div> -->
+            </button> -->
+          </mat-expansion-panel-header>
+          <p>{{recensione.descrizione}}</p>
         </mat-expansion-panel>
     </mat-accordion>
 </div>
