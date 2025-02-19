@@ -9,7 +9,7 @@ import { Prodotto } from '../../interfacce/Prodotto';
   styleUrls: ['./wishlist.component.css'],
 })
 export class WishlistComponent implements OnInit {
-  wishlist: Prodotto[] = [];
+  wishlist: Prodotto[] = [];  // Assicurati che sia sempre un array di Prodotto
   isLoading: boolean = true;
   currentUserId: number = 1;
 
@@ -17,6 +17,7 @@ export class WishlistComponent implements OnInit {
     nome: 'Giovanni',
     cognome: 'Rossi'
   };
+
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
 
@@ -25,12 +26,18 @@ export class WishlistComponent implements OnInit {
   ngOnInit(): void {
     this.wishlistService.getWishlist(this.currentUserId).subscribe({
       next: (data) => {
-        console.log('Dati ricevuti dalla API:', data);
+        console.log('Dati ricevuti dalla API:', data);  // Verifica i dati
         if (data && Array.isArray(data.dati)) {
-          this.wishlist = data.dati;
+          this.wishlist = data.dati.map(prodotto => {
+            return {
+              ...prodotto,
+              prodottiCarrello: prodotto.prodottiCarrello || [], // Inizializza come array vuoto
+              prodottiWishlist: prodotto.prodottiWishlist || []  // Inizializza come array vuoto
+            };
+          });
         } else {
           console.warn('La wishlist è vuota o non è stata caricata correttamente.');
-          this.wishlist = [];
+          this.wishlist = [];  // Protezione in caso di array vuoto
         }
       },
       error: (error) => {
@@ -58,22 +65,23 @@ export class WishlistComponent implements OnInit {
             console.error('Errore durante la rimozione del prodotto dalla wishlist:', error);
         }
     });
-}
+  }
 
+  trackById(index: number, item: Prodotto): number {
+    return item.idProdotto;
+  }
 
-clearAllFromWishlist(): void {
-  console.log('Svuoto la wishlist per idCliente:', this.currentUserId);
-  this.wishlistService.clearAllWishlist(this.currentUserId).subscribe({
+  clearAllFromWishlist(): void {
+    console.log('Svuoto la wishlist per idCliente:', this.currentUserId);
+    this.wishlistService.clearAllWishlist(this.currentUserId).subscribe({
       next: (response) => {
-          console.log('Risposta dal server:', response);
-          this.wishlist = [];
-          console.log('Tutti i prodotti sono stati rimossi dalla wishlist nel DB');
+        console.log('Risposta dal server:', response);
+        this.wishlist = [];
+        console.log('Tutti i prodotti sono stati rimossi dalla wishlist nel DB');
       },
       error: (error) => {
-          console.error('Errore durante lo svuotamento della wishlist:', error);
-          console.error('Errore dettagliato:', error.message);
+        console.error('Errore durante lo svuotamento della wishlist:', error);
       }
-  });
-}
-
+    });
+  }
 }
