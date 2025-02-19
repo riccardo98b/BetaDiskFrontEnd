@@ -2,14 +2,24 @@
 <div class="container">
     <h2 class="mb-4">Riepilogo prodotti ordinati e recensiti</h2>
     <mat-accordion>
-        <mat-expansion-panel hideToggle *ngFor="let recensione of recensioni">
-          <mat-expansion-panel-header>
+        <mat-expansion-panel hideToggle *ngFor="let recensione of recensioni" >
+          <mat-expansion-panel-header class="d-flex justify-content-between">
             <mat-panel-title> {{recensione.prodotto.titolo}} </mat-panel-title>
-            <mat-panel-description>Data recensione: {{recensione.dataCreazione | date : "dd/MM/yyyy"}}</mat-panel-description>
-            <!-- <span *ngIf="ordine.spedito"><mat-icon class="spedito"> local_shipping</mat-icon></span>
-            <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina" (click)="$event.stopPropagation(); eliminaOrdine(ordine.idOrdine)" *ngIf="!ordine.spedito">
-                <mat-icon>close</mat-icon>
-            </button> -->
+            <mat-panel-description class="d-flex justify-content-between">Data recensione: {{recensione.dataCreazione | date : "dd/MM/yyyy"}}
+              <div class="stelle" *ngIf="recensione.stelle>0">
+                <mat-icon *ngFor="let stella of [].constructor(recensione.stelle)">star</mat-icon>
+              </div>
+            </mat-panel-description>
+            
+            <div class="d-flex justify-content-between">
+              <button mat-mini-fab class="edit-btn" aria-label="Pulsante modifica" (click)="$event.stopPropagation(); modificaRecensione(recensione.idRecensione)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <div class="mx-1"></div>
+              <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina" (click)="$event.stopPropagation(); eliminaRecensione(recensione.idRecensione)">
+                  <mat-icon>close</mat-icon>
+              </button>
+            </div>
           </mat-expansion-panel-header>
           <p>{{recensione.descrizione}}</p>
         </mat-expansion-panel>

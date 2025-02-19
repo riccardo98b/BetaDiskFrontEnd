@@ -31,4 +31,12 @@ export class RecensioniComponent implements OnInit {
     });
     this.isLoading=false;
   }
+
+  modificaRecensione(id:number) {
+
+  }
+
+  eliminaRecensione(id:number) {
+
+  }
 }

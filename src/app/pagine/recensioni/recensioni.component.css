@@ -1,0 +1,15 @@
+.del-btn,
+.edit-btn {
+    z-index: 999;
+    margin: 1% auto;
+    box-shadow: none;
+}
+
+.del-btn:hover,
+.edit-btn:hover {
+    box-shadow: none;
+}
+ .del-btn {
+    color: #fff;
+    background-color: firebrick ;
+ }
