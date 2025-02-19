@@ -22,23 +22,34 @@ export class DettaglioProdottoComponent implements OnInit {
   idCliente = +localStorage.getItem('idCliente')!;
   qntForm: FormGroup;
   stelle : number = 0;
+  cartBadge: { [idProdotto: number]: number } = {};
 
   constructor(private service: ProdottiService, private route: ActivatedRoute,
-    private serv: CarrelloService,
+    private serviceCarrello: CarrelloService,
     private formBuilder: FormBuilder
   ) {
     this.idProdotto = +this.route.snapshot.paramMap.get('idProdotto')!;
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getProdotto();
     this.qntForm =this.formBuilder.group({
          qnt: 0
         });
+    this.serviceCarrello.listaProdotti(this.idCliente).subscribe((r: any) => {
+          if (r.rc) {
+            r.dati.prodotti.forEach((p:any) => {
+              console.log(p)
+              console.log(p.prodotto.idProdotto)
+              this.cartBadge[p.prodotto.idProdotto]=p.prodotto?.prodottiCarrello[0]?.quantita
+            })
+          }   
+    });
+    this.isLoading = false;
   }
 
   getProdotto() {
-    this.isLoading = true;
     this.service.prodottoPerId(this.idProdotto).subscribe((resp) => {
       console.log('Response ricevuta:', resp);
       this.response = resp;
@@ -55,9 +66,7 @@ export class DettaglioProdottoComponent implements OnInit {
           console.log(this.stelle);
         }
         this.qnt = this.prodottoSelezionato.quantita;
-      } else {
       }
-      this.isLoading = false;
     });
   }
 
@@ -69,7 +78,7 @@ export class DettaglioProdottoComponent implements OnInit {
         quantita: this.qntForm.value.qnt
       }
     
-      this.serv.addProdotto(request).subscribe((r:any) => {
+      this.serviceCarrello.addProdotto(request).subscribe((r:any) => {
         // this.msg = r.msg;
         // this.rc = r.rc;
         // this.router.navigate(['/carrello']).then(() => {
