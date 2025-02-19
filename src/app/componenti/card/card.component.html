@@ -22,8 +22,8 @@
           <mat-icon [matBadge]="prodotto?.prodottiCarrello[0].quantita" >shopping_cart</mat-icon>
         </div>
         <div *ngIf="prodotto?.prodottiCarrello.length == 0"></div>
-        <mat-icon *ngIf="prodotto?.prodottiWishlist.length == 0">star_border</mat-icon>
-        <mat-icon *ngIf="prodotto?.prodottiWishlist.length != 0">star</mat-icon>
+        <mat-icon *ngIf="prodotto?.prodottiWishlist.length == 0">heart_broken</mat-icon>
+        <mat-icon *ngIf="prodotto?.prodottiWishlist.length != 0">favorite</mat-icon>
       </div>
 
       <ng-content for="div#card-buttons"></ng-content>
