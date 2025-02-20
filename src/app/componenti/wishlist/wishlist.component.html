@@ -2,17 +2,15 @@
   <!-- Loader: Mostra durante il caricamento -->
   <app-loader *ngIf="isLoading"></app-loader>
 
-  <!-- Caso in cui la wishlist non esiste -->
-  <div *ngIf="wishlistNonEsiste && !isLoading" class="text-center">
-    <p>La tua wishlist non esiste. Creala ora!</p>
-    <button (click)="createWishlist()">Crea Wishlist</button>
+  <!-- Caso in cui la wishlist non esiste o è vuota -->
+  <div *ngIf="wishlistNonEsiste && !isLoading" class="empty-wishlist">
+    <p>La tua wishlist non esiste ancora. Aggiungi un <a routerLink="/prodotti">prodotto</a> per crearla!</p>
   </div>
 
-  <!-- Caso in cui la wishlist è vuota ma esiste -->
+  <!-- Caso in cui la wishlist esiste ma è vuota -->
   <div *ngIf="!wishlistNonEsiste && wishlist.length === 0 && !isLoading" class="empty-wishlist">
     <p>La tua wishlist è vuota. Aggiungi <a routerLink="/prodotti">prodotti</a>!</p>
   </div>
-
 
   <!-- Bottone 'Clear All Wishlist' mostrato solo se la wishlist ha prodotti -->
   <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
