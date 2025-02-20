@@ -115,11 +115,7 @@ export class AuthService {
   logout(): void {
     // pulisco la session storage
     localStorage.clear();
-    if (this.isAdmin()) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.router.navigate(['/']);
     console.log('Logout effettuato con successo');
     this.logoutSubject.next();
     this.unsubscribeAll();
