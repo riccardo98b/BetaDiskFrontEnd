@@ -32,22 +32,22 @@ export class RecensioniComponent implements OnInit {
     this.isLoading=false;
   }
 
-  modificaRecensione(/*idRecensione:number, */idProdotto:number) {
+  modificaRecensione(idRecensione:number, idProdotto:number) {
     this.isLoading=true;
-    // if (idRecensione !=0) {
-    //   let request = {
-    //     idRecensione : idRecensione
-    //   }
-    //   this.serv.modificaRecensione(request).subscribe((r:any) => {
-    //     this.msg = r.msg;
-    //     this.rc = r.rc;
-    //     this.router.navigate(['/profilo/recensioni']).then(() => {
-    //       setTimeout(() => {
-    //         window.location.reload();
-    //       }, 1500);
-    //     });
-    //   });
-    // } else {
+    if (idRecensione != null) {
+      let request = {
+        idRecensione : idRecensione
+      }
+      this.serv.modificaRecensione(request).subscribe((r:any) => {
+        this.msg = r.msg;
+        this.rc = r.rc;
+        this.router.navigate(['/profilo/recensioni']).then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        });
+      });
+    } else {
       let request = {
         idProdotto : idProdotto
       }
@@ -60,7 +60,7 @@ export class RecensioniComponent implements OnInit {
           }, 1500);
         });
       });
-  // }   
+  }   
     this.isLoading=false;
   }
 

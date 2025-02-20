@@ -11,14 +11,15 @@
               </div>
             </mat-panel-description>
             
-            <div class="d-flex justify-content-between">
-              <button mat-mini-fab class="edit-btn" aria-label="Pulsante modifica" (click)="$event.stopPropagation(); modificaRecensione(recensione.prodotto.idProdotto)" *ngIf="recensione.idRecensione == null">
+            <div class="d-flex justify-content-between ms-5">
+              <button mat-mini-fab class="edit-btn" aria-label="Pulsante modifica" (click)="$event.stopPropagation(); modificaRecensione(recensione.idRecensione,recensione.prodotto.idProdotto)">
                 <mat-icon>edit</mat-icon>
               </button>
               <div class="mx-1"></div>
-              <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina" (click)="$event.stopPropagation(); eliminaRecensione(recensione.idRecensione)">
+              <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina" (click)="$event.stopPropagation(); eliminaRecensione(recensione.idRecensione)" *ngIf="recensione.idRecensione != null">
                   <mat-icon>close</mat-icon>
               </button>
+              <div *ngIf="recensione.idRecensione == null" style="width: 40px;"></div>
             </div>
           </mat-expansion-panel-header>
           <p>{{recensione.descrizione}}</p>

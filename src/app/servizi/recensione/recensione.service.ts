@@ -22,7 +22,7 @@ export class RecensioneService {
     return this.http.post(this.url + "create", body);
   }
 
-  // modificaRecensione(body: {}) {
-  //   return this.http.post(this.url + "update", body);
-  // }
+  modificaRecensione(body: {}) {
+    return this.http.post(this.url + "update", body);
+  }
 }
