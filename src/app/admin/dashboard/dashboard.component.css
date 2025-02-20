@@ -1,4 +1,4 @@
-.example-container {
+.nav-container {
   width: auto;
   height: 80vh;
   margin: 10px;
@@ -7,8 +7,16 @@
   background: #eee;
 }
 
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  background-color: #BBB;
+}
+
 .dashboard {
-  width: 80%;
+  width: 100%;
 }
 
 .mat {
