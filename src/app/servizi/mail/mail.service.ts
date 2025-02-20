@@ -1,16 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MailService {
+  url = 'http://localhost:9090/rest/mail/';
 
-    url = "http://localhost:9090/rest/mail/"
-    
-    constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-    confermaOrdine(body: {}){
-      return this.http.post(this.url + "conferma", body)
-    }
+  confermaOrdine(body: {}) {
+    const url = this.authService.getURL('mail/conferma-ordine');
+    return this.http.post(url, body);
+  }
+
+  confermaRegistrazione(body: {}) {
+    const url = this.authService.getURL('mail/conferma-registrazione');
+    return this.http.post(url, body);
+  }
 }

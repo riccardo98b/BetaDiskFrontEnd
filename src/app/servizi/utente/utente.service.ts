@@ -2,19 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Utente } from '../../interfacce/Utente';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtenteService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  url = 'http://localhost:9090/rest/utente/';
   updateUtente(body: {}): Observable<Utente> {
-    return this.http.post<Utente>(this.url + 'update', body);
+    const url = this.authService.getURL('utente/update');
+    return this.http.post<Utente>(url, body);
   }
 
   createUtente(body: {}): Observable<Utente> {
-    return this.http.post<Utente>(this.url + 'create', body);
+    const url = this.authService.getURL('utente/create');
+    return this.http.post<Utente>(url, body);
   }
 }

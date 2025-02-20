@@ -3,12 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { SignIn } from '../interfacce/SignIn';
 import { Router } from '@angular/router';
+import { ConfigService } from '../servizi/config/config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private config: ConfigService
+  ) {}
   private signInUrl: string = 'http://localhost:9090/rest/utente/signin';
 
   signInUtente(body: {
@@ -21,11 +26,63 @@ export class AuthService {
 
         if (response && response.logged) {
           console.log('Login effettuato con successo');
+          this.setSessione(response);
+          this.gestisciConfig();
         } else {
           console.log('Credenziali non valide');
         }
       })
     );
+  }
+  private buildURL() {
+    this.config.getConfig().subscribe((response: any) => {
+      console.log('Risposta dal config:', response);
+      if (response && response.domain && response.port) {
+        let url = 'http://' + response.domain + ':' + response.port + '/rest/';
+        console.log('URL costruito:', url);
+        localStorage.setItem('config', url);
+      } else {
+        console.error('Config non valido:', response);
+      }
+    });
+  }
+
+  private gestisciConfig() {
+    //   const valoreConfig = localStorage.getItem('config');
+    const valoreConfig = localStorage.getItem('config');
+    if (valoreConfig) {
+      console.log('Config trovato nel localStorage:', valoreConfig);
+    } else {
+      console.log('Config non trovato');
+      this.buildURL();
+    }
+  }
+  getURL(component: string): string {
+    const config = localStorage.getItem('config');
+    console.log('Config URL:', config);
+    if (!config) this.buildURL();
+    const fullUrl = config ? config + component : '';
+    console.log('URL completo:', fullUrl);
+    return fullUrl;
+  }
+
+  private setSessione(response: SignIn): void {
+    localStorage.setItem('idUtente', response.idUtente.toString());
+    localStorage.setItem('idCliente', response.idCliente.toString());
+    localStorage.setItem('ruoloUtente', response.role);
+    localStorage.setItem(
+      'dataRegistrazione',
+      response.dataRegistrazione.toString()
+    );
+  }
+  getUtenteIdSessione(): number | null {
+    return +localStorage.getItem('idUtente');
+  }
+  getClienteIdSessione(): number | null {
+    return +localStorage.getItem('idCliente');
+  }
+  getRuoloUtente(): number | null {
+    return +localStorage.getItem('ruoloUtente');
   }
   logout(): void {
     // pulisco la session storage
