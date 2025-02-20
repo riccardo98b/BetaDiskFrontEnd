@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
+import { ProfiloService } from '../../servizi/profilo/profilo.service';
 
 @Component({
   selector: 'app-signin',
@@ -22,7 +23,8 @@ export class SigninComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) //
+  {}
 
   ngOnInit(): void {
     this.signinForm = this.formBuilder.group({

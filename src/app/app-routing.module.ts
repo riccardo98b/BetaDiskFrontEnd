@@ -16,6 +16,8 @@ import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
 import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
+import { AuthGuard } from './auth/auth.guard';
+import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'registrazione', component: RegistrazioneComponent },
   {
     path: 'carrello',
+    canActivate: [AuthGuard],
+    data: { roles: ['UTENTE', 'ADMIN'] },
     component: PaginaCarrelloComponent,
     children: [
       { path: '', component: CarrelloComponent },
@@ -33,20 +37,43 @@ const routes: Routes = [
   {
     path: 'admin/dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
     children: [
       { path: '', redirectTo: 'crea-prodotto', pathMatch: 'full' },
       { path: 'crea-prodotto', component: CreaProdottoComponent },
-      { path: 'ordini', component: OrdiniAdminComponent}
+      { path: 'ordini', component: OrdiniAdminComponent },
     ],
   },
   {
     path: 'dettaglio-prodotto/:idProdotto',
     component: DettaglioProdottoComponent,
   },
-  { path: 'profilo', component: ProfiloComponent },
-  { path: 'profilo/ordini', component: OrdiniComponent },
-  { path: 'profilo/recensioni', component: RecensioniComponent },
-  { path: 'wishlist', component: WishlistComponent },
+  {
+    path: 'profilo',
+    component: ProfiloComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['UTENTE', 'ADMIN'] },
+  },
+  {
+    path: 'profilo/ordini',
+    component: OrdiniComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['UTENTE', 'ADMIN'] },
+  },
+  {
+    path: 'profilo/recensioni',
+    component: RecensioniComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['UTENTE', 'ADMIN'] },
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['UTENTE', 'ADMIN'] },
+  },
+  { path: 'forbidden', component: Pagina403Component },
   { path: '**', component: Pagina404Component },
 ];
 

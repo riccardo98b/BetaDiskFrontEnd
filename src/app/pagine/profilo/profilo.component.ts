@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ClienteService } from '../../servizi/cliente/cliente.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtenteService } from '../../servizi/utente/utente.service';
@@ -6,6 +6,7 @@ import { catchError, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { MailService } from '../../servizi/mail/mail.service';
+import { ProfiloService } from '../../servizi/profilo/profilo.service';
 @Component({
   selector: 'app-profilo',
   standalone: false,
@@ -22,12 +23,14 @@ export class ProfiloComponent implements OnInit {
   immagineDefault: string =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
   // Messaggi di errore
+  nomeClienteBenvenuto: string = '';
   constructor(
     private clienteService: ClienteService,
     private utenteService: UtenteService,
     private router: Router,
     private authService: AuthService,
-    private mailService: MailService
+    private mailService: MailService,
+    private profiloService: ProfiloService
   ) {}
 
   inizializzaForm(): void {
@@ -76,7 +79,8 @@ export class ProfiloComponent implements OnInit {
         .subscribe((response: any) => {
           const clienteData = response.dati;
           console.log('Dati del cliente ricevuti dal server:', clienteData); // Aggiungi questo log
-
+          let nome = `${clienteData.nome}`;
+          this.profiloService.setNomeCliente(nome);
           this.clienteForm.patchValue({
             nome: clienteData.nome,
             cognome: clienteData.cognome,

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
+import { ProfiloService } from '../../servizi/profilo/profilo.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,12 +12,23 @@ import { AuthService } from '../../auth/auth.service';
 export class NavbarComponent implements OnInit {
   showNavbar: boolean = false;
   utenteId: number = 0;
+  clienteId: number = 0;
   logged: boolean = false;
-
-  constructor(private authService: AuthService) {}
+  role: string = '';
+  nomeClienteBenvenuto: string = '';
+  constructor(
+    private authService: AuthService,
+    private profiloService: ProfiloService //
+  ) {
+    this.profiloService.nomeCliente$.subscribe((nome) => {
+      this.nomeClienteBenvenuto = nome;
+    });
+  }
 
   ngOnInit(): void {
-    this.utenteId = +localStorage.getItem('idUtente')!;
+    this.utenteId = this.authService.getUtenteIdSessione();
+    this.clienteId = this.authService.getClienteIdSessione();
+    this.role = this.authService.getRuoloUtente();
   }
   // Toggle navbar al click dell'icona
   toggleNavbar() {
@@ -38,5 +51,14 @@ export class NavbarComponent implements OnInit {
   // Chiudi la navbar quando si clicca su un link
   closeNavbar() {
     this.showNavbar = false;
+  }
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  isRoleValidAndIdClienteValidi(): boolean {
+    return (
+      (this.role === 'ADMIN' || this.role === 'UTENTE') && this.clienteId !== 0
+    );
   }
 }

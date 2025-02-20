@@ -48,7 +48,7 @@
           <a class="nav-link" routerLink="/carrello">Carrello</a>
         </li>
         <li
-          *ngIf="isAuthenticated()"
+          *ngIf="isRoleValidAndIdClienteValidi()"
           class="nav-item dropdown px-3 px-lg-0 py-1 py-lg-4"
         >
           <a
@@ -61,7 +61,9 @@
             <mat-icon>account_circle</mat-icon>
           </a>
           <ul class="dropdown-menu">
-            <li class="dropdown-item not-hover">Benvenuto {{ utenteId }}</li>
+            <li class="dropdown-item not-hover">
+              Benvenuto {{ nomeClienteBenvenuto }}
+            </li>
             <li><a class="dropdown-item" routerLink="/profilo">Profilo</a></li>
             <li>
               <a class="dropdown-item" routerLink="/wishlist">Wishlist</a>
@@ -78,13 +80,26 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown px-3 px-lg-0 py-1 py-lg-4">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-           <mat-icon>manage_accounts</mat-icon>
+        <li
+          *ngIf="isAdmin()"
+          class="nav-item dropdown px-3 px-lg-0 py-1 py-lg-4"
+        >
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <mat-icon>manage_accounts</mat-icon>
           </a>
           <ul class="dropdown-menu">
-            <li class="dropdown-item not-hover">Bentornato {{utenteId}}</li>
-            <li><a class="dropdown-item" routerLink="/admin/dashboard">Dashboard</a></li>
+            <li class="dropdown-item not-hover">Bentornato Admin</li>
+            <li>
+              <a class="dropdown-item" routerLink="/admin/dashboard"
+                >Dashboard</a
+              >
+            </li>
           </ul>
         </li>
 
