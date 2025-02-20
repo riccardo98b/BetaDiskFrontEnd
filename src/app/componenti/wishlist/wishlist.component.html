@@ -1,18 +1,16 @@
 <div class="container-fluid d-flex flex-column container-filtri container">
-  <!-- Loader: Mostra durante il caricamento -->
   <app-loader *ngIf="isLoading"></app-loader>
 
-  <!-- Caso in cui la wishlist non esiste o è vuota -->
+  <!-- Caso wishlist non esistente -->
   <div *ngIf="wishlistNonEsiste && !isLoading" class="empty-wishlist">
     <p>La tua wishlist non esiste ancora. Aggiungi un <a routerLink="/prodotti">prodotto</a> per crearla!</p>
   </div>
 
-  <!-- Caso in cui la wishlist esiste ma è vuota -->
+  <!-- Caso wishlist vuota -->
   <div *ngIf="!wishlistNonEsiste && wishlist.length === 0 && !isLoading" class="empty-wishlist">
     <p>La tua wishlist è vuota. Aggiungi <a routerLink="/prodotti">prodotti</a>!</p>
   </div>
 
-  <!-- Bottone 'Clear All Wishlist' mostrato solo se la wishlist ha prodotti -->
   <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
     <button (click)="clearAllFromWishlist()">Clear All Wishlist</button>
   </div>
