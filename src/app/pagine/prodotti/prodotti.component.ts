@@ -18,6 +18,8 @@ export class ProdottiComponent implements OnInit {
   listaArtisti: string[] = [];
   isLoading: boolean;
   filtriPresenti: boolean = false;
+  idCliente = +localStorage.getItem('idCliente')!;
+  cartBadge: { [idProdotto: number]: number } = {};
 
   constructor(
     private service: ProdottiService,
@@ -26,18 +28,25 @@ export class ProdottiComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getTuttiProdotti();
+    this.serviceCarrello.listaProdotti(this.idCliente).subscribe((r: any) => {
+      if (r.rc) {
+        r.dati.prodotti.forEach((p:any) => {
+          console.log(p)
+          console.log(p.prodotto.idProdotto)
+          this.cartBadge[p.prodotto.idProdotto]=p.prodotto?.prodottiCarrello[0]?.quantita})
+      }
+    });
+    this.isLoading = false;
   }
 
   getTuttiProdotti() {
-    this.isLoading = true;
     this.service.listAll().subscribe((resp) => {
       this.response = resp;
       if (this.response.rc === true) {
         this.data = this.response.dati;
-      } else {
-      }
-      this.isLoading = false;
+      }     
     });
   }
 
@@ -117,7 +126,7 @@ export class ProdottiComponent implements OnInit {
   //Aggiungi prodotto al carrello
   aggiungiProdotto(idProdotto: number) {
     this.serviceCarrello
-      .addProdotto({ idProdotto: idProdotto, idCliente: 2, quantita: 1 })
+      .addProdotto({ idProdotto: idProdotto, idCliente: this.idCliente, quantita: 1 })
       .subscribe((resp) => {
         this.response = resp;
       });

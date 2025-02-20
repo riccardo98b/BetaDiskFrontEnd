@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit{
     private mailServ: MailService,
      private router: Router,){}
 
-  idCliente = +sessionStorage.getItem('idCliente')!;
+  idCliente = +localStorage.getItem('idCliente')!;
   isLoading: boolean;
   prodottiCarrello: ProdottoCarrello[];
   totale=0;
@@ -71,7 +71,11 @@ export class CheckoutComponent implements OnInit{
         this.rc = r.rc;
         if (r.rc) {
           let mailRequest = {
-            to : this.clienteForm.value.email
+            toEmail : this.clienteForm.value.email,
+            nome : this.clienteForm.value.nome,
+            cognome: this.clienteForm.value.cognome,
+            prodotti: this.prodottiCarrello,
+            totale: this.totale
           }
           this.mailServ.confermaOrdine(mailRequest).subscribe();
         }

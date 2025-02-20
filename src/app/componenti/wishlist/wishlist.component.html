@@ -1,39 +1,27 @@
-<div class="container d-flex flex-column container-wishlist">
-  <div *ngIf="isLoading" class="loader-container">
-    <app-loader></app-loader>
+<div class="container-fluid d-flex flex-column container-filtri container">
+  <!-- Loader: Mostra durante il caricamento -->
+  <app-loader *ngIf="isLoading"></app-loader>
+
+  <!-- Bottone 'Clear All Wishlist' centrato in alto sopra le card -->
+  <div class="clear-wishlist-btn-container">
+    <button (click)="clearAllFromWishlist()">Clear All Wishlist</button>
   </div>
 
-  <!-- Introduzione dell'utente -->
-  <div *ngIf="!isLoading && utente" class="welcome-message">
-    <h3>Benvenuto, {{ utente.nome }} {{ utente.cognome }}!</h3>
-    <p>Questa è la tua wishlist. Goditi gli articoli e facci sapere la tua esperienza con noi</p>
-  </div>
-
-  <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
-    <button (click)="clearAllFromWishlist()">Svuota la wishlist</button>
-  </div>
-
-  <div *ngIf="!isLoading" class="row g-4 main-content">
+  <!-- Mostra la wishlist -->
+  <div class="row g-4 main-content">
     <div
       class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
-      *ngFor="let prodotto of wishlist"
+      *ngFor="let prodotto of wishlist; trackBy: trackById"
     >
-      <app-card [prodotto]="prodotto" [responsive]="true">
+      <!-- Usa il componente app-card per la visualizzazione del prodotto -->
+      <app-card [prodotto]="prodotto" [responsive]="false">
+        <!-- Bottoni specifici per la wishlist -->
         <div id="card-buttons">
-
-          <button
-            mat-fab
-            extended
-            (click)="removeFromWishlist(prodotto)"
-          >
-            Rimuovi
+          <button mat-fab extended (click)="removeFromWishlist(prodotto)">
+            Rimuovi dalla Wishlist
           </button>
-          <button
-            mat-fab
-            extended
-            (click)="addToWishlist(prodotto)"
-          >
-            Maggiori info
+          <button mat-fab extended (click)="addToCarrello(prodotto)">
+            Aggiungi al Carrello
           </button>
         </div>
       </app-card>

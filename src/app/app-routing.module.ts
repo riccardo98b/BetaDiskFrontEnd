@@ -12,10 +12,14 @@ import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CreaProdottoComponent } from './admin/crea-prodotto/crea-prodotto.component';
+import { OrdiniComponent } from './pagine/ordini/ordini.component';
+import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
+import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'signin', component: SigninComponent },
+  { path: 'registrazione', component: RegistrazioneComponent },
   {
     path: 'carrello',
     component: PaginaCarrelloComponent,
@@ -25,7 +29,6 @@ const routes: Routes = [
     ],
   },
   { path: 'prodotti', component: ProdottiComponent },
-  { path: 'profilo', component: ProfiloComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -38,6 +41,9 @@ const routes: Routes = [
     path: 'dettaglio-prodotto/:idProdotto',
     component: DettaglioProdottoComponent,
   },
+  { path: 'profilo', component: ProfiloComponent },
+  { path: 'profilo/ordini', component: OrdiniComponent },
+  { path: 'profilo/recensioni', component: RecensioniComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: '**', component: Pagina404Component },
 ];

@@ -5,4 +5,5 @@ export interface SignIn {
   idUtente: number;
   idCliente: number;
   password: string;
+  dataRegistrazione: Date;
 }
