@@ -21,7 +21,7 @@ export class RecensioniComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading=true;
-    this.serv.listaRecensioni(this.idCliente).subscribe((r:any) => {
+    this.serv.listaRecensioniUtente(this.idCliente).subscribe((r:any) => {
       if (r.rc) {
         this.recensioni = r.dati;
       } else {
@@ -30,5 +30,13 @@ export class RecensioniComponent implements OnInit {
       }
     });
     this.isLoading=false;
+  }
+
+  modificaRecensione(id:number) {
+
+  }
+
+  eliminaRecensione(id:number) {
+
   }
 }

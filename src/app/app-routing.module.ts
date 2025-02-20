@@ -13,21 +13,28 @@ import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrell
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioneComponent } from './componenti/recensione/recensione.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
+import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'carrello', component: PaginaCarrelloComponent,
+  { path: 'registrazione', component: RegistrazioneComponent },
+  {
+    path: 'carrello',
+    component: PaginaCarrelloComponent,
     children: [
       { path: '', component: CarrelloComponent },
-      { path: 'checkout', component: CheckoutComponent }
-    ]
-   },
+      { path: 'checkout', component: CheckoutComponent },
+    ],
+  },
   { path: 'prodotti', component: ProdottiComponent },
-  { path: 'dettaglio-prodotto/:idProdotto', component: DettaglioProdottoComponent},
+  {
+    path: 'dettaglio-prodotto/:idProdotto',
+    component: DettaglioProdottoComponent,
+  },
   { path: 'profilo', component: ProfiloComponent },
-  { path: 'profilo/ordini', component: OrdiniComponent},
-  { path: 'profilo/recensioni', component: RecensioniComponent},
+  { path: 'profilo/ordini', component: OrdiniComponent },
+  { path: 'profilo/recensioni', component: RecensioniComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: '**', component: Pagina404Component },
 ];

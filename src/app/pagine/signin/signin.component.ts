@@ -16,6 +16,7 @@ export class SigninComponent {
   ruoloUtente: string | null = null;
   idUtente: number | null = null;
   idCliente: number | null = null;
+  dataRegistrazione: Date | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,10 +47,15 @@ export class SigninComponent {
           this.ruoloUtente = response.role;
           this.idUtente = response.idUtente;
           this.idCliente = response.idCliente;
+          this.dataRegistrazione = response.dataRegistrazione;
 
           localStorage.setItem('idUtente', this.idUtente.toString());
           localStorage.setItem('idCliente', this.idCliente.toString());
           localStorage.setItem('ruoloUtente', this.ruoloUtente);
+          localStorage.setItem(
+            'dataRegistrazione',
+            this.dataRegistrazione.toString()
+          );
 
           this.router.navigate(['/']);
         } else {
