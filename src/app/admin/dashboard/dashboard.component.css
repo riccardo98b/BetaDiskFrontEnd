@@ -1,9 +1,9 @@
 .nav-container {
   width: auto;
   height: 80vh;
+
   margin: 10px;
   border: 1px solid #555;
-
   background: #eee;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .link-admin:hover {
-  background-color: #BBB;
+  background-color: #bbb;
 }
 
 .dashboard {

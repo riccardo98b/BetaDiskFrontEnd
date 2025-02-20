@@ -3,6 +3,7 @@ import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
+import { LoaderService } from '../../servizi/loader.service';
 
 @Component({
   selector: 'app-prodotti',
@@ -24,29 +25,41 @@ export class ProdottiComponent implements OnInit {
   constructor(
     private service: ProdottiService,
     private route: Router,
-    private serviceCarrello: CarrelloService
+    private serviceCarrello: CarrelloService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.getTuttiProdotti();
-    this.serviceCarrello.listaProdotti(this.idCliente).subscribe((r: any) => {
-      if (r.rc) {
-        r.dati.prodotti.forEach((p:any) => {
-          console.log(p)
-          console.log(p.prodotto.idProdotto)
-          this.cartBadge[p.prodotto.idProdotto]=p.prodotto?.prodottiCarrello[0]?.quantita})
-      }
+    this.loader.loaderState.subscribe((state) => {
+      this.isLoading = state;
     });
-    this.isLoading = false;
+    this.getTuttiProdotti();
+    this.getProdottiPerPersona();
+  }
+
+  getProdottiPerPersona() {
+    this.serviceCarrello.listaProdotti(this.idCliente).subscribe((r: any) => {
+      this.loader.startLoader();
+      if (r.rc) {
+        r.dati.prodotti.forEach((p: any) => {
+          console.log(p);
+          console.log(p.prodotto.idProdotto);
+          this.cartBadge[p.prodotto.idProdotto] =
+            p.prodotto?.prodottiCarrello[0]?.quantita;
+        });
+      }
+      this.loader.stopLoader();
+    });
   }
 
   getTuttiProdotti() {
+    this.loader.startLoader();
     this.service.listAll().subscribe((resp) => {
       this.response = resp;
       if (this.response.rc === true) {
         this.data = this.response.dati;
-      }     
+      }
+      this.loader.stopLoader();
     });
   }
 
@@ -126,7 +139,11 @@ export class ProdottiComponent implements OnInit {
   //Aggiungi prodotto al carrello
   aggiungiProdotto(idProdotto: number) {
     this.serviceCarrello
-      .addProdotto({ idProdotto: idProdotto, idCliente: this.idCliente, quantita: 1 })
+      .addProdotto({
+        idProdotto: idProdotto,
+        idCliente: this.idCliente,
+        quantita: 1,
+      })
       .subscribe((resp) => {
         this.response = resp;
       });
