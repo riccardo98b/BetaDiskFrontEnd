@@ -1,33 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrdineService {
+  //url = 'http://localhost:9090/rest/ordine/';
 
-  url = "http://localhost:9090/rest/ordine/"
-  
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  inviaOrdine(body: {}){
-    return this.http.post(this.url + "create", body)
+  inviaOrdine(body: {}) {
+    const url = this.authService.getURL('ordine/create');
+    return this.http.post(url, body);
   }
 
   listaOrdini(id: number) {
-    return this.http.get(this.url + "lista?id=" + id)
+    const url = this.authService.getURL('ordine/lista?id=' + id.toString());
+
+    return this.http.get(url);
   }
 
   eliminaOrdine(body: {}) {
-    return this.http.post(this.url + "delete", body)
+    const url = this.authService.getURL('ordine/delete');
+    return this.http.post(url, body);
   }
 
   updateOrdine(body: {}) {
-    return this.http.post(this.url + "update", body)
+    const url = this.authService.getURL('ordine/update');
+    return this.http.post(url, body);
   }
 
   listaOrdiniAdmin(data: string) {
-    return this.http.get(this.url + "lista-admin?data=" + data)
+    const url = this.authService.getURL('ordine/lista-admin?data=' + data);
+    return this.http.get(url);
   }
-
 }
