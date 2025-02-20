@@ -13,4 +13,5 @@
 
 .mat {
   width: 25%;
+  z-index: auto;
 }

@@ -16,7 +16,6 @@ export class CreaProdottoComponent implements OnInit {
   listaFormati: string[] = [];
   data: Prodotto[];
   isLoading: boolean = false;
-  @Output() successo: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private service: ProdottiService) {}
 
@@ -27,12 +26,12 @@ export class CreaProdottoComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.service.createProdotto(this.prodottoForm.value).subscribe((resp) => {
-      this.isLoading = false;
+      this.resp = resp;
       if (this.resp.rc === true) {
-        this.successo.emit(true);
+        console.log(resp);
       } else {
-        this.successo.emit(false);
       }
+      this.isLoading = false;
     });
   }
 
@@ -48,13 +47,5 @@ export class CreaProdottoComponent implements OnInit {
       quantita: new FormControl('', [Validators.required]),
       immagineProdotto: new FormControl('', [Validators.required]),
     });
-  }
-
-  openModale() {
-    this.successo.emit(true);
-  }
-
-  closeModale() {
-    this.successo.emit(false);
   }
 }
