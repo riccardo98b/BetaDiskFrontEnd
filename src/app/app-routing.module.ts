@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   { path: 'prodotti', component: ProdottiComponent },
   {
-    path: 'dashboard',
+    path: 'admin/dashboard',
     component: DashboardComponent,
     children: [
       { path: '', redirectTo: 'crea-prodotto', pathMatch: 'full' },
