@@ -1,0 +1,86 @@
+
+.welcome-message {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.welcome-message h3 {
+  font-size: 24px;
+  color: #333;
+}
+
+.welcome-message p {
+  font-size: 16px;
+  color: #666;
+}
+
+
+#card-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+button {
+  padding: 10px 20px;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .9s ease;
+}
+
+button:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+
+.clear-wishlist-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.clear-wishlist-btn-container button {
+  background-color: #ef6700;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.clear-wishlist-btn-container button:hover {
+  background-color: #a62929;
+  color: white;
+}
+
+
+.wishlist-button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.wishlist-button:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+
+.empty-wishlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+}
