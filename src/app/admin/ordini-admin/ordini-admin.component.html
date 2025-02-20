@@ -1,5 +1,8 @@
 <div class="container my-5 px-5">
-    <h2 class="mb-4">Riepilogo degli ordini richiesti</h2>
+    <p>Selezionare una data dalla quale cercare gli ordini fino ad oggi</p>
+    <button mat-flat-button color="primary" (click)="openDialog()">Open Dialog</button>
+    
+    <h3 class="mb-4">Riepilogo degli ordini richiesti</h3>
     <mat-accordion>
         <mat-expansion-panel hideToggle *ngFor="let ordine of ordini">
           <mat-expansion-panel-header class="d-flex justify-content-between">

@@ -69,4 +69,8 @@ export class OrdiniAdminComponent {
       this.isLoading=false;
   
     }
+
+    openDialog() {
+      
+    }
 }
