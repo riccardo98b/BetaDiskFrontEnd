@@ -1,1 +1,31 @@
-<p>dashboard works!</p>
+<app-pop-up *ngIf="true"></app-pop-up>
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="dashboard">
+  <mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened class="mat">
+      <mat-list role="list">
+        <mat-list-item
+          role="listitem"
+          routerLink="crea-prodotto"
+          [routerLinkActive]="'active'"
+          >Crea un nuovo prodotto</mat-list-item
+        >
+        <mat-list-item
+          role="listitem"
+          routerLink="pagina2"
+          [routerLinkActive]="'active'"
+          >Lista di tutti i clienti</mat-list-item
+        >
+        <mat-list-item
+          role="listitem"
+          routerLink="pagina3"
+          [routerLinkActive]="'active'"
+          >Pagina 3</mat-list-item
+        >
+      </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

@@ -1,0 +1,16 @@
+.example-container {
+  width: auto;
+  height: 80vh;
+  margin: 10px;
+  border: 1px solid #555;
+
+  background: #eee;
+}
+
+.dashboard {
+  width: 80%;
+}
+
+.mat {
+  width: 25%;
+}

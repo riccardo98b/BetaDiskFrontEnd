@@ -1,0 +1,126 @@
+<div>
+  <form [formGroup]="prodottoForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Formato Prodotto</mat-label>
+      <mat-select formControlName="formato">
+        <mat-option value="CD">CD</mat-option>
+        <mat-option value="VINILE">VINILE</mat-option>
+        <mat-option value="DVD">DVD</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Titolo</mat-label>
+      <input
+        matInput
+        formControlName="titolo"
+        placeholder="Inserisci un titolo"
+      />
+      <mat-error *ngIf="prodottoForm.get('titolo')?.hasError('required')">
+        Il titolo è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Artista</mat-label>
+      <input
+        matInput
+        formControlName="artista"
+        placeholder="Inserisci l'artista"
+      />
+      <mat-error *ngIf="prodottoForm.get('artista')?.hasError('required')">
+        L'artista è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Genere</mat-label>
+      <input
+        matInput
+        formControlName="genere"
+        placeholder="Inserisci un genere"
+      />
+      <mat-error *ngIf="prodottoForm.get('genere')?.hasError('required')">
+        Il genere è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Descrizione</mat-label>
+      <input
+        matInput
+        formControlName="descrizione"
+        placeholder="Inserisci una descrizione"
+      />
+      <mat-error *ngIf="prodottoForm.get('descrizione')?.hasError('required')">
+        La descrizione è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Anno pubblicazione</mat-label>
+      <input
+        matInput
+        formControlName="annoPubblicazione"
+        placeholder="Inserisci l'anno di pubblicazione"
+      />
+      <mat-error
+        *ngIf="prodottoForm.get('annoPubblicazione')?.hasError('required')"
+      >
+        L'anno di pubblicazione è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Prezzo</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="prezzo"
+        placeholder="Inserisci un prezzo"
+      />
+      <mat-error *ngIf="prodottoForm.get('prezzo')?.hasError('required')">
+        Il prezzo è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Quantità disponibile</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="quantita"
+        placeholder="Quantità disponibile"
+      />
+      <mat-error *ngIf="prodottoForm.get('quantita')?.hasError('required')">
+        La quantità è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Immagine Prodotto</mat-label>
+      <input
+        matInput
+        formControlName="immagineProdotto"
+        placeholder="Inserisci un'immagine"
+      />
+      <mat-error
+        *ngIf="prodottoForm.get('immagineProdotto')?.hasError('required')"
+      >
+        L'immagine è obbligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="d-flex gap-2 align-items-stretch">
+      <button
+        class="w-50"
+        mat-fab
+        extended
+        type="submit"
+        [disabled]="prodottoForm.invalid"
+      >
+        Salva
+      </button>
+    </div>
+  </form>
+</div>

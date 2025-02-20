@@ -30,7 +30,7 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color .9s ease;
 }
 
 button:hover {
@@ -65,11 +65,22 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 1s ease;
   margin-bottom: 10px;
 }
 
 .wishlist-button:hover {
   background-color: #28a745;
   color: white;
+}
+
+
+.empty-wishlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
 }

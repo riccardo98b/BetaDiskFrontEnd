@@ -13,6 +13,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // Aggiungi M
 import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputModule
 import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
 import { MatError } from '@angular/material/form-field';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 
@@ -44,6 +47,9 @@ import { SigninComponent } from './pagine/signin/signin.component';
 import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
+import { CreaProdottoComponent } from './admin/crea-prodotto/crea-prodotto.component';
+import { PopUpComponent } from './componenti/pop-up/pop-up.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
@@ -71,6 +77,8 @@ registerLocaleData(localeIt, 'it');
     CheckoutComponent,
     PaginaCarrelloComponent,
     PresentazioneSectionComponent,
+    CreaProdottoComponent,
+    PopUpComponent,
     OrdiniComponent,
     RecensioniComponent,
     RegistrazioneComponent,
@@ -88,6 +96,10 @@ registerLocaleData(localeIt, 'it');
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatSidenavModule,
+    MatDialogModule,
+    MatListModule,
+    MatSelectModule,
     MatExpansionModule,
     MatBadgeModule,
   ],
