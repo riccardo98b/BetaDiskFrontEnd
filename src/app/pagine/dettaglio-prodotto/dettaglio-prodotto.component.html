@@ -40,7 +40,7 @@
                 {{ i + 1 }}
               </option>
             </select>
-            <button mat-fab extended type="submit">Acquista</button>
+            <button mat-fab extended type="submit" [disabled]="prodottoSelezionato.quantita==0">Acquista</button>
           </form>
         </div>
       </app-card>
