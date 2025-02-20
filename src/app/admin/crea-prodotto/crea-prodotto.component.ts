@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Prodotto } from '../../interfacce/Prodotto';
+import { LoaderService } from '../../servizi/loader.service';
 
 @Component({
   selector: 'app-crea-prodotto',
@@ -15,23 +16,23 @@ export class CreaProdottoComponent implements OnInit {
   rc: boolean;
   listaFormati: string[] = [];
   data: Prodotto[];
-  isLoading: boolean = false;
-
-  constructor(private service: ProdottiService) {}
+  constructor(
+    private service: ProdottiService,
+    private loader: LoaderService
+  ) {}
 
   ngOnInit(): void {
     this.prodottoForm = this.formInit();
   }
 
   onSubmit() {
-    this.isLoading = true;
+    this.loader.startLoader();
     this.service.createProdotto(this.prodottoForm.value).subscribe((resp) => {
       this.resp = resp;
       if (this.resp.rc === true) {
         console.log(resp);
-      } else {
       }
-      this.isLoading = false;
+      this.loader.stopLoader();
     });
   }
 

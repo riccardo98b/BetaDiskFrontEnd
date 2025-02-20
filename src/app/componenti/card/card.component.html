@@ -7,7 +7,9 @@
       alt="immagine-prodotto"
     />
     <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
-      <h5 class="card-titolo" [ngClass]="{'titolo-dettaglio' : responsive}">{{ prodotto?.titolo }}</h5>
+      <h5 class="card-titolo" [ngClass]="{ 'titolo-dettaglio': responsive }">
+        {{ prodotto?.titolo }}
+      </h5>
       <p class="card-artista">{{ prodotto?.artista }}</p>
 
       <ng-content for="div#card-infos"></ng-content>
@@ -18,12 +20,23 @@
         <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
       </div>
       <div class="d-flex justify-content-around mb-3">
-        <div *ngIf="cartBadge[prodotto.idProdotto] > 0" class="pt-1">
-          <mat-icon [matBadge]="cartBadge[prodotto.idProdotto]" >shopping_cart</mat-icon>
+        <div *ngIf="cartBadge[prodotto?.idProdotto] > 0" class="pt-1">
+          <mat-icon [matBadge]="cartBadge[prodotto.idProdotto]"
+            >shopping_cart</mat-icon
+          >
         </div>
-        <div *ngIf="cartBadge[prodotto.idProdotto] == null"><mat-icon></mat-icon></div> <!--mat-icon vuoto per posizionamento verticale-->
-        <i class="bi bi-balloon-heart" *ngIf="prodotto?.prodottiWishlist.length == 0"></i>
-        <i class="bi bi-balloon-heart-fill" *ngIf="prodotto?.prodottiWishlist.length != 0"></i>
+        <div *ngIf="cartBadge[prodotto?.idProdotto] == null">
+          <mat-icon></mat-icon>
+        </div>
+        <!--mat-icon vuoto per posizionamento verticale-->
+        <i
+          class="bi bi-balloon-heart"
+          *ngIf="prodotto?.prodottiWishlist.length == 0"
+        ></i>
+        <i
+          class="bi bi-balloon-heart-fill"
+          *ngIf="prodotto?.prodottiWishlist.length != 0"
+        ></i>
       </div>
 
       <ng-content for="div#card-buttons"></ng-content>
