@@ -38,6 +38,10 @@ export class AuthService {
     );
   }
 
+  isLoggedOut(): boolean {
+    return !this.isAuthenticated();
+  }
+
   private setRottaPerRuolo(): void {
     this.router;
     if (this.isAdmin()) {

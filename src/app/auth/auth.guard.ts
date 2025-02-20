@@ -19,6 +19,10 @@ export class AuthGuard implements CanActivate {
   ): boolean {
     if (!this.authService.isAuthenticated()) {
       console.log('Accesso vietato: Utente non autentificato');
+      if (this.authService.isLoggedOut()) {
+        this.router.navigate(['/signin']);
+        return false;
+      }
 
       if (state.url.includes('/carrello')) {
         this.router.navigate(['/signin']);
