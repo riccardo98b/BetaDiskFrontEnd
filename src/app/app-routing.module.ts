@@ -15,6 +15,7 @@ import { CreaProdottoComponent } from './admin/crea-prodotto/crea-prodotto.compo
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
+import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -30,11 +31,12 @@ const routes: Routes = [
   },
   { path: 'prodotti', component: ProdottiComponent },
   {
-    path: 'dashboard',
+    path: 'admin/dashboard',
     component: DashboardComponent,
     children: [
       { path: '', redirectTo: 'crea-prodotto', pathMatch: 'full' },
       { path: 'crea-prodotto', component: CreaProdottoComponent },
+      { path: 'ordini', component: OrdiniAdminComponent}
     ],
   },
   {

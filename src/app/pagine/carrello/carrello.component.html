@@ -42,7 +42,7 @@
                       <mat-icon>remove</mat-icon>
                     </button>
                     <span>{{prodottoCarrello.quantita}}</span>
-                    <button mat-mini-fab aria-label="Pulsante aggiungi un articolo" (click)="aggiungiProdotto(prodottoCarrello.prodotto?.idProdotto)">
+                    <button mat-mini-fab aria-label="Pulsante aggiungi un articolo" (click)="aggiungiProdotto(prodottoCarrello.prodotto?.idProdotto)" [disabled]="prodottoCarrello.prodotto.quantita==0">
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
