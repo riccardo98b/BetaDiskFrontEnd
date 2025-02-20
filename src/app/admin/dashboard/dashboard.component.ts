@@ -1,4 +1,5 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, inject, Input } from '@angular/core';
+import { LoaderService } from '../../servizi/loader.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,5 +9,11 @@ import { Component, Inject, inject } from '@angular/core';
 })
 export class DashboardComponent {
   isLoading: boolean;
-  successo: boolean;
+  constructor(private loader: LoaderService) {}
+
+  ngOnInit(): void {
+    this.loader.loaderState.subscribe((state) => {
+      this.isLoading = state;
+    });
+  }
 }

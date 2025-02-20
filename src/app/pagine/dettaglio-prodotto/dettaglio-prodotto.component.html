@@ -11,7 +11,7 @@
           <p class="card-artista">{{ prodottoSelezionato?.descrizione }}</p>
           <em class="card-artista">{{ prodottoSelezionato?.genere }}</em>
           <div class="recensioni mt-3">
-            <p>Recensioni: {{ prodottoSelezionato.recensioni.length }}</p>
+            <p>Recensioni: {{ prodottoSelezionato?.recensioni.length }}</p>
             <div class="stelle">
               <i
                 class="bi bi-star-fill"
@@ -40,7 +40,14 @@
                 {{ i + 1 }}
               </option>
             </select>
-            <button mat-fab extended type="submit" [disabled]="prodottoSelezionato.quantita==0">Acquista</button>
+            <button
+              mat-fab
+              extended
+              type="submit"
+              [disabled]="prodottoSelezionato?.quantita == 0"
+            >
+              Acquista
+            </button>
           </form>
         </div>
       </app-card>

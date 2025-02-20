@@ -7,8 +7,4 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './pop-up.component.html',
   styleUrl: './pop-up.component.css',
 })
-export class PopUpComponent {
-
-  data= {msg : "ciao"};
-  
-}
+export class PopUpComponent {}
