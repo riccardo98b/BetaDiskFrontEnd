@@ -43,7 +43,6 @@ export class SigninComponent {
         if (response.logged) {
           this.logged = true;
           this.messaggioErrore = null;
-          this.router.navigate(['/']);
         } else {
           this.logged = false;
           this.messaggioErrore =

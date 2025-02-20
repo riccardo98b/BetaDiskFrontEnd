@@ -6,8 +6,6 @@ import { AuthService } from '../../auth/auth.service';
   providedIn: 'root',
 })
 export class MailService {
-  url = 'http://localhost:9090/rest/mail/';
-
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   confermaOrdine(body: {}) {

@@ -28,12 +28,30 @@ export class AuthService {
           console.log('Login effettuato con successo');
           this.setSessione(response);
           this.gestisciConfig();
+          this.setRottaPerRuolo();
         } else {
           console.log('Credenziali non valide');
         }
       })
     );
   }
+
+  private setRottaPerRuolo(): void {
+    if (this.isAdmin()) {
+      console.log('Ruolo: Amministratore');
+      this.router.navigate(['/admin-dashboard']).then(() => {
+        console.log('Navigazione completata verso /admin-dashboard');
+      });
+    } else if (this.isUtente()) {
+      console.log('Ruolo: Utente');
+      this.router.navigate(['/']).then(() => {
+        console.log('Navigazione completata verso /');
+      });
+    } else {
+      console.log('Credenziali non valide');
+    }
+  }
+
   private buildURL() {
     this.config.getConfig().subscribe((response: any) => {
       console.log('Risposta dal config:', response);
@@ -69,7 +87,7 @@ export class AuthService {
   private setSessione(response: SignIn): void {
     localStorage.setItem('idUtente', response.idUtente.toString());
     localStorage.setItem('idCliente', response.idCliente.toString());
-    localStorage.setItem('ruoloUtente', response.role);
+    localStorage.setItem('ruoloUtente', response.role.toString());
     localStorage.setItem(
       'dataRegistrazione',
       response.dataRegistrazione.toString()
@@ -81,8 +99,8 @@ export class AuthService {
   getClienteIdSessione(): number | null {
     return +localStorage.getItem('idCliente');
   }
-  getRuoloUtente(): number | null {
-    return +localStorage.getItem('ruoloUtente');
+  getRuoloUtente(): string | null {
+    return localStorage.getItem('ruoloUtente');
   }
   logout(): void {
     // pulisco la session storage
@@ -97,5 +115,15 @@ export class AuthService {
 
   getUserRole(): string | null {
     return localStorage.getItem('ruoloUtente');
+  }
+
+  isAdmin(): boolean {
+    console.log('Ruolo utente:', this.getRuoloUtente());
+    return this.getRuoloUtente() === 'ADMIN';
+  }
+
+  isUtente(): boolean {
+    console.log('Ruolo utente:', this.getRuoloUtente());
+    return this.getRuoloUtente() === 'UTENTE';
   }
 }

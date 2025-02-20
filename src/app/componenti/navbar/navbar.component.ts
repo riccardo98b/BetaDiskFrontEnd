@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
   showNavbar: boolean = false;
   utenteId: number = 0;
   logged: boolean = false;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
   displayLoginElement(): void {
     this.logged = this.authService.isAuthenticated();
   }
+
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
