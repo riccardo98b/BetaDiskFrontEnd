@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,8 @@ export class NavbarComponent implements OnInit {
   nomeClienteBenvenuto: string = '';
   constructor(
     private authService: AuthService,
-    private profiloService: ProfiloService //
+    private profiloService: ProfiloService, //,
+    private router: Router
   ) {
     this.profiloService.nomeCliente$.subscribe((nome) => {
       this.nomeClienteBenvenuto = nome;
@@ -45,6 +47,7 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    window.location.reload();
     this.logged = false;
   }
 

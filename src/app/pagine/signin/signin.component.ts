@@ -22,9 +22,8 @@ export class SigninComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
-  ) //
-  {}
+    private authService: AuthService //
+  ) {}
 
   ngOnInit(): void {
     this.signinForm = this.formBuilder.group({
