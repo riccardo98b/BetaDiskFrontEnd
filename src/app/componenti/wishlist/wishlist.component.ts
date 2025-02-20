@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
 import { Prodotto } from '../../interfacce/Prodotto';
+import { CarrelloService } from '../../servizi/carrello/carrello.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -9,15 +10,17 @@ import { Prodotto } from '../../interfacce/Prodotto';
   styleUrls: ['./wishlist.component.css'],
 })
 export class WishlistComponent implements OnInit {
+
   wishlist: Prodotto[] = [];
   isLoading: boolean = true;
-  currentUserId: number = 2;
+  currentUserId: number | null = null;
   wishlistNonEsiste: boolean = false;
 
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
+  cartBadge: { [idProdotto: number]: number } = {};
 
-  constructor(private wishlistService: WishlistService) {}
+  constructor(private wishlistService: WishlistService, private carrelloService: CarrelloService) {}
 
   ngOnInit(): void {
     this.inizializzaWishlist();
@@ -75,7 +78,21 @@ export class WishlistComponent implements OnInit {
 
 
   addToCarrello(prodotto: Prodotto): void {
-    console.log('Aggiunto al carrello', prodotto);
+    let request = {
+      idCliente: this.currentUserId,
+      idProdotto: prodotto.idProdotto,
+      quantita: 1
+    };
+
+    this.carrelloService.addProdotto(request).subscribe({
+      next: (response) => {
+        console.log('Prodotto aggiunto al carrello:', response);
+        this.removeFromWishlist(prodotto); // Rimuove il prodotto dalla wishlist
+      },
+      error: (error) => {
+        console.error('Errore durante l\'aggiunta al carrello:', error);
+      }
+    });
   }
 
   removeFromWishlist(prodotto: Prodotto): void {
@@ -110,6 +127,11 @@ export class WishlistComponent implements OnInit {
   }
 
   checkOrCreateWishlist(): void {
+    if (!this.currentUserId) {
+      console.error("Errore: Nessun utente loggato.");
+      return;
+    }
+
     this.wishlistService.getWishlist(this.currentUserId).subscribe({
       next: (data) => {
         if (data && Array.isArray(data.dati) && data.dati.length > 0) {
@@ -122,6 +144,9 @@ export class WishlistComponent implements OnInit {
       },
       error: (error) => {
         console.error("Errore nel recupero della wishlist:", error);
+        if (error.status === 500) {
+          console.error("Errore interno del server. Potrebbe esserci un problema con il backend.");
+        }
         this.isLoading = false;
       },
       complete: () => {
@@ -129,4 +154,5 @@ export class WishlistComponent implements OnInit {
       }
     });
   }
+
 }
