@@ -8,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class DialogDataComponent {
 
+  // dialog = inject(MatDialog);
+
+  // selectedDate = model<Date | null>(null);
+
+  // openDialog() {
+  //   const dialogRef = this.dialog.open(DatepickerDialogExampleDialog, {
+  //     minWidth: '500px',
+  //     data: {selectedDate: this.selectedDate()},
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.selectedDate.set(result);
+  //   });
+  // }
 }

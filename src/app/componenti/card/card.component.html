@@ -28,14 +28,14 @@
         <div *ngIf="cartBadge[prodotto?.idProdotto] == null">
           <mat-icon></mat-icon>
         </div>
-        <!--mat-icon vuoto per posizionamento verticale-->
+
         <i
           class="bi bi-balloon-heart"
-          *ngIf="prodotto?.prodottiWishlist.length == 0"
+          *ngIf="prodotto?.prodottiWishlist?.length == 0"
         ></i>
         <i
           class="bi bi-balloon-heart-fill"
-          *ngIf="prodotto?.prodottiWishlist.length != 0"
+          *ngIf="prodotto?.prodottiWishlist?.length != 0"
         ></i>
       </div>
 
