@@ -2,27 +2,29 @@
   <!-- Loader: Mostra durante il caricamento -->
   <app-loader *ngIf="isLoading"></app-loader>
 
-  <!-- Bottone 'Clear All Wishlist' centrato in alto sopra le card -->
-  <div class="clear-wishlist-btn-container">
+  <!-- Caso in cui la wishlist non esiste -->
+  <div *ngIf="wishlistNonEsiste && !isLoading" class="text-center">
+    <p>La tua wishlist non esiste. Creala ora!</p>
+    <button (click)="createWishlist()">Crea Wishlist</button>
+  </div>
+
+    <!-- Caso in cui la wishlist è vuota ma esiste -->
+  <div *ngIf="!wishlistNonEsiste && wishlist.length === 0 && !isLoading" class="empty-wishlist">
+    <p>La tua wishlist è vuota. Aggiungi <a routerLink="/prodotti">prodotti</a>!</p>
+  </div>
+
+  <!-- Bottone 'Clear All Wishlist' mostrato solo se la wishlist ha prodotti -->
+  <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
     <button (click)="clearAllFromWishlist()">Clear All Wishlist</button>
   </div>
 
-  <!-- Mostra la wishlist -->
-  <div class="row g-4 main-content">
-    <div
-      class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
-      *ngFor="let prodotto of wishlist; trackBy: trackById"
-    >
-      <!-- Usa il componente app-card per la visualizzazione del prodotto -->
+  <!-- Mostra la wishlist solo se ci sono prodotti -->
+  <div class="row g-4 main-content" *ngIf="wishlist.length > 0">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let prodotto of wishlist; trackBy: trackById">
       <app-card [prodotto]="prodotto" [responsive]="false">
-        <!-- Bottoni specifici per la wishlist -->
         <div id="card-buttons">
-          <button mat-fab extended (click)="removeFromWishlist(prodotto)">
-            Rimuovi dalla Wishlist
-          </button>
-          <button mat-fab extended (click)="addToCarrello(prodotto)">
-            Aggiungi al Carrello
-          </button>
+          <button mat-fab extended (click)="removeFromWishlist(prodotto)">Rimuovi dalla Wishlist</button>
+          <button mat-fab extended (click)="addToCarrello(prodotto)">Aggiungi al Carrello</button>
         </div>
       </app-card>
     </div>
