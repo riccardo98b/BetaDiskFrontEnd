@@ -43,6 +43,7 @@ export class AuthService {
     if (this.isAdmin()) {
       console.log('Ruolo: Amministratore');
       this.router.navigate(['/admin/dashboard']).then(() => {
+        window.location.reload();
         console.log('Navigazione completata verso /admin/dashboard');
       });
     } else if (this.isUtente() && this.getClienteIdSessione != null) {
