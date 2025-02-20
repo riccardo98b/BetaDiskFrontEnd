@@ -53,6 +53,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
+import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -82,6 +83,7 @@ registerLocaleData(localeIt, 'it');
     OrdiniComponent,
     RecensioniComponent,
     RegistrazioneComponent,
+    OrdiniAdminComponent,
   ],
   imports: [
     BrowserModule,
