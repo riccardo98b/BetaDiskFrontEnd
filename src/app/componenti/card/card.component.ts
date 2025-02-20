@@ -10,4 +10,5 @@ import { Prodotto } from '../../interfacce/Prodotto';
 export class CardComponent {
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
+  @Input() cartBadge: { [idProdotto: number]: number };
 }

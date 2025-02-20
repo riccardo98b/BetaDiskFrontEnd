@@ -34,4 +34,8 @@ export class ProdottiService {
   topTenProdotti(): Observable<Prodotto> {
     return this.http.get<Prodotto>(this.url + 'topTenProdotti');
   }
+
+  createProdotto(body: {}) {
+    return this.http.post(this.url + 'create', body);
+  }
 }

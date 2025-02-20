@@ -1,0 +1,24 @@
+.nav-container {
+  width: auto;
+  height: 80vh;
+  margin: 10px;
+  border: 1px solid #555;
+
+  background: #eee;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  background-color: #BBB;
+}
+
+.dashboard {
+  width: 100%;
+}
+
+.mat {
+  width: 25%;
+}

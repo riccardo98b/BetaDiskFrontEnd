@@ -31,4 +31,54 @@ export class RecensioniComponent implements OnInit {
     });
     this.isLoading=false;
   }
+
+  modificaRecensione(idRecensione:number, idProdotto:number) {
+    this.isLoading=true;
+    if (idRecensione != null) {
+      let request = {
+        idRecensione : idRecensione
+      }
+      this.serv.modificaRecensione(request).subscribe((r:any) => {
+        this.msg = r.msg;
+        this.rc = r.rc;
+        this.router.navigate(['/profilo/recensioni']).then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        });
+      });
+    } else {
+      let request = {
+        idProdotto : idProdotto
+      }
+      this.serv.creaRecensione(request).subscribe((r:any) => {
+        this.msg = r.msg;
+        this.rc = r.rc;
+        this.router.navigate(['/profilo/recensioni']).then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        });
+      });
+  }   
+    this.isLoading=false;
+  }
+
+  eliminaRecensione(id:number) {
+    this.isLoading=true;
+    let request = {
+      idRecensione : id
+    }
+    this.serv.eliminaRecensione(request).subscribe((r:any) => {
+      this.msg = r.msg;
+      this.rc = r.rc;
+      this.router.navigate(['/profilo/recensioni']).then(() => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      });
+    });
+    this.isLoading=false;
+
+  }
 }
