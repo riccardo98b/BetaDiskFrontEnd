@@ -1,16 +1,12 @@
-<app-pop-up *ngIf="successo"></app-pop-up>
 <div>
   <form [formGroup]="prodottoForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill" class="w-100">
+    <mat-form-field>
       <mat-label>Formato Prodotto</mat-label>
-      <input
-        matInput
-        formControlName="formato"
-        placeholder="Inserisci il formato"
-      />
-      <mat-error *ngIf="prodottoForm.get('formato')?.hasError('required')">
-        Inserisci un formato
-      </mat-error>
+      <mat-select formControlName="formato">
+        <mat-option value="CD">CD</mat-option>
+        <mat-option value="VINILE">VINILE</mat-option>
+        <mat-option value="DVD">DVD</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">

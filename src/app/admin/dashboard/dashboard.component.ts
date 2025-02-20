@@ -1,7 +1,4 @@
 import { Component, Inject, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Prodotto } from '../../interfacce/Prodotto';
-import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,4 +6,7 @@ import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  isLoading: boolean;
+  successo: boolean;
+}

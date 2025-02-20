@@ -1,9 +1,7 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { Prodotto } from '../../interfacce/Prodotto';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Prodotto } from '../../interfacce/Prodotto';
 
 @Component({
   selector: 'app-crea-prodotto',
@@ -15,9 +13,10 @@ export class CreaProdottoComponent implements OnInit {
   prodottoForm: FormGroup = this.formInit();
   resp: any;
   rc: boolean;
-  dialog = inject(MatDialog);
-  successo: boolean;
-  @Input() msg: string;
+  listaFormati: string[] = [];
+  data: Prodotto[];
+  isLoading: boolean = false;
+  @Output() successo: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private service: ProdottiService) {}
 
@@ -26,12 +25,13 @@ export class CreaProdottoComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isLoading = true;
     this.service.createProdotto(this.prodottoForm.value).subscribe((resp) => {
-      console.log(resp);
-      this.resp = resp;
-      this.successo = true;
-      if (this.successo) {
-        this.openDialog();
+      this.isLoading = false;
+      if (this.resp.rc === true) {
+        this.successo.emit(true);
+      } else {
+        this.successo.emit(false);
       }
     });
   }
@@ -50,9 +50,11 @@ export class CreaProdottoComponent implements OnInit {
     });
   }
 
-  openDialog() {
-    this.dialog.open(PopUpComponent, {
-      data: { msg: this.resp?.msg },
-    });
+  openModale() {
+    this.successo.emit(true);
+  }
+
+  closeModale() {
+    this.successo.emit(false);
   }
 }
