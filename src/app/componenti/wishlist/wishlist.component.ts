@@ -16,6 +16,7 @@ export class WishlistComponent implements OnInit {
 
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
+  cartBadge: { [idProdotto: number]: number } = {};
 
   constructor(private wishlistService: WishlistService) {}
 
