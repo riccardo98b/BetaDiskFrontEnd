@@ -22,4 +22,12 @@ export class OrdineService {
     return this.http.post(this.url + "delete", body)
   }
 
+  updateOrdine(body: {}) {
+    return this.http.post(this.url + "update", body)
+  }
+
+  listaOrdiniAdmin(data: string) {
+    return this.http.get(this.url + "lista-admin?data=" + data)
+  }
+
 }

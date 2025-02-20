@@ -7,11 +7,11 @@
   background: #eee;
 }
 
-.link {
-  cursor: pointer;
+.link-admin {
+  cursor: pointer !important;
 }
 
-.link:hover {
+.link-admin:hover {
   background-color: #BBB;
 }
 
