@@ -54,6 +54,8 @@ import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
 import { RegistrazioneComponent } from './pagine/registrazione/registrazione.component';
 import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
+import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component';
+import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -84,6 +86,8 @@ registerLocaleData(localeIt, 'it');
     RecensioniComponent,
     RegistrazioneComponent,
     OrdiniAdminComponent,
+    DialogDataComponent,
+    Pagina403Component,
   ],
   imports: [
     BrowserModule,
