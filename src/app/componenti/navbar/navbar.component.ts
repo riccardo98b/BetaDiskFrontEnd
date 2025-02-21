@@ -47,7 +47,10 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    window.location.reload();
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+      console.log('Navigazione completata verso /');
+    });
     this.logged = false;
   }
 

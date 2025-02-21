@@ -8,13 +8,13 @@
         contattare l'amministratore se ritieni che questo sia un errore.
       </p>
       <div
-        *ngIf="!isLoggedIn; else notLoggedIn"
+        *ngIf="!isLoggedIn; else loggedIn"
         class="collegamenti d-flex justify-content-evenly mt-5 pt-5 mx-auto"
       >
         <a routerLink="/signin">Registrati</a>
         <a routerLink="/registrazione">Sign in</a>
       </div>
-      <ng-template #notLoggedIn>
+      <ng-template #loggedIn>
         <div
           class="collegamenti d-flex justify-content-evenly mt-5 pt-5 mx-auto"
         >
