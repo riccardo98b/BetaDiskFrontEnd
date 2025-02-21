@@ -3,7 +3,7 @@
     <div class="lock"></div>
     <div class="message">
       <h1 class="text-center mb-5">Accesso vietato</h1>
-      <p class="">
+      <p class="text-center">
         Non hai i permessi necessari per visitare questa pagina, prova a
         contattare l'amministratore se ritieni che questo sia un errore.
       </p>
@@ -11,8 +11,8 @@
         *ngIf="!isLoggedIn; else loggedIn"
         class="collegamenti d-flex justify-content-evenly mt-5 pt-5 mx-auto"
       >
-        <a routerLink="/signin">Registrati</a>
-        <a routerLink="/registrazione">Sign in</a>
+        <a routerLink="/registrazione">Registrati</a>
+        <a routerLink="/signin">Sign in</a>
       </div>
       <ng-template #loggedIn>
         <div
