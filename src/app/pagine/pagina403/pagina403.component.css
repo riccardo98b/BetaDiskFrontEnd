@@ -8,7 +8,7 @@
 }
 
 section {
-  margin-top: 180px;
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,7 +34,7 @@ h1 {
   position: absolute;
   border-left: 5px solid #333;
   height: 20px;
-  width: 15px;
+  width: 25px;
   left: calc(50% - 12.5px);
 }
 .lock::before {
@@ -83,3 +83,6 @@ h1 {
     transform: translateY(0px);
   }
 }
+ .message {
+  max-width: 55%;
+ }
