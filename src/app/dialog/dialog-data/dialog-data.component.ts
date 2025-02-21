@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-dialog-data',
@@ -8,18 +11,23 @@ import { Component } from '@angular/core';
 })
 export class DialogDataComponent {
 
-  // dialog = inject(MatDialog);
+  selectedDate: string = '';
 
-  // selectedDate = model<Date | null>(null);
+  dialogRef = inject<MatDialogRef<DialogDataComponent>>(
+    MatDialogRef<DialogDataComponent>,
+  );
+ // data = inject(MAT_DIALOG_DATA);
 
-  // openDialog() {
-  //   const dialogRef = this.dialog.open(DatepickerDialogExampleDialog, {
-  //     minWidth: '500px',
-  //     data: {selectedDate: this.selectedDate()},
-  //   });
+  data : string ;
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.selectedDate.set(result);
-  //   });
-  // }
+  constructor() {
+    //const data = this.data;
+
+    //this.data = this.selectedDate;
+    
+  }
+onChange(){
+  this.data=this.selectedDate;
+}
+
 }
