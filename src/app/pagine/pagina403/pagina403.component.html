@@ -1,16 +1,26 @@
 <div class="container mx-auto">
-<section>
-  <div class="lock"></div>
-  <div class="message">
-    <h1 class="text-center mb-5">Accesso vietato</h1>
-    <p class="">
-      Non hai i permessi necessari per visitare questa pagina, prova a
-      contattare l'amministratore se ritieni che questo sia un errore.
-    </p>
-    <div class="collegamenti d-flex justify-content-evenly mt-5 pt-5 mx-auto">
-      <a href="">Registrati</a>
-      <a href="">Sign in</a>
+  <section>
+    <div class="lock"></div>
+    <div class="message">
+      <h1 class="text-center mb-5">Accesso vietato</h1>
+      <p class="">
+        Non hai i permessi necessari per visitare questa pagina, prova a
+        contattare l'amministratore se ritieni che questo sia un errore.
+      </p>
+      <div
+        *ngIf="!isLoggedIn; else loggedIn"
+        class="collegamenti d-flex justify-content-evenly mt-5 pt-5 mx-auto"
+      >
+        <a routerLink="/signin">Registrati</a>
+        <a routerLink="/registrazione">Sign in</a>
+      </div>
+      <ng-template #loggedIn>
+        <div
+          class="collegamenti d-flex justify-content-evenly mt-5 pt-5 mx-auto"
+        >
+          <a routerLink="/">Torna alla home</a>
+        </div>
+      </ng-template>
     </div>
-  </div>
-</section>
+  </section>
 </div>

@@ -20,19 +20,10 @@ export class AuthGuard implements CanActivate {
     if (!this.authService.isAuthenticated()) {
       console.log('Accesso vietato: Utente non autentificato');
       if (this.authService.isLoggedOut()) {
-        this.router.navigate(['/signin']);
+        this.router.navigate(['/forbidden']);
         return false;
       }
-
-      if (state.url.includes('/carrello')) {
-        this.router.navigate(['/signin']);
-      } else if (state.url.includes('/wishlist')) {
-        this.router.navigate(['/signin']);
-      } else if (state.url.includes('/profilo')) {
-        this.router.navigate(['/signin']);
-      } else {
-        this.router.navigate(['/forbidden']);
-      }
+      this.router.navigate(['/signin']);
       return false;
     }
 
@@ -44,6 +35,10 @@ export class AuthGuard implements CanActivate {
         return true;
       } else {
         console.log('Accesso vietato: Utente non ha il ruolo richiesto');
+        if (userRole === 'UTENTE') {
+          this.router.navigate(['/forbidden']);
+          return false;
+        }
         this.router.navigate(['/signin']);
         return false;
       }

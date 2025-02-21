@@ -34,18 +34,19 @@ export class ProdottiComponent implements OnInit {
       this.isLoading = state;
     });
     this.getTuttiProdotti();
-    this.getProdottiPerPersona();
+    this.getProdottiCarrello();
   }
 
-  getProdottiPerPersona() {
+  getProdottiCarrello() {
     this.serviceCarrello.listaProdotti(this.idCliente).subscribe((r: any) => {
       this.loader.startLoader();
       if (r.rc) {
         r.dati.prodotti.forEach((p: any) => {
-          console.log(p);
-          console.log(p.prodotto.idProdotto);
-          this.cartBadge[p.prodotto.idProdotto] =
-            p.prodotto?.prodottiCarrello[0]?.quantita;
+          p.prodotto.prodottiCarrello.forEach((pc:any) =>{
+            if (p.id == pc.id) {
+              this.cartBadge[p.prodotto.idProdotto] = pc.quantita
+            }
+          })
         });
       }
       this.loader.stopLoader();
