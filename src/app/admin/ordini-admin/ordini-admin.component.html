@@ -1,40 +1,43 @@
 <div class="container my-5 px-5">
-    <!-- <p>Selezionare una data dalla quale cercare gli ordini fino ad oggi</p>
-    <button mat-flat-button color="primary" (click)="openDialog()">Open Dialog</button> -->
+    <p>Selezionare una data dalla quale cercare gli ordini fino ad oggi o mostra tutti gli ordini</p>
+    <button mat-flat-button color="primary" (click)="elenco('')" class="mb-3">Visualizza tutti gli ordini</button>
+    <button mat-flat-button color="primary" (click)="openDialog()" class="ms-3 mb-3">Scegli data</button>
 
-    <h3 class="mb-4">Riepilogo degli ordini richiesti</h3>
-    <mat-accordion>
-        <mat-expansion-panel hideToggle *ngFor="let ordine of ordini">
-            <mat-expansion-panel-header class="d-flex justify-content-between">
-                <mat-panel-title> Ordine del: {{ordine.dataOrdine | date : "dd/MM/yyyy"}} </mat-panel-title>
-                <mat-panel-description class="d-flex justify-content-between"> {{ordine.prodotti.length}} articoli
-                    ordinati - Totale {{ordine.totaleImporto | currency: "EUR"}}
-                </mat-panel-description>
-                <div *ngIf="ordine.spedito" class="mx-3 my-1"><mat-icon class="spedito"> local_shipping</mat-icon></div>
-                <div class="d-flex justify-content-between ms-5 my-1" *ngIf="!ordine.spedito">
-                    <button mat-mini-fab class="check-btn" aria-label="Pulsante elimina"
-                        (click)="$event.stopPropagation(); spedisciOrdine(ordine.idOrdine)" *ngIf="!ordine.spedito">
-                        <mat-icon>check</mat-icon>
-                    </button>
-                    <div class="mx-1"></div>
-                    <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina"
-                        (click)="$event.stopPropagation(); eliminaOrdine(ordine.idOrdine)" *ngIf="!ordine.spedito">
-                        <mat-icon>close</mat-icon>
-                    </button>
+    <div *ngIf="mostra">
+        <h3 class="mb-4">Riepilogo degli ordini richiesti</h3>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle *ngFor="let ordine of ordini; index as index">
+                <mat-expansion-panel-header class="d-flex justify-content-between">
+                    <mat-panel-title> Ordine del: {{ordine.dataOrdine | date : "dd/MM/yyyy"}} </mat-panel-title>
+                    <mat-panel-description class="d-flex justify-content-between"> {{ordine.prodotti.length}} articoli
+                        ordinati - Totale {{ordine.totaleImporto | currency: "EUR"}}
+                    </mat-panel-description>
+                    <div *ngIf="ordine.spedito" class="mx-3 my-1"><mat-icon class="spedito me-2">local_shipping</mat-icon></div>
+                    <div class="d-flex justify-content-between ms-5 my-1" *ngIf="!ordine.spedito">
+                        <button mat-mini-fab class="check-btn" aria-label="Pulsante elimina"
+                            (click)="$event.stopPropagation(); spedisciOrdine(ordine.idOrdine, index)" *ngIf="!ordine.spedito">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                        <div class="mx-1"></div>
+                        <button mat-mini-fab class="del-btn" aria-label="Pulsante elimina"
+                            (click)="$event.stopPropagation(); eliminaOrdine(ordine.idOrdine)" *ngIf="!ordine.spedito">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </mat-expansion-panel-header>
+                <div>
+                    <p class="my-0">{{ordine.cliente.nome}} {{ordine.cliente.cognome}}</p>
+                    <p class="my-0">{{ordine.cliente.via}} {{ordine.cliente.comune}} {{ordine.cliente.provincia}}</p>
+                    <p class="mt-0 mb-2">{{ordine.cliente.telefono}}</p>
                 </div>
-            </mat-expansion-panel-header>
-            <div>
-                <p class="my-0">{{ordine.cliente.nome}} {{ordine.cliente.cognome}}</p>
-                <p class="my-0">{{ordine.cliente.via}} {{ordine.cliente.comune}} {{ordine.cliente.provincia}}</p>
-                <p class="mt-0 mb-2">{{ordine.cliente.telefono}}</p>
-            </div>
-            <div *ngFor="let prodotto of ordine.prodotti">
-                <div class="flex">
-                    <span>{{prodotto.prodotto.titolo}}</span><span><em>quantità: </em>{{prodotto.quantita}} x
-                        {{prodotto.prezzoAcquisto | currency: "EUR"}}</span><span><em class="mx-2">totale articolo:
-                        </em>{{prodotto.prezzoAcquisto * prodotto.quantita | currency: "EUR"}}</span>
+                <div *ngFor="let prodotto of ordine.prodotti">
+                    <div class="flex">
+                        <span>{{prodotto.prodotto.titolo}}</span><span><em>quantità: </em>{{prodotto.quantita}} x
+                            {{prodotto.prezzoAcquisto | currency: "EUR"}}</span><span><em class="mx-2">totale articolo:
+                            </em>{{prodotto.prezzoAcquisto * prodotto.quantita | currency: "EUR"}}</span>
+                    </div>
                 </div>
-            </div>
-        </mat-expansion-panel>
-    </mat-accordion>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>

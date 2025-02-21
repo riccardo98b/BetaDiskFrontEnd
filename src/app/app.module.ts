@@ -4,6 +4,7 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -110,6 +112,8 @@ registerLocaleData(localeIt, 'it');
     MatSelectModule,
     MatExpansionModule,
     MatBadgeModule,
+    MatDatepickerModule,
+    FormsModule
   ],
   providers: [
     provideHttpClient(withFetch()),

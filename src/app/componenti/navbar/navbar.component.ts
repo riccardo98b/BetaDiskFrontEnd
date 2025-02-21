@@ -3,6 +3,7 @@ import { AuthService } from '../../auth/auth.service';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { CarrelloService } from '../../servizi/carrello/carrello.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
+  
   showNavbar: boolean = false;
   utenteId: number = 0;
   clienteId: number = 0;
@@ -20,7 +22,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private profiloService: ProfiloService, //,
-    private router: Router
+    private router: Router,
+    private serviceCarrello: CarrelloService,
   ) {
     this.profiloService.nomeCliente$.subscribe((nome) => {
       this.nomeClienteBenvenuto = nome;
@@ -31,6 +34,7 @@ export class NavbarComponent implements OnInit {
     this.utenteId = this.authService.getUtenteIdSessione();
     this.clienteId = this.authService.getClienteIdSessione();
     this.role = this.authService.getRuoloUtente();
+    this.getProdottiCarrello(this.clienteId);
   }
   // Toggle navbar al click dell'icona
   toggleNavbar() {
@@ -47,7 +51,10 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    window.location.reload();
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+      console.log('Navigazione completata verso /');
+    });
     this.logged = false;
   }
 
@@ -64,4 +71,20 @@ export class NavbarComponent implements OnInit {
       (this.role === 'ADMIN' || this.role === 'UTENTE') && this.clienteId !== 0
     );
   }
+
+  totalItem = 0;
+  getProdottiCarrello(clienteId:number) {
+    this.serviceCarrello.listaProdotti(clienteId).subscribe((r: any) => {
+      if (r.rc) {
+        r.dati.prodotti.forEach((p: any) => {
+          p.prodotto.prodottiCarrello.forEach((pc:any) =>{
+            if (p.id == pc.id) {
+              this.totalItem += pc.quantita;
+            }
+          })
+        });
+      }
+    });
+  }
+
 }

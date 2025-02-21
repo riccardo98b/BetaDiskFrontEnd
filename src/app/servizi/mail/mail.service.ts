@@ -17,4 +17,9 @@ export class MailService {
     const url = this.authService.getURL('mail/conferma-registrazione');
     return this.http.post(url, body);
   }
+
+  ordineSpedito(body: {}) {
+    const url = this.authService.getURL('mail/ordine-spedito');
+    return this.http.post(url, body);
+  }
 }

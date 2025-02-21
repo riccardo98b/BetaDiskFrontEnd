@@ -1,13 +1,8 @@
-<!-- <h2 mat-dialog-title>Datepicker in a Dialog</h2>
-<mat-dialog-content align="center">
-  <mat-form-field>
-    <mat-label>Select a date</mat-label>
-    <input matInput [matDatepicker]="picker" [formControl]="date">
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+<h2 mat-dialog-title>Seleziona la data</h2>
+<mat-dialog-content>
+    <input type="date" class="form-control my-2" [(ngModel)]="selectedDate" (change)="onChange()">
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Clear</button>
-  <button mat-button [mat-dialog-close]="date.value" cdkFocusInitial>Ok</button>
-</mat-dialog-actions> -->
+  <button mat-button mat-dialog-close>Annulla</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Seleziona</button>
+</mat-dialog-actions>
