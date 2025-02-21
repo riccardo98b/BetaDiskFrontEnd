@@ -102,8 +102,9 @@ export class OrdiniAdminComponent {
       dialogRef.afterClosed().subscribe(result => {
         this.selectedDate= result;
         this.mostra=true;
-        console.log(this.selectedDate)
-        this.elenco(this.selectedDate);
+        if (this.selectedDate){
+          this.elenco(this.selectedDate);
+        }
       });
       
     }
