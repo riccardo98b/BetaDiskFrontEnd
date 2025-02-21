@@ -56,6 +56,7 @@ import { RegistrazioneComponent } from './pagine/registrazione/registrazione.com
 import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
 import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component';
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
+import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -88,6 +89,7 @@ registerLocaleData(localeIt, 'it');
     OrdiniAdminComponent,
     DialogDataComponent,
     Pagina403Component,
+    ModificaProdottoComponent,
   ],
   imports: [
     BrowserModule,
