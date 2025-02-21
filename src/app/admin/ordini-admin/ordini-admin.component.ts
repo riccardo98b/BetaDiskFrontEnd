@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OrdineService } from '../../servizi/ordine/ordine.service';
 import { Router } from '@angular/router';
 import { Ordine } from '../../interfacce/Ordine';
+import { MailService } from '../../servizi/mail/mail.service';
 
 @Component({
   selector: 'app-ordini-admin',
@@ -11,7 +12,10 @@ import { Ordine } from '../../interfacce/Ordine';
 })
 export class OrdiniAdminComponent {
 
-  constructor(private serv: OrdineService, private router: Router){}
+  constructor(private serv: OrdineService,
+    private router: Router,
+    private mailServ: MailService,
+  ){}
     data = "";
     msg: string = '';
     rc: boolean = true;
@@ -51,15 +55,25 @@ export class OrdiniAdminComponent {
   
     }
 
-    spedisciOrdine(id:number) {
+    spedisciOrdine(id:number, index: number) {
       this.isLoading=true;
       let request = {
         idOrdine : id,
         spedito: true
       }
+      console.log(new Date(this.ordini[index].dataOrdine).toLocaleDateString("it-IT"))
       this.serv.updateOrdine(request).subscribe((r:any) => {
         this.msg = r.msg;
         this.rc = r.rc;
+        if (r.rc) {
+          let mailRequest = {
+            nome: this.ordini[index].cliente.nome,
+            cognome : this.ordini[index].cliente.cognome,
+            toEmail : this.ordini[index].cliente.utente.email,
+            dataOrdine: new Date(this.ordini[index].dataOrdine).toLocaleDateString("it-IT")
+          }
+          this.mailServ.ordineSpedito(mailRequest).subscribe();
+        }
         this.router.navigate(['/admin/dashboard/ordini']).then(() => {
           setTimeout(() => {
             window.location.reload();
