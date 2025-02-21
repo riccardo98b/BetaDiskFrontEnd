@@ -181,6 +181,7 @@ export class ProfiloComponent implements OnInit {
           console.log('Utente aggiornato:', utenteResponse);
           this.resetPasswordAfterSubmit();
           this.editMode = false;
+          window.location.reload();
         } else {
           console.log("Non è stato possibile aggiornare l'utente");
         }
