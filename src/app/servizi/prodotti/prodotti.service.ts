@@ -50,4 +50,9 @@ export class ProdottiService {
     const url = this.authService.getURL('prodotto/create');
     return this.http.post(url, body);
   }
+
+  updateProdotto(body: {}) {
+    const url = this.authService.getURL('prodotto/update');
+    return this.http.post(url, body);
+  }
 }

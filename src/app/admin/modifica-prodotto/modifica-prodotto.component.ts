@@ -17,6 +17,7 @@ export class ModificaProdottoComponent implements OnInit {
   response: any;
   prodottoTrovato: boolean;
   prodottoSelezionato: Prodotto;
+  resp: any;
 
   constructor(
     private service: ProdottiService,
@@ -24,15 +25,12 @@ export class ModificaProdottoComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.cercaProdottoForm = this.cercaProdottoFormInit();
-    
   }
 
   cercaProdotto() {
     this.loader.startLoader();
     this.getProdottoPerId();
   }
-
-  modificaProdotto() {}
 
   getProdottoPerId() {
     this.service
@@ -42,16 +40,42 @@ export class ModificaProdottoComponent implements OnInit {
         this.prodottoSelezionato = this.response.dati[0];
         if (this.response.rc === true) {
           this.prodottoTrovato = true;
+
+          this.prodottoForm.patchValue({
+            idProdotto: this.prodottoSelezionato.idProdotto,
+            formato: this.prodottoSelezionato.formato,
+            titolo: this.prodottoSelezionato.titolo,
+            artista: this.prodottoSelezionato.artista,
+            genere: this.prodottoSelezionato.genere,
+            descrizione: this.prodottoSelezionato.descrizione,
+            annoPubblicazione: this.prodottoSelezionato.annoPubblicazione,
+            prezzo: this.prodottoSelezionato.prezzo,
+            quantita: this.prodottoSelezionato.quantita,
+            immagineProdotto: this.prodottoSelezionato.immagineProdotto,
+          });
         } else {
           this.prodottoTrovato = false;
         }
-        console.log('resp: ', resp);
-        console.log('idProdotto: ', this.cercaProdottoForm.value);
-        console.log(this.prodottoTrovato);
-        console.log(this.prodottoSelezionato);
-        this.prodottoFormInit();
+
         this.loader.stopLoader();
       });
+  }
+
+  modificaProdotto() {
+    console.log('prodotto-modifica', this.prodottoForm.value);
+    this.loader.startLoader();
+    this.service.updateProdotto(this.prodottoForm.value).subscribe((resp) => {
+      this.resp = resp;
+      if (this.response.rc === true) {
+        console.log('aggiornato con successo');
+        console.log(resp);
+      } else {
+        console.log('male molto male...');
+      }
+      this.prodottoForm.reset();
+      this.cercaProdottoForm.reset();
+      this.loader.stopLoader();
+    });
   }
 
   cercaProdottoFormInit(): FormGroup {
@@ -60,37 +84,22 @@ export class ModificaProdottoComponent implements OnInit {
     });
   }
 
-  modificaProdotto(): FormGroup{
+  prodottoFormInit(): FormGroup {
     return new FormGroup({
-      this.prodottoFormInit()
-    })
-  }
-
-  formInit(): FormGroup {
-    return new FormGroup({
-      formato: new FormControl(''),
-      titolo: new FormControl(''),
-      artista: new FormControl(''),
-      genere: new FormControl(''),
-      descrizione: new FormControl(''),
-      annoPubblicazione: new FormControl(''),
-      prezzo: new FormControl(''),
-      quantita: new FormControl(''),
-      immagineProdotto: new FormControl(''),
-    });
-  }
-
-  prodottoFormInit() {
-    return this.prodottoForm.patchValue({
-      formato: this.prodottoSelezionato.formato,
-      titolo: this.prodottoSelezionato.titolo,
-      artista: this.prodottoSelezionato.artista,
-      genere: this.prodottoSelezionato.genere,
-      descrizione: this.prodottoSelezionato.descrizione,
-      annoPubblicazione: this.prodottoSelezionato.annoPubblicazione,
-      prezzo: this.prodottoSelezionato.prezzo,
-      quantita: this.prodottoSelezionato.quantita,
-      immagineProdotto: this.prodottoSelezionato.immagineProdotto,
+      idProdotto: new FormControl(''),
+      formato: new FormControl(this.prodottoSelezionato?.formato || ''),
+      titolo: new FormControl(this.prodottoSelezionato?.titolo || ''),
+      artista: new FormControl(this.prodottoSelezionato?.artista || ''),
+      genere: new FormControl(this.prodottoSelezionato?.genere || ''),
+      descrizione: new FormControl(this.prodottoSelezionato?.descrizione || ''),
+      annoPubblicazione: new FormControl(
+        this.prodottoSelezionato?.annoPubblicazione || ''
+      ),
+      prezzo: new FormControl(this.prodottoSelezionato?.prezzo || ''),
+      quantita: new FormControl(this.prodottoSelezionato?.quantita || ''),
+      immagineProdotto: new FormControl(
+        this.prodottoSelezionato?.immagineProdotto || ''
+      ),
     });
   }
 }

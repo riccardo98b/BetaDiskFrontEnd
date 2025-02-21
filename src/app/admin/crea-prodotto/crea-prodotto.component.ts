@@ -16,6 +16,7 @@ export class CreaProdottoComponent implements OnInit {
   rc: boolean;
   listaFormati: string[] = [];
   data: Prodotto[];
+
   constructor(
     private service: ProdottiService,
     private loader: LoaderService
@@ -32,6 +33,7 @@ export class CreaProdottoComponent implements OnInit {
       if (this.resp.rc === true) {
         console.log(resp);
       }
+      this.prodottoForm.reset();
       this.loader.stopLoader();
     });
   }
