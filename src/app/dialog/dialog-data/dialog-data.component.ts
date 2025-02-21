@@ -11,16 +11,23 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class DialogDataComponent {
 
+  selectedDate: string = '';
+
   dialogRef = inject<MatDialogRef<DialogDataComponent>>(
     MatDialogRef<DialogDataComponent>,
   );
-  data = inject(MAT_DIALOG_DATA);
+ // data = inject(MAT_DIALOG_DATA);
 
-  readonly date = new FormControl(new Date());
+  data : string ;
 
   constructor() {
-    const data = this.data;
+    //const data = this.data;
 
-    this.date.setValue(data.selectedDate);
+    //this.data = this.selectedDate;
+    
   }
+onChange(){
+  this.data=this.selectedDate;
+}
+
 }
