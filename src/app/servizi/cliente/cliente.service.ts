@@ -2,29 +2,32 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cliente } from '../../interfacce/Cliente';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  url = 'http://localhost:9090/rest/cliente/';
-
-  listAll() {
-    return this.http.get(this.url + 'listAll');
+  listAll(): Observable<Cliente[]> {
+    const url = this.authService.getURL('cliente/listAll');
+    return this.http.get<Cliente[]>(url);
   }
 
-  getCliente(idCliente: number) {
-    //let param = new HttpParams().set('idCliente', idCliente.toString());
-    return this.http.get(this.url + 'listById?id=' + idCliente);
+  getCliente(idCliente: number): Observable<Cliente> {
+    const url = this.authService.getURL('cliente/listById?id=') + idCliente;
+    console.log('URL completo', url);
+    return this.http.get<Cliente>(url);
   }
 
   updateCliente(body: {}): Observable<Cliente> {
-    return this.http.post<Cliente>(this.url + 'update', body);
+    const url = this.authService.getURL('cliente/update');
+    return this.http.post<Cliente>(url, body);
   }
 
   createCliente(body: {}): Observable<Cliente> {
-    return this.http.post<Cliente>(this.url + 'create', body);
+    const url = this.authService.getURL('cliente/create');
+    return this.http.post<Cliente>(url, body);
   }
 }

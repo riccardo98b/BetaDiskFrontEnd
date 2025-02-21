@@ -7,13 +7,13 @@
   font-family: "Lato", sans-serif;
 }
 
-body {
-  height: 100vh;
+section {
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #eee, #aaa);
+  /* background: linear-gradient(to bottom right, #eee, #aaa); */
 }
 
 h1 {
@@ -28,12 +28,13 @@ h1 {
   animation: dip 1s;
   animation-delay: 1.5s;
 }
-.lock::before, .lock::after {
+.lock::before,
+.lock::after {
   content: "";
   position: absolute;
   border-left: 5px solid #333;
   height: 20px;
-  width: 15px;
+  width: 25px;
   left: calc(50% - 12.5px);
 }
 .lock::before {
@@ -82,3 +83,6 @@ h1 {
     transform: translateY(0px);
   }
 }
+ .message {
+  max-width: 55%;
+ }

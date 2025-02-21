@@ -1,9 +1,12 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ClienteService } from '../../servizi/cliente/cliente.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtenteService } from '../../servizi/utente/utente.service';
 import { catchError, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
+import { MailService } from '../../servizi/mail/mail.service';
+import { ProfiloService } from '../../servizi/profilo/profilo.service';
 @Component({
   selector: 'app-profilo',
   standalone: false,
@@ -20,10 +23,14 @@ export class ProfiloComponent implements OnInit {
   immagineDefault: string =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
   // Messaggi di errore
+  nomeClienteBenvenuto: string = '';
   constructor(
     private clienteService: ClienteService,
     private utenteService: UtenteService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private mailService: MailService,
+    private profiloService: ProfiloService
   ) {}
 
   inizializzaForm(): void {
@@ -54,9 +61,10 @@ export class ProfiloComponent implements OnInit {
 
   loadDatiCliente(): void {
     if (!this.isRegistrazione) {
-      this.clienteId = +localStorage.getItem('idCliente')!;
-      this.utenteId = +localStorage.getItem('idUtente')!;
-
+      this.clienteId = this.authService.getClienteIdSessione();
+      this.utenteId = this.authService.getUtenteIdSessione();
+      console.log('clienteId:', this.clienteId);
+      console.log('utenteId:', this.utenteId);
       this.clienteService
         .getCliente(this.clienteId)
         .pipe(
@@ -70,6 +78,9 @@ export class ProfiloComponent implements OnInit {
         )
         .subscribe((response: any) => {
           const clienteData = response.dati;
+          console.log('Dati del cliente ricevuti dal server:', clienteData); // Aggiungi questo log
+          let nome = `${clienteData.nome}`;
+          this.profiloService.setNomeCliente(nome);
           this.clienteForm.patchValue({
             nome: clienteData.nome,
             cognome: clienteData.cognome,
@@ -84,11 +95,18 @@ export class ProfiloComponent implements OnInit {
             cap: clienteData.cap,
           }),
             console.log(response);
+          console.log('Form values after patching:', this.clienteForm.value);
         });
     }
   }
 
   ngOnInit(): void {
+    // console.log(
+    //   'Data in sessione:',
+    //   localStorage.getItem('idUtente'),
+    //   localStorage.getItem('idCliente')
+    // );
+
     this.inizializzaForm();
 
     if (!this.isRegistrazione) {
@@ -163,6 +181,7 @@ export class ProfiloComponent implements OnInit {
           console.log('Utente aggiornato:', utenteResponse);
           this.resetPasswordAfterSubmit();
           this.editMode = false;
+          window.location.reload();
         } else {
           console.log("Non è stato possibile aggiornare l'utente");
         }
@@ -202,10 +221,7 @@ export class ProfiloComponent implements OnInit {
             console.log('Cliente creato:', clienteResponse);
 
             const clienteId = clienteResponse.dati.idCliente;
-            console.log(
-              'Cliente creato con ID:',
-              clienteResponse.dati.idCliente
-            );
+            console.log('Cliente creato con ID:', clienteId);
 
             let utenteInvioForm = {
               email: this.clienteForm.value.email,
@@ -232,6 +248,7 @@ export class ProfiloComponent implements OnInit {
         if (utenteResponse) {
           console.log('Utente creato:', utenteResponse);
           this.resetPasswordAfterSubmit();
+          this.sendInvioEmailRegistrazione();
           this.router.navigate(['/']);
         } else {
           console.log("Non è stato possibile creare l'utente");
@@ -247,5 +264,23 @@ export class ProfiloComponent implements OnInit {
       console.log('Le password non corrispondono.');
       return;
     }
+  }
+
+  sendInvioEmailRegistrazione() {
+    let mailRequest = {
+      toEmail: this.clienteForm.value.email,
+      nome: this.clienteForm.value.nome,
+      cognome: this.clienteForm.value.cognome,
+    };
+    console.log(mailRequest.toEmail);
+
+    this.mailService.confermaRegistrazione(mailRequest).subscribe(
+      (response) => {
+        console.log('Email di conferma registrazione inviata ', response);
+      },
+      (error) => {
+        console.error("Errore durante l'invio della email:", error);
+      }
+    );
   }
 }

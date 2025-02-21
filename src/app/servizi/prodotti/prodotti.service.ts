@@ -2,40 +2,52 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Prodotto } from '../../interfacce/Prodotto';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProdottiService {
-  url = 'http://localhost:9090/rest/prodotto/';
+  // url = 'http://localhost:9090/rest/prodotto/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   listAll(): Observable<Prodotto[]> {
-    return this.http.get<Prodotto[]>(this.url + 'list');
+    const url = this.authService.getURL('prodotto/list');
+    return this.http.get<Prodotto[]>(url);
   }
 
   prodottoPerId(idProdotto: number): Observable<Prodotto> {
-    return this.http.get<Prodotto>(this.url + 'list?idProdotto=' + idProdotto);
+    const url = this.authService.getURL(
+      'prodotto/list?idProdotto=' + idProdotto
+    );
+    return this.http.get<Prodotto>(url);
   }
 
   prodottoPerFormato(formato: string): Observable<Prodotto> {
-    return this.http.get<Prodotto>(this.url + 'listFormato?formato=' + formato);
+    const url = this.authService.getURL(
+      'prodotto/listFormato?formato=' + formato
+    );
+    return this.http.get<Prodotto>(url);
   }
 
   prodottoPerGenere(genere: string): Observable<Prodotto> {
-    return this.http.get<Prodotto>(this.url + 'list?genere=' + genere);
+    const url = this.authService.getURL('prodotto/list?genere=' + genere);
+    return this.http.get<Prodotto>(url);
   }
 
   prodottoPerArtista(artista: string): Observable<Prodotto> {
-    return this.http.get<Prodotto>(this.url + 'list?artista=' + artista);
+    const url = this.authService.getURL('prodotto/list?artista=' + artista);
+    return this.http.get<Prodotto>(url);
   }
 
   topTenProdotti(): Observable<Prodotto> {
-    return this.http.get<Prodotto>(this.url + 'topTenProdotti');
+    const url = this.authService.getURL('prodotto/topTenProdotti');
+    return this.http.get<Prodotto>(url);
   }
 
   createProdotto(body: {}) {
-    return this.http.post(this.url + 'create', body);
+    const url = this.authService.getURL('prodotto/create');
+    return this.http.post(url, body);
   }
 }

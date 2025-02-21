@@ -1,29 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarrelloService {
+  //url = 'http://localhost:9090/rest/carrello/';
 
-  url = "http://localhost:9090/rest/carrello/"
-
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   listaProdotti(id: number) {
-    return this.http.get(this.url + "lista?id=" + id)
+    const url = this.authService.getURL('carrello/lista?id=' + id);
+
+    return this.http.get(url);
   }
 
-  addProdotto(body: {}){
-    return this.http.post(this.url + "add", body)
+  addProdotto(body: {}) {
+    const url = this.authService.getURL('carrello/add');
+
+    return this.http.post(url, body);
   }
 
-  removeProdotto(body: {}){
-    return this.http.post(this.url + "remove", body)
+  removeProdotto(body: {}) {
+    const url = this.authService.getURL('carrello/remove');
+
+    return this.http.post(url, body);
   }
 
   svuotaCarrello(body: {}) {
-    return this.http.post(this.url + "delete", body)
+    const url = this.authService.getURL('carrello/delete');
+    return this.http.post(url, body);
   }
-
 }

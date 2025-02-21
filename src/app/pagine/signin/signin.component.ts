@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
+import { ProfiloService } from '../../servizi/profilo/profilo.service';
 
 @Component({
   selector: 'app-signin',
@@ -21,7 +22,7 @@ export class SigninComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService //
   ) {}
 
   ngOnInit(): void {
@@ -43,21 +44,6 @@ export class SigninComponent {
         if (response.logged) {
           this.logged = true;
           this.messaggioErrore = null;
-
-          this.ruoloUtente = response.role;
-          this.idUtente = response.idUtente;
-          this.idCliente = response.idCliente;
-          this.dataRegistrazione = response.dataRegistrazione;
-
-          localStorage.setItem('idUtente', this.idUtente.toString());
-          localStorage.setItem('idCliente', this.idCliente.toString());
-          localStorage.setItem('ruoloUtente', this.ruoloUtente);
-          localStorage.setItem(
-            'dataRegistrazione',
-            this.dataRegistrazione.toString()
-          );
-
-          this.router.navigate(['/']);
         } else {
           this.logged = false;
           this.messaggioErrore =
