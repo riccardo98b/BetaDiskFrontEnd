@@ -37,8 +37,8 @@ export class ModificaProdottoComponent implements OnInit {
       .prodottoPerId(this.cercaProdottoForm.value.idProdotto)
       .subscribe((resp) => {
         this.response = resp;
-        this.prodottoSelezionato = this.response.dati[0];
         if (this.response.rc === true) {
+          this.prodottoSelezionato = this.response.dati[0];
           this.prodottoTrovato = true;
 
           this.prodottoForm.patchValue({
@@ -56,7 +56,6 @@ export class ModificaProdottoComponent implements OnInit {
         } else {
           this.prodottoTrovato = false;
         }
-
         this.loader.stopLoader();
       });
   }
@@ -66,14 +65,16 @@ export class ModificaProdottoComponent implements OnInit {
     this.loader.startLoader();
     this.service.updateProdotto(this.prodottoForm.value).subscribe((resp) => {
       this.resp = resp;
-      if (this.response.rc === true) {
+      if (this.resp.rc === true) {
         console.log('aggiornato con successo');
-        console.log(resp);
       } else {
         console.log('male molto male...');
       }
       this.prodottoForm.reset();
+      this.prodottoTrovato = false;
+
       this.cercaProdottoForm.reset();
+      this.prodottoTrovato = false;
       this.loader.stopLoader();
     });
   }
@@ -86,19 +87,36 @@ export class ModificaProdottoComponent implements OnInit {
 
   prodottoFormInit(): FormGroup {
     return new FormGroup({
-      idProdotto: new FormControl(''),
-      formato: new FormControl(this.prodottoSelezionato?.formato || ''),
-      titolo: new FormControl(this.prodottoSelezionato?.titolo || ''),
-      artista: new FormControl(this.prodottoSelezionato?.artista || ''),
-      genere: new FormControl(this.prodottoSelezionato?.genere || ''),
-      descrizione: new FormControl(this.prodottoSelezionato?.descrizione || ''),
-      annoPubblicazione: new FormControl(
-        this.prodottoSelezionato?.annoPubblicazione || ''
+      idProdotto: new FormControl('', [Validators.required]),
+      formato: new FormControl(this.prodottoSelezionato?.formato || '', [
+        Validators.required,
+      ]),
+      titolo: new FormControl(this.prodottoSelezionato?.titolo || '', [
+        Validators.required,
+      ]),
+      artista: new FormControl(this.prodottoSelezionato?.artista || '', [
+        Validators.required,
+      ]),
+      genere: new FormControl(this.prodottoSelezionato?.genere || '', [
+        Validators.required,
+      ]),
+      descrizione: new FormControl(
+        this.prodottoSelezionato?.descrizione || '',
+        [Validators.required]
       ),
-      prezzo: new FormControl(this.prodottoSelezionato?.prezzo || ''),
-      quantita: new FormControl(this.prodottoSelezionato?.quantita || ''),
+      annoPubblicazione: new FormControl(
+        this.prodottoSelezionato?.annoPubblicazione || '',
+        [Validators.required]
+      ),
+      prezzo: new FormControl(this.prodottoSelezionato?.prezzo || '', [
+        Validators.required,
+      ]),
+      quantita: new FormControl(this.prodottoSelezionato?.quantita || '', [
+        Validators.required,
+      ]),
       immagineProdotto: new FormControl(
-        this.prodottoSelezionato?.immagineProdotto || ''
+        this.prodottoSelezionato?.immagineProdotto || '',
+        [Validators.required]
       ),
     });
   }

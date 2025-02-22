@@ -34,6 +34,11 @@ export class CreaProdottoComponent implements OnInit {
         console.log(resp);
       }
       this.prodottoForm.reset();
+      Object.keys(this.prodottoForm.controls).forEach((key) => {
+        this.prodottoForm.controls[key].setErrors(null);
+        this.prodottoForm.controls[key].markAsPristine();
+        this.prodottoForm.controls[key].markAsUntouched();
+      });
       this.loader.stopLoader();
     });
   }
