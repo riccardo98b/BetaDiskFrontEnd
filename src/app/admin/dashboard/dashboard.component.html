@@ -7,6 +7,13 @@
           <mat-list-item
             class="link-admin"
             role="listitem"
+            routerLink="prodotti-admin"
+            [routerLinkActive]="'active'"
+            >Lista di tutti i prodotti</mat-list-item
+          >
+          <mat-list-item
+            class="link-admin"
+            role="listitem"
             routerLink="crea-prodotto"
             [routerLinkActive]="'active'"
             >Crea un nuovo prodotto</mat-list-item
@@ -16,7 +23,7 @@
             role="listitem"
             routerLink="modifica-prodotto"
             [routerLinkActive]="'active'"
-            >Modifica prodotto</mat-list-item
+            >Modifica un prodotto</mat-list-item
           >
           <mat-list-item
             class="link-admin"

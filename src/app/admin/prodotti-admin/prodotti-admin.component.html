@@ -1,0 +1,35 @@
+<div class="container my-5 px-5">
+  <mat-accordion>
+    <mat-expansion-panel
+      hideToggle
+      *ngFor="let prodotto of data"
+      class="list-group-item list-items"
+    >
+      <mat-expansion-panel-header class="d-flex justify-content-between">
+        <mat-panel-title class="w-5"
+          ><div class="fw-bold">ID Prodotto: {{ prodotto.idProdotto }}</div>
+        </mat-panel-title>
+        <mat-panel-description class="d-flex justify-content-between">
+          <div>{{ prodotto.titolo }}</div>
+        </mat-panel-description>
+        <div>
+          <button mat-mini-fab class="edit-btn" aria-label="edit-btn">
+            <mat-icon>edit_note</mat-icon>
+          </button>
+          <button mat-mini-fab class="delete-btn" aria-label="delete-btn">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-expansion-panel-header>
+      <div>
+        <p>{{ prodotto.artista }}</p>
+        <p>Quantità disponibile: {{ prodotto.quantita }}</p>
+        <p>Prezzo: {{ prodotto.prezzo }}</p>
+        <p>Formato: {{ prodotto.formato }}</p>
+        <p>Genere: {{ prodotto.genere }}</p>
+        <p>Anno di pubblicazione: {{ prodotto.annoPubblicazione }}</p>
+        <p>Descrizione: {{ prodotto.descrizione }}</p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

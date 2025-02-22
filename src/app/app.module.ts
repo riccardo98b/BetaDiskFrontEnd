@@ -60,6 +60,7 @@ import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.componen
 import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component';
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
+import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -93,6 +94,7 @@ registerLocaleData(localeIt, 'it');
     DialogDataComponent,
     Pagina403Component,
     ModificaProdottoComponent,
+    ProdottiAdminComponent,
   ],
   imports: [
     BrowserModule,
