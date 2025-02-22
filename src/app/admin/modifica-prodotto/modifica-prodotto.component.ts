@@ -18,6 +18,7 @@ export class ModificaProdottoComponent implements OnInit {
   prodottoTrovato: boolean;
   prodottoSelezionato: Prodotto;
   resp: any;
+  formati: any;
 
   constructor(
     private service: ProdottiService,
@@ -30,6 +31,7 @@ export class ModificaProdottoComponent implements OnInit {
   cercaProdotto() {
     this.loader.startLoader();
     this.getProdottoPerId();
+    this.listaDeiFormati();
   }
 
   getProdottoPerId() {
@@ -118,6 +120,18 @@ export class ModificaProdottoComponent implements OnInit {
         this.prodottoSelezionato?.immagineProdotto || '',
         [Validators.required]
       ),
+    });
+  }
+
+  listaDeiFormati() {
+    this.service.listFormati().subscribe((resp) => {
+      this.response = resp;
+      this.formati = resp.dati;
+      if (this.response.rc === true) {
+        console.log(this.response);
+      } else {
+        console.log('errore');
+      }
     });
   }
 }

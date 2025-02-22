@@ -55,4 +55,9 @@ export class ProdottiService {
     const url = this.authService.getURL('prodotto/update');
     return this.http.post(url, body);
   }
+
+  listFormati(): Observable<any> {
+    const url = this.authService.getURL('prodotto/formati');
+    return this.http.get<any>(url);
+  }
 }

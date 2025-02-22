@@ -16,6 +16,7 @@ export class CreaProdottoComponent implements OnInit {
   rc: boolean;
   listaFormati: string[] = [];
   data: Prodotto[];
+  formati: any;
 
   constructor(
     private service: ProdottiService,
@@ -24,6 +25,7 @@ export class CreaProdottoComponent implements OnInit {
 
   ngOnInit(): void {
     this.prodottoForm = this.formInit();
+    this.listaDeiFormati();
   }
 
   onSubmit() {
@@ -54,6 +56,17 @@ export class CreaProdottoComponent implements OnInit {
       prezzo: new FormControl('', [Validators.required]),
       quantita: new FormControl('', [Validators.required]),
       immagineProdotto: new FormControl('', [Validators.required]),
+    });
+  }
+  listaDeiFormati() {
+    this.service.listFormati().subscribe((resp) => {
+      this.resp = resp;
+      this.formati = resp.dati;
+      if (this.resp.rc === true) {
+        console.log(this.resp);
+      } else {
+        console.log('errore');
+      }
     });
   }
 }
