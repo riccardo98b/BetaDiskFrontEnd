@@ -1,10 +1,10 @@
 <div class="container-fluid d-flex flex-column container-filtri container">
-  <h2 class="mb-4">Ecco i nostri articoli in vendita</h2>
+  <h2 class="mb-5 text-center">Ecco i nostri articoli in vendita</h2>
   <app-loader *ngIf="isLoading"></app-loader>
 
   <div id="filtri-prodotti" class="row">
-    <div class="col-sm-12">
-      <ul class="nav flex-column nav-ul">
+    <div class="col-sm-12 div-filtri">
+      <ul class="nav nav-ul d-flex justify-content-center">
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -72,10 +72,14 @@
       class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
       *ngFor="let prodotto of data"
     >
-      <app-card [prodotto]="prodotto" [responsive]="false" [cartBadge]="cartBadge">
+      <app-card
+        [prodotto]="prodotto"
+        [responsive]="false"
+        [cartBadge]="cartBadge"
+      >
         <div id="card-buttons">
           <button
-          [disabled]="prodotto.quantita==0"
+            [disabled]="prodotto.quantita == 0"
             mat-fab
             extended
             (click)="aggiungiProdotto(prodotto?.idProdotto)"
