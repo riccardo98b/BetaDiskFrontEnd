@@ -41,31 +41,26 @@
 </p> -->
 
 <p class="mx-3">
-  Seleziona uno dei filtri, a seconda delle informazioni necessarie
+  Puoi ricercare i clienti , a seconda delle informazioni necessarie
 </p>
-<button
+<!-- <button
   mat-flat-button
   color="primary"
   (click)="showOrHideTabellaClienti()"
   class="mb-3"
 >
   Visualizza tutti i clienti
+</button> -->
+<button mat-flat-button color="primary" (click)="cercaNome()" class="ms-3 mb-3">
+  Cerca per nome
 </button>
 <button
   mat-flat-button
   color="primary"
-  (click)="openDialog()"
+  (click)="cercaCognome()"
   class="ms-3 mb-3"
 >
-  Filtra per nome
-</button>
-<button
-  mat-flat-button
-  color="primary"
-  (click)="openDialog()"
-  class="ms-3 mb-3"
->
-  Filtra per cognome
+  Cerca per cognome
 </button>
 <button
   mat-flat-button
@@ -80,7 +75,7 @@
 </button>
 
 <div class="mt-4"></div>
-<table *ngIf="showOrHideClienti" class="table table-striped table-hover">
+<table class="table table-striped table-hover">
   <thead>
     <tr align="center">
       <th scope="col">Id</th>

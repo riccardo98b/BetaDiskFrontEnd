@@ -10,9 +10,16 @@ import { AuthService } from '../../auth/auth.service';
 export class ClienteService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  listAll(): Observable<Cliente[]> {
+  listAll(nome?: string, cognome?: string): Observable<Cliente[]> {
+    let params = new HttpParams();
+    if (nome) {
+      params = params.append('nome', nome);
+    }
+    if (cognome) {
+      params = params.append('cognome', cognome);
+    }
     const url = this.authService.getURL('cliente/listAll');
-    return this.http.get<Cliente[]>(url);
+    return this.http.get<Cliente[]>(url, { params });
   }
 
   getCliente(idCliente: number): Observable<Cliente> {
