@@ -32,4 +32,19 @@ export class ProdottiAdminComponent implements OnInit {
       this.loader.stopLoader();
     });
   }
+
+  deleteProdotto(idProdotto: number) {
+    this.loader.startLoader();
+    let req = {
+      idProdotto: idProdotto,
+    };
+    this.service.deleteProdotto(req).subscribe((resp) => {
+      this.response = resp;
+      if (this.response.rc === true) {
+        console.log('Prodotto eliminato con succsso');
+      }
+      this.loader.stopLoader();
+      this.getTuttiProdotti();
+    });
+  }
 }

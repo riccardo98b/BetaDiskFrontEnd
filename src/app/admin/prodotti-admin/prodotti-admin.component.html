@@ -16,7 +16,14 @@
           <button mat-mini-fab class="edit-btn" aria-label="edit-btn">
             <mat-icon>edit_note</mat-icon>
           </button>
-          <button mat-mini-fab class="delete-btn" aria-label="delete-btn">
+          <button
+            mat-mini-fab
+            class="delete-btn"
+            aria-label="delete-btn"
+            (click)="
+              $event.stopPropagation(); deleteProdotto(prodotto.idProdotto)
+            "
+          >
             <mat-icon>close</mat-icon>
           </button>
         </div>
