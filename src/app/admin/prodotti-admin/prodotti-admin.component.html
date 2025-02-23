@@ -10,10 +10,18 @@
           ><div class="fw-bold">ID Prodotto: {{ prodotto.idProdotto }}</div>
         </mat-panel-title>
         <mat-panel-description class="d-flex justify-content-between">
-          <div>{{ prodotto.titolo }}</div>
+          <div><span class="fw-bold">Titolo:</span> {{ prodotto.titolo }}</div>
         </mat-panel-description>
         <div>
-          <button mat-mini-fab class="edit-btn" aria-label="edit-btn">
+          <button
+            mat-mini-fab
+            class="edit-btn m-2"
+            aria-label="edit-btn"
+            (click)="
+              $event.stopPropagation();
+              navigateToModificaProdotto(prodotto?.idProdotto)
+            "
+          >
             <mat-icon>edit_note</mat-icon>
           </button>
           <button
@@ -29,13 +37,24 @@
         </div>
       </mat-expansion-panel-header>
       <div>
-        <p>{{ prodotto.artista }}</p>
-        <p>Quantità disponibile: {{ prodotto.quantita }}</p>
-        <p>Prezzo: {{ prodotto.prezzo }}</p>
-        <p>Formato: {{ prodotto.formato }}</p>
-        <p>Genere: {{ prodotto.genere }}</p>
-        <p>Anno di pubblicazione: {{ prodotto.annoPubblicazione }}</p>
-        <p>Descrizione: {{ prodotto.descrizione }}</p>
+        <p><span class="fw-medium">Artista:</span> {{ prodotto.artista }}</p>
+        <p>
+          <span class="fw-medium">Quantità disponibile:</span>
+          {{ prodotto.quantita }}
+        </p>
+        <p>
+          <span class="fw-medium">Prezzo: </span
+          >{{ prodotto.prezzo | currency : "EUR" }}
+        </p>
+        <p><span class="fw-medium">Formato:</span> {{ prodotto.formato }}</p>
+        <p><span class="fw-medium">Genere:</span> {{ prodotto.genere }}</p>
+        <p>
+          <span class="fw-medium">Anno di pubblicazione: </span
+          >{{ prodotto.annoPubblicazione }}
+        </p>
+        <p>
+          <span class="fw-medium">Descrizione:</span> {{ prodotto.descrizione }}
+        </p>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

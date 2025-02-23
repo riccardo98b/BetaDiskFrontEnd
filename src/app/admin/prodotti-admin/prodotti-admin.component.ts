@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { LoaderService } from '../../servizi/loader.service';
+import { Router } from '@angular/router';
+import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-prodotti-admin',
@@ -16,7 +19,9 @@ export class ProdottiAdminComponent implements OnInit {
 
   constructor(
     private service: ProdottiService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private route: Router,
+    private dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.getTuttiProdotti();
@@ -28,6 +33,8 @@ export class ProdottiAdminComponent implements OnInit {
       this.response = resp;
       if (this.response.rc === true) {
         this.data = this.response.dati;
+      } else {
+        this.openDialog();
       }
       this.loader.stopLoader();
     });
@@ -41,10 +48,27 @@ export class ProdottiAdminComponent implements OnInit {
     this.service.deleteProdotto(req).subscribe((resp) => {
       this.response = resp;
       if (this.response.rc === true) {
-        console.log('Prodotto eliminato con succsso');
+        this.openDialog();
+      } else {
+        this.loader.stopLoader();
+        this.openDialog();
       }
+
       this.loader.stopLoader();
       this.getTuttiProdotti();
+    });
+  }
+  navigateToModificaProdotto(id: number) {
+    this.route.navigate([
+      'admin/dashboard/modifica-prodotto',
+      { idProdotto: id },
+    ]);
+  }
+
+  openDialog() {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: { message: this.response.msg },
     });
   }
 }

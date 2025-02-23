@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { LoaderService } from '../../servizi/loader.service';
+import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-prodotti',
@@ -21,6 +23,7 @@ export class ProdottiComponent implements OnInit {
   filtriPresenti: boolean = false;
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
+  private dialog: MatDialog;
 
   constructor(
     private service: ProdottiService,
@@ -42,11 +45,11 @@ export class ProdottiComponent implements OnInit {
       this.loader.startLoader();
       if (r.rc) {
         r.dati.prodotti.forEach((p: any) => {
-          p.prodotto.prodottiCarrello.forEach((pc:any) =>{
+          p.prodotto.prodottiCarrello.forEach((pc: any) => {
             if (p.id == pc.id) {
-              this.cartBadge[p.prodotto.idProdotto] = pc.quantita
+              this.cartBadge[p.prodotto.idProdotto] = pc.quantita;
             }
-          })
+          });
         });
       }
       this.loader.stopLoader();
@@ -59,6 +62,8 @@ export class ProdottiComponent implements OnInit {
       this.response = resp;
       if (this.response.rc === true) {
         this.data = this.response.dati;
+      } else {
+        this.openDialog();
       }
       this.loader.stopLoader();
     });
@@ -148,5 +153,12 @@ export class ProdottiComponent implements OnInit {
       .subscribe((resp) => {
         this.response = resp;
       });
+  }
+
+  openDialog() {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: { message: this.response.msg },
+    });
   }
 }
