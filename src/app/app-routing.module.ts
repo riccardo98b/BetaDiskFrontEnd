@@ -42,7 +42,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['ADMIN'] },
     children: [
-      { path: '', redirectTo: 'crea-prodotto', pathMatch: 'full' },
+      { path: '', redirectTo: 'prodotti-admin', pathMatch: 'full' },
       { path: 'crea-prodotto', component: CreaProdottoComponent },
       { path: 'ordini', component: OrdiniAdminComponent },
       { path: 'modifica-prodotto', component: ModificaProdottoComponent },
