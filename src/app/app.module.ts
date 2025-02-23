@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -60,6 +61,7 @@ import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component'
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 import { ClientiAdminComponent } from './admin/clienti-admin/clienti-admin.component';
 import { DialogStringaComponent } from './dialog/dialog-stringa/dialog-stringa.component';
+import { DialogConfermaComponent } from './dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -94,6 +96,7 @@ registerLocaleData(localeIt, 'it');
     Pagina403Component,
     ClientiAdminComponent,
     DialogStringaComponent,
+    DialogConfermaComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,6 +118,7 @@ registerLocaleData(localeIt, 'it');
     MatExpansionModule,
     MatBadgeModule,
     MatDatepickerModule,
+    MatMenuModule,
     FormsModule,
   ],
   providers: [

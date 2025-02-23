@@ -19,4 +19,9 @@ export class UtenteService {
     const url = this.authService.getURL('utente/create');
     return this.http.post<Utente>(url, body);
   }
+
+  utentePerRuolo(roles: string): Observable<Utente> {
+    const url = this.authService.getURL('utente/listAllRoles?roles=' + roles);
+    return this.http.get<Utente>(url);
+  }
 }
