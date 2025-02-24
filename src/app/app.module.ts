@@ -61,6 +61,7 @@ import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component'
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
+import { PaginaCarrelloVuotoComponent } from './pagine/pagina-carrello-vuoto/pagina-carrello-vuoto.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -95,6 +96,7 @@ registerLocaleData(localeIt, 'it');
     Pagina403Component,
     ModificaProdottoComponent,
     ProdottiAdminComponent,
+    PaginaCarrelloVuotoComponent,
   ],
   imports: [
     BrowserModule,
