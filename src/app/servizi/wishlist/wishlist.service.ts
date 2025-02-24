@@ -8,6 +8,8 @@ import { Prodotto } from '../../interfacce/Prodotto';
   providedIn: 'root',
 })
 export class WishlistService {
+  private baseUrl = 'http://localhost:9090/rest/wishlist';
+
   private createWishlistUrl = 'http://localhost:9090/rest/wishlist/create';
   private apiUrl = 'http://localhost:9090/rest/wishlist/getAllProducts';
   private addProductUrl = 'http://localhost:9090/rest/wishlist/addProduct';
@@ -21,29 +23,33 @@ export class WishlistService {
     return this.http.post<any>(this.createWishlistUrl, requestBody);
   }
 
-
   getWishlist(idCliente: number): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.apiUrl}?idCliente=${idCliente}`);
   }
 
-  addProductToWishlist(idCliente: number, prodotto: Prodotto): Observable<any> {
-    return this.http.post<any>(this.addProductUrl, { idCliente, prodotto });
+
+  addProductToWishlist(idCliente: number, idProdotti: number[]): Observable<any> {
+    const wishlistRequest = {
+      idCliente: idCliente,
+      idProdotti: idProdotti,
+    };
+    return this.http.post<any>(this.addProductUrl, wishlistRequest);
   }
+
 
   removeProductFromWishlist(idCliente: number, idProdotto: number): Observable<any> {
     const wishlistRequest = {
-        idCliente: idCliente,
-        idProdotti: [idProdotto]
+      idCliente: idCliente,
+      idProdotti: [idProdotto],
     };
-
     return this.http.post<any>(this.removeProductUrl, wishlistRequest);
-}
-  clearAllWishlist(idCliente: number): Observable<any> {
-    const wishlistRequest = {
-        idCliente: idCliente
-    };
-
-    return this.http.post<any>(this.clearWishlistUrl, wishlistRequest);
   }
 
+
+  clearAllWishlist(idCliente: number): Observable<any> {
+    const wishlistRequest = {
+      idCliente: idCliente,
+    };
+    return this.http.post<any>(this.clearWishlistUrl, wishlistRequest);
+  }
 }

@@ -18,4 +18,5 @@ export interface Prodotto {
   recensioni: Recensione[];
   prodottiCarrello: ProdottoCarrello[];
   prodottiWishlist: Wishlist[];
+  isInWishlist?: boolean;
 }
