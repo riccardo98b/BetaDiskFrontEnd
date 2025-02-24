@@ -21,6 +21,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -62,6 +63,8 @@ import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 import { ClientiAdminComponent } from './admin/clienti-admin/clienti-admin.component';
 import { DialogStringaComponent } from './dialog/dialog-stringa/dialog-stringa.component';
 import { DialogConfermaComponent } from './dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
+import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
+import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -97,6 +100,8 @@ registerLocaleData(localeIt, 'it');
     ClientiAdminComponent,
     DialogStringaComponent,
     DialogConfermaComponent,
+    ModificaProdottoComponent,
+    ProdottiAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -120,6 +125,8 @@ registerLocaleData(localeIt, 'it');
     MatDatepickerModule,
     MatMenuModule,
     FormsModule,
+    FormsModule,
+    MatRadioModule,
   ],
   providers: [
     provideHttpClient(withFetch()),

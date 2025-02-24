@@ -1,0 +1,61 @@
+<div class="container my-5 px-5">
+  <mat-accordion>
+    <mat-expansion-panel
+      hideToggle
+      *ngFor="let prodotto of data"
+      class="list-group-item list-items"
+    >
+      <mat-expansion-panel-header class="d-flex justify-content-between">
+        <mat-panel-title class="w-5"
+          ><div class="fw-bold">ID Prodotto: {{ prodotto.idProdotto }}</div>
+        </mat-panel-title>
+        <mat-panel-description class="d-flex justify-content-between">
+          <div><span class="fw-bold">Titolo:</span> {{ prodotto.titolo }}</div>
+        </mat-panel-description>
+        <div>
+          <button
+            mat-mini-fab
+            class="edit-btn m-2"
+            aria-label="edit-btn"
+            (click)="
+              $event.stopPropagation();
+              navigateToModificaProdotto(prodotto?.idProdotto)
+            "
+          >
+            <mat-icon>edit_note</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            class="delete-btn"
+            aria-label="delete-btn"
+            (click)="
+              $event.stopPropagation(); deleteProdotto(prodotto.idProdotto)
+            "
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-expansion-panel-header>
+      <div>
+        <p><span class="fw-medium">Artista:</span> {{ prodotto.artista }}</p>
+        <p>
+          <span class="fw-medium">Quantità disponibile:</span>
+          {{ prodotto.quantita }}
+        </p>
+        <p>
+          <span class="fw-medium">Prezzo: </span
+          >{{ prodotto.prezzo | currency : "EUR" }}
+        </p>
+        <p><span class="fw-medium">Formato:</span> {{ prodotto.formato }}</p>
+        <p><span class="fw-medium">Genere:</span> {{ prodotto.genere }}</p>
+        <p>
+          <span class="fw-medium">Anno di pubblicazione: </span
+          >{{ prodotto.annoPubblicazione }}
+        </p>
+        <p>
+          <span class="fw-medium">Descrizione:</span> {{ prodotto.descrizione }}
+        </p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
