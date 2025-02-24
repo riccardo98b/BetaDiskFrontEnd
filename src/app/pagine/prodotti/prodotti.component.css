@@ -10,10 +10,14 @@
   width: 30%;
   padding-top: 1em;
   padding-bottom: 1em;
+  display: flex;
+  justify-content: start;
+  align-items: start;
 }
 
 .main-content {
   padding-left: 5em;
+  padding-right: 2em;
 }
 
 @media (max-width: 678px) {
@@ -28,21 +32,29 @@
   }
 
   .main-content {
-    padding-left: 0;
+    padding: 0;
     margin-top: 1em;
   }
 }
 
 .togli-filtri {
-  width: 120px;
+  width: 125px;
 }
 
-.container-filtri {
-  margin-left: 2em;
+@media screen and (min-width: 768px) {
+  .container-filtri {
+    margin-left: 7em;
+  }
 }
-
 .container {
   min-height: 70vh;
   margin-top: 100px;
   margin-bottom: 40px;
+}
+
+@media (min-width: 678px) {
+  .nav {
+    display: flex;
+    flex-direction: column;
+  }
 }

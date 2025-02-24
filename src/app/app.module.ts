@@ -19,7 +19,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -58,6 +59,8 @@ import { RegistrazioneComponent } from './pagine/registrazione/registrazione.com
 import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
 import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component';
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
+import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
+import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -90,6 +93,8 @@ registerLocaleData(localeIt, 'it');
     OrdiniAdminComponent,
     DialogDataComponent,
     Pagina403Component,
+    ModificaProdottoComponent,
+    ProdottiAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,7 +116,8 @@ registerLocaleData(localeIt, 'it');
     MatExpansionModule,
     MatBadgeModule,
     MatDatepickerModule,
-    FormsModule
+    FormsModule,
+    MatRadioModule,
   ],
   providers: [
     provideHttpClient(withFetch()),
