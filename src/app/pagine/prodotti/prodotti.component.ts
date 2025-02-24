@@ -24,7 +24,7 @@ export class ProdottiComponent implements OnInit {
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
 
-  wishlist: number[] = [];
+  wishlistId: number[] = [];
 
   constructor(
     private service: ProdottiService,
@@ -159,7 +159,7 @@ export class ProdottiComponent implements OnInit {
 
   //Prodotti preferiti della wishlist
   preferitiWishlist(prodotto: Prodotto) {
-    if (this.wishlist.includes(prodotto.idProdotto)) {
+    if (this.wishlistId.includes(prodotto.idProdotto)) {
       this.removeFromWishlist(prodotto);
     } else {
       this.addToWishlist(prodotto);
@@ -169,7 +169,8 @@ export class ProdottiComponent implements OnInit {
   addToWishlist(prodotto: Prodotto) {
     this.wishlistService.addProductToWishlist(this.idCliente, [prodotto.idProdotto]).subscribe({
       next: () => {
-        this.wishlist.push(prodotto.idProdotto);
+        this.wishlistId.push(prodotto.idProdotto);
+        this.getTuttiProdotti();
       },
       error: (error) => {
         console.error('Errore durante l\'aggiunta alla wishlist:', error);
@@ -180,7 +181,8 @@ export class ProdottiComponent implements OnInit {
   removeFromWishlist(prodotto: Prodotto) {
     this.wishlistService.removeProductFromWishlist(this.idCliente, prodotto.idProdotto).subscribe({
       next: () => {
-        this.wishlist = this.wishlist.filter(id => id !== prodotto.idProdotto);
+        this.wishlistId = this.wishlistId.filter(id => id !== prodotto.idProdotto);
+        this.getTuttiProdotti();
       },
       error: (error) => {
         console.error('Errore durante la rimozione dalla wishlist:', error);
@@ -191,7 +193,7 @@ export class ProdottiComponent implements OnInit {
   loadWishlist() {
     this.wishlistService.getWishlist(this.idCliente).subscribe({
       next: (data) => {
-        this.wishlist = data.dati.map((p: Prodotto) => p.idProdotto);
+        this.wishlistId = data.dati.map((p: Prodotto) => p.idProdotto);
       },
       error: (error) => {
         console.error('Errore nel recupero della wishlist:', error);

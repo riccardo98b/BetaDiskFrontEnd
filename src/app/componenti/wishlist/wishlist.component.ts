@@ -31,7 +31,7 @@ export class WishlistComponent implements OnInit {
 
     if (storedUserId) {
       this.currentUserId = +storedUserId;
-      this.checkOrCreateWishlist(); 
+      this.checkOrCreateWishlist();
     } else {
       console.error("Nessun utente loggato trovato.");
       this.isLoading = false;
@@ -108,6 +108,7 @@ export class WishlistComponent implements OnInit {
     this.wishlistService.removeProductFromWishlist(this.currentUserId, prodotto.idProdotto).subscribe({
       next: () => {
         this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto);
+        this.inizializzaWishlist();
         console.log('Prodotto rimosso dalla wishlist nel DB');
       },
       error: (error) => {
