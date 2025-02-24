@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { LoaderService } from '../../servizi/loader.service';
+import { WishlistService } from '../../servizi/wishlist/wishlist.service';
+import { Wishlist } from '../../interfacce/Wishlist';
 
 @Component({
   selector: 'app-prodotti',
@@ -26,7 +28,8 @@ export class ProdottiComponent implements OnInit {
     private service: ProdottiService,
     private route: Router,
     private serviceCarrello: CarrelloService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
@@ -149,4 +152,33 @@ export class ProdottiComponent implements OnInit {
         this.response = resp;
       });
   }
+
+
+  addToWishlist(prodotto: Prodotto): void {
+    console.log('Adding product to wishlist:', prodotto);
+    const idCliente = +localStorage.getItem('idCliente')!;
+    this.wishlistService.addProductToWishlist(idCliente, [prodotto.idProdotto]).subscribe({
+      next: (response) => {
+        console.log('Prodotto aggiunto alla wishlist:', response);
+      },
+      error: (error) => {
+        console.error('Errore durante l\'aggiunta alla wishlist:', error);
+      }
+    });
+  }
+
+  removeFromWishlist(prodotto: Prodotto): void {
+    console.log('Removing product from wishlist:', prodotto);
+    const idCliente = +localStorage.getItem('idCliente')!;
+    this.wishlistService.removeProductFromWishlist(idCliente, prodotto.idProdotto).subscribe({
+      next: (response) => {
+        console.log('Prodotto rimosso dalla wishlist:', response);
+        // Eventualmente aggiorna la lista dei prodotti per riflettere lo stato
+      },
+      error: (error) => {
+        console.error('Errore durante la rimozione dalla wishlist:', error);
+      }
+    });
+  }
+
 }

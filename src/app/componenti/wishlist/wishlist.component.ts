@@ -98,15 +98,16 @@ export class WishlistComponent implements OnInit {
   removeFromWishlist(prodotto: Prodotto): void {
     console.log('Rimuovo prodotto con idProdotto:', prodotto.idProdotto);
     this.wishlistService.removeProductFromWishlist(this.currentUserId, prodotto.idProdotto).subscribe({
-        next: () => {
-            this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto);
-            console.log('Prodotto rimosso dalla wishlist nel DB');
-        },
-        error: (error) => {
-            console.error('Errore durante la rimozione del prodotto dalla wishlist:', error);
-        }
+      next: () => {
+        this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto);
+        console.log('Prodotto rimosso dalla wishlist nel DB');
+      },
+      error: (error) => {
+        console.error('Errore durante la rimozione del prodotto dalla wishlist:', error);
+      }
     });
   }
+
 
   trackById(index: number, item: Prodotto): number {
     return item.idProdotto;
