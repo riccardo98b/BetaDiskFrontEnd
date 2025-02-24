@@ -18,6 +18,8 @@ import { RegistrazioneComponent } from './pagine/registrazione/registrazione.com
 import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
 import { AuthGuard } from './auth/auth.guard';
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
+import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
+import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -40,9 +42,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['ADMIN'] },
     children: [
-      { path: '', redirectTo: 'crea-prodotto', pathMatch: 'full' },
+      { path: '', redirectTo: 'prodotti-admin', pathMatch: 'full' },
       { path: 'crea-prodotto', component: CreaProdottoComponent },
       { path: 'ordini', component: OrdiniAdminComponent },
+      { path: 'modifica-prodotto', component: ModificaProdottoComponent },
+      { path: 'prodotti-admin', component: ProdottiAdminComponent },
     ],
   },
   {

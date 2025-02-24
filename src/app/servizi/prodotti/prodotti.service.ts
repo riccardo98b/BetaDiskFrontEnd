@@ -50,4 +50,19 @@ export class ProdottiService {
     const url = this.authService.getURL('prodotto/create');
     return this.http.post(url, body);
   }
+
+  updateProdotto(body: {}) {
+    const url = this.authService.getURL('prodotto/update');
+    return this.http.post(url, body);
+  }
+
+  listFormati(): Observable<any> {
+    const url = this.authService.getURL('prodotto/formati');
+    return this.http.get<any>(url);
+  }
+
+  deleteProdotto(body: {}): Observable<any> {
+    const url = this.authService.getURL('prodotto/delete');
+    return this.http.post<any>(url, body);
+  }
 }

@@ -1,4 +1,17 @@
-<div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
+<div class="card">
+  <div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
+    <img
+      src="{{ prodotto?.immagineProdotto }}"
+      class="example-card"
+      [ngClass]="{ 'responsive-img': responsive }"
+      alt="immagine-prodotto"
+    />
+    <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
+      <h5 class="card-titolo" [ngClass]="{ 'titolo-dettaglio': responsive }">
+        {{ prodotto?.titolo }}
+      </h5>
+      <p class="card-artista">{{ prodotto?.artista }}</p>
+      <em class="card-genere">{{ prodotto?.genere }}</em>
 
   <img
     src="{{ prodotto?.immagineProdotto }}"

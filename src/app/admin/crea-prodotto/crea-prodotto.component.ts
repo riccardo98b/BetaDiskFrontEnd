@@ -3,6 +3,8 @@ import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { LoaderService } from '../../servizi/loader.service';
+import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-crea-prodotto',
@@ -12,27 +14,40 @@ import { LoaderService } from '../../servizi/loader.service';
 })
 export class CreaProdottoComponent implements OnInit {
   prodottoForm: FormGroup = this.formInit();
-  resp: any;
+  response: any;
   rc: boolean;
   listaFormati: string[] = [];
   data: Prodotto[];
+  formati: any;
+
   constructor(
     private service: ProdottiService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.prodottoForm = this.formInit();
+    this.listaDeiFormati();
   }
 
   onSubmit() {
     this.loader.startLoader();
     this.service.createProdotto(this.prodottoForm.value).subscribe((resp) => {
-      this.resp = resp;
-      if (this.resp.rc === true) {
-        console.log(resp);
+      this.response = resp;
+      if (this.response.rc === true) {
+        this.prodottoForm.reset();
+        Object.keys(this.prodottoForm.controls).forEach((key) => {
+          this.prodottoForm.controls[key].setErrors(null);
+          this.prodottoForm.controls[key].markAsPristine();
+          this.prodottoForm.controls[key].markAsUntouched();
+        });
+      } else {
+        this.openDialog();
       }
+
       this.loader.stopLoader();
+      this.openDialog();
     });
   }
 
@@ -47,6 +62,19 @@ export class CreaProdottoComponent implements OnInit {
       prezzo: new FormControl('', [Validators.required]),
       quantita: new FormControl('', [Validators.required]),
       immagineProdotto: new FormControl('', [Validators.required]),
+    });
+  }
+  listaDeiFormati() {
+    this.service.listFormati().subscribe((resp) => {
+      this.response = resp;
+      this.formati = resp.dati;
+    });
+  }
+
+  openDialog() {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: { message: this.response.msg },
     });
   }
 }

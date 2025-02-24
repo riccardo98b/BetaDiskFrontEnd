@@ -6,6 +6,8 @@ import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { LoaderService } from '../../servizi/loader.service';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
 
+import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-prodotti',
@@ -23,6 +25,7 @@ export class ProdottiComponent implements OnInit {
   filtriPresenti: boolean = false;
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
+  private dialog: MatDialog;
 
   wishlistId: number[] = [];
 
@@ -48,11 +51,11 @@ export class ProdottiComponent implements OnInit {
       this.loader.startLoader();
       if (r.rc) {
         r.dati.prodotti.forEach((p: any) => {
-          p.prodotto.prodottiCarrello.forEach((pc:any) =>{
+          p.prodotto.prodottiCarrello.forEach((pc: any) => {
             if (p.id == pc.id) {
-              this.cartBadge[p.prodotto.idProdotto] = pc.quantita
+              this.cartBadge[p.prodotto.idProdotto] = pc.quantita;
             }
-          })
+          });
         });
       }
       this.loader.stopLoader();
@@ -65,6 +68,8 @@ export class ProdottiComponent implements OnInit {
       this.response = resp;
       if (this.response.rc === true) {
         this.data = this.response.dati;
+      } else {
+        this.openDialog();
       }
       this.loader.stopLoader();
     });
@@ -197,7 +202,11 @@ export class ProdottiComponent implements OnInit {
       },
       error: (error) => {
         console.error('Errore nel recupero della wishlist:', error);
-      }
+      }})}
+  openDialog() {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: { message: this.response.msg },
     });
   }
 }

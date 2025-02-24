@@ -11,6 +11,11 @@
   display: flex;
   justify-content: space-around;
   flex-direction: column;
+  padding: 0;
+}
+
+.card-content {
+  padding: 1em;
 }
 
 .example-card {
@@ -27,17 +32,17 @@
 img {
   height: 100%;
   width: 100%;
-  object-fit: fill;
+  object-fit: cover;
 }
 .card-prezzo {
   font-size: 1.3em;
 }
 
 i.bi {
-  font-size: 1.5rem;  
+  font-size: 1.5rem;
 }
 
-@media screen and (min-width: 678px) {
+@media screen and (min-width: 800px) {
   .responsive-body {
     display: flex;
     flex-direction: row;
@@ -51,5 +56,10 @@ i.bi {
   }
   .responsive-img {
     width: 40%;
+    object-fit: scale-down;
   }
+}
+
+.card-formato {
+  margin-top: 1em;
 }
