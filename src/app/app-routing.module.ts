@@ -18,6 +18,7 @@ import { RegistrazioneComponent } from './pagine/registrazione/registrazione.com
 import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
 import { AuthGuard } from './auth/auth.guard';
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
+import { ClientiAdminComponent } from './admin/clienti-admin/clienti-admin.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'prodotti-admin', pathMatch: 'full' },
       { path: 'crea-prodotto', component: CreaProdottoComponent },
       { path: 'ordini', component: OrdiniAdminComponent },
+      { path: 'clienti', component: ClientiAdminComponent },
       { path: 'modifica-prodotto', component: ModificaProdottoComponent },
       { path: 'prodotti-admin', component: ProdottiAdminComponent },
     ],

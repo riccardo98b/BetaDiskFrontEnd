@@ -1,0 +1,154 @@
+<h2 class="mt-2 text-center">Gestione clienti</h2>
+<h4 class="mx-2">Filtri per ricerca</h4>
+<p class="mx-3">
+  Puoi ricercare i clienti, a seconda delle informazioni necessarie
+</p>
+
+<div class="row mb-3">
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button mat-flat-button color="primary" (click)="cercaNome()" class="w-100">
+      Cerca per nome
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaCognome()"
+      class="w-100"
+    >
+      Cerca per cognome
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaComune()"
+      class="w-100"
+    >
+      Cerca per comune
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaProvincia()"
+      class="w-100"
+    >
+      Cerca per provincia
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button mat-flat-button color="primary" (click)="cercaCap()" class="w-100">
+      Cerca per CAP
+    </button>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaEmail()"
+      class="w-100"
+    >
+      Cerca per email
+    </button>
+  </div>
+</div>
+
+<div id="filtro-ruoli-utente" class="row mb-3">
+  <div class="col-12 col-md-6 col-lg-4">
+    <button mat-flat-button [matMenuTriggerFor]="menu">
+      Filtra per Ruolo:
+      <span>{{ ruoloSelezionato || "Seleziona" }}</span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="setRuolo('UTENTE')">Utente</button>
+      <button mat-menu-item (click)="setRuolo('ADMIN')">Admin</button>
+    </mat-menu>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-12 col-md-6 col-lg-4">
+    <button (click)="reset()" class="btn btn-danger text-center">
+      <mat-icon class="d-inline-block align-middle">cancel</mat-icon> Reset
+    </button>
+  </div>
+</div>
+
+<div class="container my-5 px-5">
+  <div class="mb-2">
+    {{
+      clienti.length === 0
+        ? "Nessun risultato trovato corrispondente ai criteri di ricerca"
+        : clienti.length === 1
+        ? "1 risultato trovato"
+        : clienti.length + " risultati trovati"
+    }}
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel
+      hideToggle
+      *ngFor="let cliente of clienti"
+      class="list-group-item list-items"
+    >
+      <mat-expansion-panel-header class="d-flex justify-content-between">
+        <mat-panel-title class="w-5">
+          <div class="fw-bold">
+            Nome e cognome:<span>
+              {{ cliente.nome }} {{ cliente.cognome }}</span
+            >
+          </div>
+        </mat-panel-title>
+        <mat-panel-description class="d-flex justify-content-between">
+          <div>
+            <span class="fw-bold">Username:</span>
+            {{ cliente.utente?.username }}
+          </div>
+        </mat-panel-description>
+        <div>
+          <button
+            mat-mini-fab
+            class="edit-btn m-2"
+            aria-label="edit-btn"
+            (click)="
+              $event.stopPropagation(); modificaCliente(cliente.idCliente)
+            "
+          >
+            <mat-icon>edit_note</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            class="delete-btn"
+            aria-label="delete-btn"
+            (click)="
+              $event.stopPropagation(); eliminaCliente(cliente.idCliente)
+            "
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-expansion-panel-header>
+      <div>
+        <p><span class="fw-medium">Email:</span> {{ cliente.utente?.email }}</p>
+        <p>
+          <span class="fw-medium">Ruolo:</span>
+          {{ cliente.utente?.roles }}
+        </p>
+        <p><span class="fw-medium">Telefono: </span>{{ cliente.telefono }}</p>
+        <p><span class="fw-medium">Via:</span> {{ cliente.via }}</p>
+        <p><span class="fw-medium">Comune:</span> {{ cliente.comune }}</p>
+        <p><span class="fw-medium">Provincia: </span>{{ cliente.provincia }}</p>
+        <p><span class="fw-medium">CAP:</span> {{ cliente.cap }}</p>
+        <p>
+          <span class="fw-medium">Cliente registrato dal: </span>
+          {{ cliente.dataRegistrazione | date : "longDate" }}
+        </p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

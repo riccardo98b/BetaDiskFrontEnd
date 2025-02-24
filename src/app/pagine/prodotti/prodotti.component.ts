@@ -5,6 +5,7 @@ import { Prodotto } from '../../interfacce/Prodotto';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { LoaderService } from '../../servizi/loader.service';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
+import { WishlistService } from '../../servizi/wishlist/wishlist.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -25,11 +26,14 @@ export class ProdottiComponent implements OnInit {
   cartBadge: { [idProdotto: number]: number } = {};
   private dialog: MatDialog;
 
+  wishlistId: number[] = [];
+
   constructor(
     private service: ProdottiService,
     private route: Router,
     private serviceCarrello: CarrelloService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +42,7 @@ export class ProdottiComponent implements OnInit {
     });
     this.getTuttiProdotti();
     this.getProdottiCarrello();
+    this.loadWishlist();
   }
 
   getProdottiCarrello() {
@@ -155,6 +160,55 @@ export class ProdottiComponent implements OnInit {
       });
   }
 
+  //Prodotti preferiti della wishlist
+  preferitiWishlist(prodotto: Prodotto) {
+    if (this.wishlistId.includes(prodotto.idProdotto)) {
+      this.removeFromWishlist(prodotto);
+    } else {
+      this.addToWishlist(prodotto);
+    }
+  }
+
+  addToWishlist(prodotto: Prodotto) {
+    this.wishlistService
+      .addProductToWishlist(this.idCliente, [prodotto.idProdotto])
+      .subscribe({
+        next: () => {
+          this.wishlistId.push(prodotto.idProdotto);
+          this.getTuttiProdotti();
+        },
+        error: (error) => {
+          console.error("Errore durante l'aggiunta alla wishlist:", error);
+        },
+      });
+  }
+
+  removeFromWishlist(prodotto: Prodotto) {
+    this.wishlistService
+      .removeProductFromWishlist(this.idCliente, prodotto.idProdotto)
+      .subscribe({
+        next: () => {
+          this.wishlistId = this.wishlistId.filter(
+            (id) => id !== prodotto.idProdotto
+          );
+          this.getTuttiProdotti();
+        },
+        error: (error) => {
+          console.error('Errore durante la rimozione dalla wishlist:', error);
+        },
+      });
+  }
+
+  loadWishlist() {
+    this.wishlistService.getWishlist(this.idCliente).subscribe({
+      next: (data) => {
+        this.wishlistId = data.dati.map((p: Prodotto) => p.idProdotto);
+      },
+      error: (error) => {
+        console.error('Errore nel recupero della wishlist:', error);
+      },
+    });
+  }
   openDialog() {
     this.dialog.open(PopUpComponent, {
       width: '400px',
