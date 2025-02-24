@@ -4,41 +4,62 @@
   Puoi ricercare i clienti, a seconda delle informazioni necessarie
 </p>
 
-<!-- I pulsanti di ricerca -->
-<button mat-flat-button color="primary" (click)="cercaNome()" class="ms-3 mb-3">
-  Cerca per nome
-</button>
-<button
-  mat-flat-button
-  color="primary"
-  (click)="cercaCognome()"
-  class="ms-3 mb-3"
->
-  Cerca per cognome
-</button>
-<button
-  mat-flat-button
-  color="primary"
-  (click)="cercaComune()"
-  class="ms-3 mb-3"
->
-  Cerca per comune
-</button>
-<button
-  mat-flat-button
-  color="primary"
-  (click)="cercaProvincia()"
-  class="ms-3 mb-3"
->
-  Cerca per provincia
-</button>
-<button mat-flat-button color="primary" (click)="cercaCap()" class="ms-3 mb-3">
-  Cerca per CAP
-</button>
+<div class="row mb-3">
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button mat-flat-button color="primary" (click)="cercaNome()" class="w-100">
+      Cerca per nome
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaCognome()"
+      class="w-100"
+    >
+      Cerca per cognome
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaComune()"
+      class="w-100"
+    >
+      Cerca per comune
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaProvincia()"
+      class="w-100"
+    >
+      Cerca per provincia
+    </button>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button mat-flat-button color="primary" (click)="cercaCap()" class="w-100">
+      Cerca per CAP
+    </button>
+  </div>
 
-<!-- Filtra per Ruolo -->
-<div id="filtro-ruoli-utente" class="row">
-  <div class="col-sm-12">
+  <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="cercaEmail()"
+      class="w-100"
+    >
+      Cerca per email
+    </button>
+  </div>
+</div>
+
+<div id="filtro-ruoli-utente" class="row mb-3">
+  <div class="col-12 col-md-6 col-lg-4">
     <button mat-flat-button [matMenuTriggerFor]="menu">
       Filtra per Ruolo:
       <span>{{ ruoloSelezionato || "Seleziona" }}</span>
@@ -50,102 +71,84 @@
   </div>
 </div>
 
-<!-- Reset -->
-<button (click)="reset()" class="ms-3 mb-3 btn btn-danger text-center">
-  <mat-icon class="d-inline-block align-middle">cancel</mat-icon> Reset
-</button>
+<div class="row mb-3">
+  <div class="col-12 col-md-6 col-lg-4">
+    <button (click)="reset()" class="btn btn-danger text-center">
+      <mat-icon class="d-inline-block align-middle">cancel</mat-icon> Reset
+    </button>
+  </div>
+</div>
 
-<!-- Tabella dei clienti -->
-<table class="table table-striped table-hover">
-  <thead>
-    <tr align="center">
-      <th scope="col">Id</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Cognome</th>
-      <th scope="col">Ruolo</th>
-      <th scope="col">Email</th>
-      <th scope="col">Telefono</th>
-      <th scope="col">Username</th>
-      <th scope="col">Via</th>
-      <th scope="col">Comune</th>
-      <th scope="col">Provincia</th>
-      <th scope="col">CAP</th>
-      <th scope="col">Data di Registrazione</th>
-      <th scope="col">Azioni</th>
-    </tr>
-  </thead>
+<div class="container my-5 px-5">
+  <div class="mb-2">
+    {{
+      clienti.length === 0
+        ? "Nessun risultato trovato corrispondente ai criteri di ricerca"
+        : clienti.length === 1
+        ? "1 risultato trovato"
+        : clienti.length + " risultati trovati"
+    }}
+  </div>
 
-  <tbody>
-    <tr *ngFor="let cliente of clienti" align="center">
-      <th scope="row">{{ cliente.idCliente }}</th>
-      <td *ngIf="editModeClienteId !== cliente.idCliente">
-        {{ cliente.nome }}
-      </td>
-      <td *ngIf="editModeClienteId === cliente.idCliente">
-        <input [(ngModel)]="cliente.nome" class="form-control" />
-      </td>
-      <td *ngIf="editModeClienteId !== cliente.idCliente">
-        {{ cliente.cognome }}
-      </td>
-      <td *ngIf="editModeClienteId === cliente.idCliente">
-        <input [(ngModel)]="cliente.cognome" class="form-control" />
-      </td>
-      <td>{{ cliente.utente?.roles }}</td>
-      <td>{{ cliente.utente?.email }}</td>
-      <td *ngIf="editModeClienteId !== cliente.idCliente">
-        {{ cliente.telefono }}
-      </td>
-      <td *ngIf="editModeClienteId === cliente.idCliente">
-        <input [(ngModel)]="cliente.telefono" class="form-control" />
-      </td>
-      <td>{{ cliente.utente?.username }}</td>
-      <td *ngIf="editModeClienteId !== cliente.idCliente">{{ cliente.via }}</td>
-      <td *ngIf="editModeClienteId === cliente.idCliente">
-        <input [(ngModel)]="cliente.via" class="form-control" />
-      </td>
-      <td *ngIf="editModeClienteId !== cliente.idCliente">
-        {{ cliente.comune }}
-      </td>
-      <td *ngIf="editModeClienteId === cliente.idCliente">
-        <input [(ngModel)]="cliente.comune" class="form-control" />
-      </td>
-      <td *ngIf="editModeClienteId !== cliente.idCliente">
-        {{ cliente.provincia }}
-      </td>
-      <td *ngIf="editModeClienteId === cliente.idCliente">
-        <input [(ngModel)]="cliente.provincia" class="form-control" />
-      </td>
-      <td *ngIf="editModeClienteId !== cliente.idCliente">{{ cliente.cap }}</td>
-      <td *ngIf="editModeClienteId === cliente.idCliente">
-        <input [(ngModel)]="cliente.cap" class="form-control" />
-      </td>
-      <td>{{ cliente.dataRegistrazione | date : "longDate" }}</td>
-
-      <td>
-        <button
-          *ngIf="editModeClienteId !== cliente.idCliente"
-          (click)="modificaCliente(cliente.idCliente)"
-          class="btn btn-warning"
-        >
-          Modifica
-        </button>
-        <button
-          *ngIf="editModeClienteId === cliente.idCliente"
-          (click)="salvaModificheCliente(cliente)"
-          class="btn btn-success"
-        >
-          Salva
-        </button>
-        <button
-          *ngIf="editModeClienteId === cliente.idCliente"
-          (click)="annullaModificheCliente()"
-          class="btn btn-warning"
-        >
-          Annulla
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Paginazione -->
+  <mat-accordion>
+    <mat-expansion-panel
+      hideToggle
+      *ngFor="let cliente of clienti"
+      class="list-group-item list-items"
+    >
+      <mat-expansion-panel-header class="d-flex justify-content-between">
+        <mat-panel-title class="w-5">
+          <div class="fw-bold">
+            Nome e cognome:<span>
+              {{ cliente.nome }} {{ cliente.cognome }}</span
+            >
+          </div>
+        </mat-panel-title>
+        <mat-panel-description class="d-flex justify-content-between">
+          <div>
+            <span class="fw-bold">Username:</span>
+            {{ cliente.utente?.username }}
+          </div>
+        </mat-panel-description>
+        <div>
+          <button
+            mat-mini-fab
+            class="edit-btn m-2"
+            aria-label="edit-btn"
+            (click)="
+              $event.stopPropagation(); modificaCliente(cliente.idCliente)
+            "
+          >
+            <mat-icon>edit_note</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            class="delete-btn"
+            aria-label="delete-btn"
+            (click)="
+              $event.stopPropagation(); eliminaCliente(cliente.idCliente)
+            "
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-expansion-panel-header>
+      <div>
+        <p><span class="fw-medium">Email:</span> {{ cliente.utente?.email }}</p>
+        <p>
+          <span class="fw-medium">Ruolo:</span>
+          {{ cliente.utente?.roles }}
+        </p>
+        <p><span class="fw-medium">Telefono: </span>{{ cliente.telefono }}</p>
+        <p><span class="fw-medium">Via:</span> {{ cliente.via }}</p>
+        <p><span class="fw-medium">Comune:</span> {{ cliente.comune }}</p>
+        <p><span class="fw-medium">Provincia: </span>{{ cliente.provincia }}</p>
+        <p><span class="fw-medium">CAP:</span> {{ cliente.cap }}</p>
+        <p>
+          <span class="fw-medium">Cliente registrato dal: </span>
+          {{ cliente.dataRegistrazione | date : "longDate" }}
+        </p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -10,7 +10,7 @@ import { AuthService } from '../../auth/auth.service';
 export class ClienteService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  listAll(
+  listAllClienti(
     nome?: string,
     cognome?: string,
     cap?: string,
@@ -50,6 +50,11 @@ export class ClienteService {
 
   createCliente(body: {}): Observable<Cliente> {
     const url = this.authService.getURL('cliente/create');
+    return this.http.post<Cliente>(url, body);
+  }
+
+  deleteCliente(body: {}): Observable<Cliente> {
+    const url = this.authService.getURL('cliente/delete');
     return this.http.post<Cliente>(url, body);
   }
 }

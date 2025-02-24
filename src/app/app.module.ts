@@ -65,6 +65,7 @@ import { DialogStringaComponent } from './dialog/dialog-stringa/dialog-stringa.c
 import { DialogConfermaComponent } from './dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
+import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dialog-utente.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -102,6 +103,7 @@ registerLocaleData(localeIt, 'it');
     DialogConfermaComponent,
     ModificaProdottoComponent,
     ProdottiAdminComponent,
+    DialogUtenteComponent,
   ],
   imports: [
     BrowserModule,
