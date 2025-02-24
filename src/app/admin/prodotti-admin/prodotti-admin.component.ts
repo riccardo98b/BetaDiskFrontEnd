@@ -3,7 +3,7 @@ import { Prodotto } from '../../interfacce/Prodotto';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { LoaderService } from '../../servizi/loader.service';
 import { Router } from '@angular/router';
-import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

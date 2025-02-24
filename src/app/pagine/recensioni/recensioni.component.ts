@@ -2,26 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Recensione } from '../../interfacce/Recensione';
 import { RecensioneService } from '../../servizi/recensione/recensione.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FormRecensioneComponent } from '../../dialog/form-recensione/form-recensione.component';
+import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 
 @Component({
   selector: 'app-recensioni',
   standalone: false,
   templateUrl: './recensioni.component.html',
-  styleUrl: './recensioni.component.css'
+  styleUrl: './recensioni.component.css',
 })
 export class RecensioniComponent implements OnInit {
+  constructor(
+    private serv: RecensioneService,
+    private serviceProdotto: ProdottiService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
-  constructor(private serv: RecensioneService, private router: Router){}
-  
-    idCliente = +localStorage.getItem('idCliente')!;
-    msg: string = '';
-    rc: boolean = true;
-    isLoading: boolean;
-      recensioni: Recensione[];
+  idCliente = +localStorage.getItem('idCliente')!;
+  msg: string = '';
+  rc: boolean = true;
+  isLoading: boolean;
+  recensioni: Recensione[];
 
   ngOnInit(): void {
-    this.isLoading=true;
-    this.serv.listaRecensioniUtente(this.idCliente).subscribe((r:any) => {
+    this.isLoading = true;
+    this.serv.listaRecensioniUtente(this.idCliente).subscribe((r: any) => {
       if (r.rc) {
         this.recensioni = r.dati;
       } else {
@@ -29,56 +36,47 @@ export class RecensioniComponent implements OnInit {
         this.msg = r.msg;
       }
     });
-    this.isLoading=false;
+    this.isLoading = false;
   }
 
-  modificaRecensione(idRecensione:number, idProdotto:number) {
-    this.isLoading=true;
+  modificaRecensione(idRecensione: number | null, idProdotto: number | null) {
+    this.isLoading = true;
     if (idRecensione != null) {
-      let request = {
-        idRecensione : idRecensione
-      }
-      this.serv.modificaRecensione(request).subscribe((r:any) => {
-        this.msg = r.msg;
-        this.rc = r.rc;
-        this.router.navigate(['/profilo/recensioni']).then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        });
-      });
+      this.openDialogModifica(idRecensione);
     } else {
-      let request = {
-        idProdotto : idProdotto
-      }
-      this.serv.creaRecensione(request).subscribe((r:any) => {
-        this.msg = r.msg;
-        this.rc = r.rc;
-        this.router.navigate(['/profilo/recensioni']).then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        });
-      });
-  }   
-    this.isLoading=false;
+      this.openDialogCreazione(idProdotto);
+    }
+    this.isLoading = false;
   }
 
-  eliminaRecensione(id:number) {
-    this.isLoading=true;
+  eliminaRecensione(id: number) {
+    this.isLoading = true;
     let request = {
-      idRecensione : id
-    }
-    this.serv.eliminaRecensione(request).subscribe((r:any) => {
+      idRecensione: id,
+    };
+    this.serv.eliminaRecensione(request).subscribe((r: any) => {
       this.msg = r.msg;
       this.rc = r.rc;
-      this.router.navigate(['/profilo/recensioni']).then(() => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+    });
+    this.isLoading = false;
+  }
+
+  openDialogModifica(idRecensione: number) {
+    this.serv.getRecensioneById(idRecensione).subscribe((resp) => {
+      console.log(resp);
+      this.dialog.open(FormRecensioneComponent, {
+        width: '400px',
+        data: { recensione: resp },
       });
     });
-    this.isLoading=false;
+  }
 
+  openDialogCreazione(idProdotto: number) {
+    this.serviceProdotto.prodottoPerId(idProdotto).subscribe((resp) => {
+      this.dialog.open(FormRecensioneComponent, {
+        width: '400px',
+        data: { prodotto: resp },
+      });
+    });
   }
 }

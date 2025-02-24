@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { LoaderService } from '../../servizi/loader.service';
-import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

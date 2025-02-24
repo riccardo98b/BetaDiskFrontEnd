@@ -51,7 +51,7 @@ import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
 import { CreaProdottoComponent } from './admin/crea-prodotto/crea-prodotto.component';
-import { PopUpComponent } from './componenti/pop-up/pop-up.component';
+import { PopUpComponent } from './dialog/pop-up/pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
@@ -61,6 +61,7 @@ import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component'
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
+import { FormRecensioneComponent } from './dialog/form-recensione/form-recensione.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -95,6 +96,7 @@ registerLocaleData(localeIt, 'it');
     Pagina403Component,
     ModificaProdottoComponent,
     ProdottiAdminComponent,
+    FormRecensioneComponent,
   ],
   imports: [
     BrowserModule,

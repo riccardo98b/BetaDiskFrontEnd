@@ -11,7 +11,7 @@ import { LoaderService } from '../../servizi/loader.service';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { PopUpComponent } from '../../componenti/pop-up/pop-up.component';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({

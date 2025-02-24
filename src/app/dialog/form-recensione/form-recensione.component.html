@@ -1,0 +1,52 @@
+<div class="container my-5 px-5">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Descrizione</mat-label>
+      <input
+        matInput
+        formControlName="descrizione"
+        placeholder="Inserisci una descrizione"
+      />
+      <mat-error
+        *ngIf="
+          recensioneModificaForm?.get('descrizione')?.hasError('required') ||
+          recensioneCreazioneForm?.get('descrizione')?.hasError('required')
+        "
+      >
+        La descrizione è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Stelle</mat-label>
+      <input
+        type="number"
+        matInput
+        formControlName="stelle"
+        placeholder="Inserisci le stelle"
+      />
+      <mat-error
+        *ngIf="
+          recensioneModificaForm?.get('stelle')?.hasError('required') ||
+          recensioneCreazioneForm?.get('stelle')?.hasError('required')
+        "
+      >
+        Le stelle sono obbligatorie
+      </mat-error>
+    </mat-form-field>
+
+    <div class="d-flex gap-2 align-items-stretch">
+      <button
+        class="w-50"
+        mat-fab
+        extended
+        type="submit"
+        [disabled]="
+          recensioneCreazioneForm?.invalid || recensioneModificaForm?.invalid
+        "
+      >
+        Salva
+      </button>
+    </div>
+  </form>
+</div>
