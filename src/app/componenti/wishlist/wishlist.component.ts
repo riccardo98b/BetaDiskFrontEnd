@@ -24,107 +24,18 @@ export class WishlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.inizializzaWishlist();
-    this.wishlistService.getWishlist(this.currentUserId).subscribe({
-      next: (data) => {
-        console.log('Dati ricevuti dalla API:', data);
-        if (data && Array.isArray(data.dati)) {
-          this.wishlist = data.dati.map(prodotto => {
-            return {
-              ...prodotto,
-              prodottiCarrello: prodotto.prodottiCarrello || [],
-              prodottiWishlist: prodotto.prodottiWishlist || []
-            };
-          });
-        } else {
-          console.warn('La wishlist è vuota o non è stata caricata correttamente.');
-          this.wishlist = [];
-        }
-      },
-      error: (error) => {
-        console.error('Errore durante la richiesta di getWishlist:', error);
-      },
-      complete: () => {
-        this.isLoading = false;
-        console.log('Caricamento wishlist completato.');
-      }
-    });
   }
-
-  createWishlist(): void {
-    this.wishlistService.createWishlist(this.currentUserId).subscribe({
-      next: (response) => {
-        console.log("Wishlist creata con successo:", response);
-        this.wishlist = []; // La wishlist è vuota inizialmente
-      },
-      error: (error) => {
-        console.error("Errore durante la creazione della wishlist:", error);
-      }
-    });
-  }
-
 
   inizializzaWishlist(): void {
-    // Recupero l'ID utente dal localStorage
     const storedUserId = localStorage.getItem('idCliente');
 
     if (storedUserId) {
       this.currentUserId = +storedUserId;
-      this.checkOrCreateWishlist();
+      this.checkOrCreateWishlist();  // Only check or create the wishlist after setting the user ID
     } else {
       console.error("Nessun utente loggato trovato.");
-      this.isLoading = false;
+      this.isLoading = false;  // End the loading state if no user found
     }
-  }
-
-
-  addToCarrello(prodotto: Prodotto): void {
-    let request = {
-      idCliente: this.currentUserId,
-      idProdotto: prodotto.idProdotto,
-      quantita: 1
-    };
-
-    this.carrelloService.addProdotto(request).subscribe({
-      next: (response) => {
-        console.log('Prodotto aggiunto al carrello:', response);
-        this.removeFromWishlist(prodotto); // Rimuove il prodotto dalla wishlist
-      },
-      error: (error) => {
-        console.error('Errore durante l\'aggiunta al carrello:', error);
-      }
-    });
-  }
-
-  removeFromWishlist(prodotto: Prodotto): void {
-    console.log('Rimuovo prodotto con idProdotto:', prodotto.idProdotto);
-    this.wishlistService.removeProductFromWishlist(this.currentUserId, prodotto.idProdotto).subscribe({
-      next: () => {
-        this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto);
-        console.log('Prodotto rimosso dalla wishlist nel DB');
-      },
-      error: (error) => {
-        console.error('Errore durante la rimozione del prodotto dalla wishlist:', error);
-      }
-    });
-  }
-
-
-  trackById(index: number, item: Prodotto): number {
-    return item.idProdotto;
-  }
-
-  clearAllFromWishlist(): void {
-    console.log('Svuoto la wishlist per idCliente:', this.currentUserId);
-    this.wishlistService.clearAllWishlist(this.currentUserId).subscribe({
-      next: (response) => {
-        console.log('Risposta dal server:', response);
-        this.wishlist = [];
-        console.log('Tutti i prodotti sono stati rimossi dalla wishlist nel DB');
-      },
-      error: (error) => {
-        console.error('Errore durante lo svuotamento della wishlist:', error);
-      }
-    });
   }
 
   checkOrCreateWishlist(): void {
@@ -156,4 +67,75 @@ export class WishlistComponent implements OnInit {
     });
   }
 
+  createWishlist(): void {
+    if (!this.currentUserId) {
+      console.error("Nessun utente loggato.");
+      return;
+    }
+
+    this.wishlistService.createWishlist(this.currentUserId).subscribe({
+      next: (response) => {
+        console.log("Wishlist creata con successo:", response);
+        this.wishlist = [];  // Reset wishlist since it's newly created
+        this.wishlistNonEsiste = false;
+      },
+      error: (error) => {
+        console.error("Errore durante la creazione della wishlist:", error);
+      }
+    });
+  }
+
+  addToCarrello(prodotto: Prodotto): void {
+    let request = {
+      idCliente: this.currentUserId,
+      idProdotto: prodotto.idProdotto,
+      quantita: 1
+    };
+
+    this.carrelloService.addProdotto(request).subscribe({
+      next: (response) => {
+        console.log('Prodotto aggiunto al carrello:', response);
+        this.removeFromWishlist(prodotto); // Remove the product from wishlist once added to cart
+      },
+      error: (error) => {
+        console.error('Errore durante l\'aggiunta al carrello:', error);
+      }
+    });
+  }
+
+  removeFromWishlist(prodotto: Prodotto): void {
+    console.log('Rimuovo prodotto con idProdotto:', prodotto.idProdotto);
+    this.wishlistService.removeProductFromWishlist(this.currentUserId, prodotto.idProdotto).subscribe({
+      next: () => {
+        this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto); // Remove product from the local list
+        console.log('Prodotto rimosso dalla wishlist nel DB');
+      },
+      error: (error) => {
+        console.error('Errore durante la rimozione del prodotto dalla wishlist:', error);
+      }
+    });
+  }
+
+  trackById(index: number, item: Prodotto): number {
+    return item.idProdotto;
+  }
+
+  clearAllFromWishlist(): void {
+    if (!this.currentUserId) {
+      console.error("Nessun utente loggato.");
+      return;
+    }
+
+    console.log('Svuoto la wishlist per idCliente:', this.currentUserId);
+    this.wishlistService.clearAllWishlist(this.currentUserId).subscribe({
+      next: (response) => {
+        console.log('Risposta dal server:', response);
+        this.wishlist = [];
+        console.log('Tutti i prodotti sono stati rimossi dalla wishlist nel DB');
+      },
+      error: (error) => {
+        console.error('Errore durante lo svuotamento della wishlist:', error);
+      }
+    });
+  }
 }
