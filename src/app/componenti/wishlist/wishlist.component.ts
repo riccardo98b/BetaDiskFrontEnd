@@ -31,10 +31,10 @@ export class WishlistComponent implements OnInit {
 
     if (storedUserId) {
       this.currentUserId = +storedUserId;
-      this.checkOrCreateWishlist();  // Only check or create the wishlist after setting the user ID
+      this.checkOrCreateWishlist(); 
     } else {
       console.error("Nessun utente loggato trovato.");
-      this.isLoading = false;  // End the loading state if no user found
+      this.isLoading = false;
     }
   }
 
@@ -76,7 +76,7 @@ export class WishlistComponent implements OnInit {
     this.wishlistService.createWishlist(this.currentUserId).subscribe({
       next: (response) => {
         console.log("Wishlist creata con successo:", response);
-        this.wishlist = [];  // Reset wishlist since it's newly created
+        this.wishlist = [];
         this.wishlistNonEsiste = false;
       },
       error: (error) => {
@@ -95,7 +95,7 @@ export class WishlistComponent implements OnInit {
     this.carrelloService.addProdotto(request).subscribe({
       next: (response) => {
         console.log('Prodotto aggiunto al carrello:', response);
-        this.removeFromWishlist(prodotto); // Remove the product from wishlist once added to cart
+        this.removeFromWishlist(prodotto);
       },
       error: (error) => {
         console.error('Errore durante l\'aggiunta al carrello:', error);
@@ -107,7 +107,7 @@ export class WishlistComponent implements OnInit {
     console.log('Rimuovo prodotto con idProdotto:', prodotto.idProdotto);
     this.wishlistService.removeProductFromWishlist(this.currentUserId, prodotto.idProdotto).subscribe({
       next: () => {
-        this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto); // Remove product from the local list
+        this.wishlist = this.wishlist.filter(item => item.idProdotto !== prodotto.idProdotto);
         console.log('Prodotto rimosso dalla wishlist nel DB');
       },
       error: (error) => {

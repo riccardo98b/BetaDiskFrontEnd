@@ -1,5 +1,5 @@
 <div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
-  <!-- Immagine e altre informazioni del prodotto -->
+
   <img
     src="{{ prodotto?.immagineProdotto }}"
     class="example-card"
@@ -11,13 +11,13 @@
       {{ prodotto?.titolo }}
     </h5>
     <p class="card-artista">{{ prodotto?.artista }}</p>
-
     <p class="card-formato">{{ prodotto?.formato }}</p>
     <div>
       <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
     </div>
+
+    <!-- Carrello -->
     <div class="d-flex justify-content-around mb-3">
-      <!-- Carrello -->
       <div *ngIf="cartBadge[prodotto?.idProdotto] > 0" class="pt-1">
         <mat-icon [matBadge]="cartBadge[prodotto.idProdotto]">shopping_cart</mat-icon>
       </div>
@@ -25,24 +25,19 @@
         <mat-icon></mat-icon>
       </div>
 
+      <!-- Wishlist -->
+      <i
+        class="bi bi-balloon-heart"
+        [ngClass]="{'text-danger': isInWishlist}"
+        *ngIf="!isInWishlist"
+        (click)="preferitiWishlist(prodotto)"
+      ></i>
 
-        <i
-      class="bi bi-balloon-heart"
-      [ngClass]="{'text-danger': prodotto.prodottiWishlist && prodotto.prodottiWishlist.length > 0}"
-      *ngIf="!prodotto.prodottiWishlist || prodotto.prodottiWishlist.length === 0"
-      (click)="handleWishlistClick(prodotto)"
-    ></i>
-
-    <i
-      class="bi bi-balloon-heart-fill"
-      [ngClass]="{'text-danger': prodotto.prodottiWishlist && prodotto.prodottiWishlist.length > 0}"
-      *ngIf="prodotto.prodottiWishlist && prodotto.prodottiWishlist.length > 0"
-      (click)="handleWishlistClick(prodotto)"
-    ></i>
-
-
-
-
+      <i
+        class="bi bi-balloon-heart-fill text-danger"
+        *ngIf="isInWishlist"
+        (click)="preferitiWishlist(prodotto)"
+      ></i>
     </div>
 
     <ng-content for="div#card-buttons"></ng-content>

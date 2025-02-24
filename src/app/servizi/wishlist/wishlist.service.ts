@@ -18,40 +18,37 @@ export class WishlistService {
 
   constructor(private http: HttpClient) {}
 
-  // Create a new wishlist
   createWishlist(idCliente: number): Observable<any> {
-    // Assuming a new WishlistRequest is required here with other fields (like idProdotti)
-    const requestBody = { idCliente };  // You may need to expand this as per actual API needs
+    const requestBody = { idCliente };
     return this.http.post<any>(this.createWishlistUrl, requestBody);
   }
 
-  // Get all products in the wishlist
   getWishlist(idCliente: number): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.apiUrl}?idCliente=${idCliente}`);
   }
 
-  // Add a product to the wishlist
+
   addProductToWishlist(idCliente: number, idProdotti: number[]): Observable<any> {
     const wishlistRequest = {
       idCliente: idCliente,
-      idProdotti: idProdotti,  // List of product IDs to add
+      idProdotti: idProdotti,
     };
     return this.http.post<any>(this.addProductUrl, wishlistRequest);
   }
 
-  // Remove a product from the wishlist
+
   removeProductFromWishlist(idCliente: number, idProdotto: number): Observable<any> {
     const wishlistRequest = {
       idCliente: idCliente,
-      idProdotti: [idProdotto],  // Single product ID in an array (as per controller)
+      idProdotti: [idProdotto],
     };
     return this.http.post<any>(this.removeProductUrl, wishlistRequest);
   }
 
-  // Clear all products from the wishlist
+
   clearAllWishlist(idCliente: number): Observable<any> {
     const wishlistRequest = {
-      idCliente: idCliente,  // Pass client ID to clear their wishlist
+      idCliente: idCliente,
     };
     return this.http.post<any>(this.clearWishlistUrl, wishlistRequest);
   }

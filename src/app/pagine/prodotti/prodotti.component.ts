@@ -5,7 +5,7 @@ import { Prodotto } from '../../interfacce/Prodotto';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { LoaderService } from '../../servizi/loader.service';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
-import { Wishlist } from '../../interfacce/Wishlist';
+
 
 @Component({
   selector: 'app-prodotti',
@@ -24,6 +24,8 @@ export class ProdottiComponent implements OnInit {
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
 
+  wishlist: number[] = [];
+
   constructor(
     private service: ProdottiService,
     private route: Router,
@@ -38,6 +40,7 @@ export class ProdottiComponent implements OnInit {
     });
     this.getTuttiProdotti();
     this.getProdottiCarrello();
+    this.loadWishlist();
   }
 
   getProdottiCarrello() {
@@ -154,12 +157,19 @@ export class ProdottiComponent implements OnInit {
   }
 
 
-  addToWishlist(prodotto: Prodotto): void {
-    console.log('Adding product to wishlist:', prodotto);
-    const idCliente = +localStorage.getItem('idCliente')!;
-    this.wishlistService.addProductToWishlist(idCliente, [prodotto.idProdotto]).subscribe({
-      next: (response) => {
-        console.log('Prodotto aggiunto alla wishlist:', response);
+  //Prodotti preferiti della wishlist
+  preferitiWishlist(prodotto: Prodotto) {
+    if (this.wishlist.includes(prodotto.idProdotto)) {
+      this.removeFromWishlist(prodotto);
+    } else {
+      this.addToWishlist(prodotto);
+    }
+  }
+
+  addToWishlist(prodotto: Prodotto) {
+    this.wishlistService.addProductToWishlist(this.idCliente, [prodotto.idProdotto]).subscribe({
+      next: () => {
+        this.wishlist.push(prodotto.idProdotto);
       },
       error: (error) => {
         console.error('Errore durante l\'aggiunta alla wishlist:', error);
@@ -167,13 +177,10 @@ export class ProdottiComponent implements OnInit {
     });
   }
 
-  removeFromWishlist(prodotto: Prodotto): void {
-    console.log('Removing product from wishlist:', prodotto);
-    const idCliente = +localStorage.getItem('idCliente')!;
-    this.wishlistService.removeProductFromWishlist(idCliente, prodotto.idProdotto).subscribe({
-      next: (response) => {
-        console.log('Prodotto rimosso dalla wishlist:', response);
-        // Eventualmente aggiorna la lista dei prodotti per riflettere lo stato
+  removeFromWishlist(prodotto: Prodotto) {
+    this.wishlistService.removeProductFromWishlist(this.idCliente, prodotto.idProdotto).subscribe({
+      next: () => {
+        this.wishlist = this.wishlist.filter(id => id !== prodotto.idProdotto);
       },
       error: (error) => {
         console.error('Errore durante la rimozione dalla wishlist:', error);
@@ -181,4 +188,14 @@ export class ProdottiComponent implements OnInit {
     });
   }
 
+  loadWishlist() {
+    this.wishlistService.getWishlist(this.idCliente).subscribe({
+      next: (data) => {
+        this.wishlist = data.dati.map((p: Prodotto) => p.idProdotto);
+      },
+      error: (error) => {
+        console.error('Errore nel recupero della wishlist:', error);
+      }
+    });
+  }
 }
