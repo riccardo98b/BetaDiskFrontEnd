@@ -24,7 +24,7 @@ export class ProdottiComponent implements OnInit {
   filtriPresenti: boolean = false;
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
-  private dialog: MatDialog;
+ 
 
   wishlistId: number[] = [];
 
@@ -33,7 +33,8 @@ export class ProdottiComponent implements OnInit {
     private route: Router,
     private serviceCarrello: CarrelloService,
     private loader: LoaderService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +69,7 @@ export class ProdottiComponent implements OnInit {
       if (this.response.rc === true) {
         this.data = this.response.dati;
       } else {
-        this.openDialog();
+        this.openDialog(this.response);
       }
       this.loader.stopLoader();
     });
@@ -155,8 +156,8 @@ export class ProdottiComponent implements OnInit {
         idCliente: this.idCliente,
         quantita: 1,
       })
-      .subscribe((resp) => {
-        this.response = resp;
+      .subscribe((resp : any) => {
+        this.openDialog({titolo: "Conferma", msg : resp.msg })
       });
   }
 
@@ -209,10 +210,11 @@ export class ProdottiComponent implements OnInit {
       },
     });
   }
-  openDialog() {
+  openDialog(inputDialog: any) {
     this.dialog.open(PopUpComponent, {
       width: '400px',
-      data: { message: this.response.msg },
+      data: { titolo: inputDialog.titolo,
+         msg: inputDialog.msg },
     });
   }
 }
