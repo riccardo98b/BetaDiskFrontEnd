@@ -6,6 +6,8 @@ import { response } from 'express';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoaderService } from '../../servizi/loader.service';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dettaglio-prodotto',
@@ -30,7 +32,8 @@ export class DettaglioProdottoComponent implements OnInit {
     private route: ActivatedRoute,
     private serviceCarrello: CarrelloService,
     private formBuilder: FormBuilder,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private dialog: MatDialog
   ) {
     this.idProdotto = +this.route.snapshot.paramMap.get('idProdotto')!;
   }
@@ -96,14 +99,21 @@ export class DettaglioProdottoComponent implements OnInit {
       };
 
       this.serviceCarrello.addProdotto(request).subscribe((r: any) => {
-        // this.msg = r.msg;
-        // this.rc = r.rc;
-        // this.router.navigate(['/carrello']).then(() => {
-        //   setTimeout(() => {
-        //     window.location.reload();
-        //   }, 1500);
-        // });
+        if (r.rc) {
+          this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+        } else {
+          this.openDialog({titolo: "Errore", msg : r.msg })
+        }
       });
     }
+  }
+
+  openDialog(inputDialog: any) {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: { titolo: inputDialog.titolo,
+        msg: inputDialog.msg,
+        reload: inputDialog.reload },
+    });
   }
 }
