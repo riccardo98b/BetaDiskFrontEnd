@@ -14,6 +14,8 @@ export class CardComponent {
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
   @Input() cartBadge: { [idProdotto: number]: number };
+  @Input() isWishlistPage: boolean = false; 
+
   @Input() isInWishlist: boolean;
   @Output() toggleWishlist = new EventEmitter<Prodotto>();
 

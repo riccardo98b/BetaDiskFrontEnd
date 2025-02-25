@@ -24,7 +24,7 @@
   <!-- Mostra la wishlist solo se ci sono prodotti -->
   <div class="row g-4 main-content" *ngIf="wishlist?.length > 0">
     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let prodotto of wishlist; trackBy: trackById">
-      <app-card [prodotto]="prodotto" [responsive]="false" [cartBadge]="cartBadge">
+      <app-card [prodotto]="prodotto" [responsive]="false" [cartBadge]="cartBadge"  [isWishlistPage]="true">
         <div id="card-buttons">
           <button mat-fab extended (click)="removeFromWishlist(prodotto)">Rimuovi dalla Wishlist</button>
           <button mat-fab extended (click)="addToCarrello(prodotto)">Aggiungi al Carrello</button>

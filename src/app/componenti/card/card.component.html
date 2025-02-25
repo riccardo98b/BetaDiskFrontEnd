@@ -26,18 +26,20 @@
       </div>
 
       <!-- Wishlist -->
-      <i
-        class="bi bi-balloon-heart"
-        [ngClass]="{'text-danger': isInWishlist}"
-        *ngIf="!isInWishlist"
-        (click)="preferitiWishlist(prodotto)"
-      ></i>
+    <!-- Wishlist -->
+<i
+class="bi bi-balloon-heart"
+[ngClass]="{'text-danger': isInWishlist}"
+*ngIf="!isInWishlist && !isWishlistPage"
+(click)="preferitiWishlist(prodotto)"
+></i>
 
-      <i
-        class="bi bi-balloon-heart-fill text-danger"
-        *ngIf="isInWishlist"
-        (click)="preferitiWishlist(prodotto)"
-      ></i>
+<i
+class="bi bi-balloon-heart-fill text-danger"
+*ngIf="isInWishlist && !isWishlistPage"
+(click)="preferitiWishlist(prodotto)"
+></i>
+
     </div>
 
     <ng-content for="div#card-buttons"></ng-content>
