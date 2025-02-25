@@ -41,7 +41,8 @@ img {
 i.bi {
   font-size: 1.5rem;
 }
-.bi{
+
+.bi-suit-heart, .bi-suit-heart-fill{
   cursor: pointer;
 }
 @media screen and (min-width: 800px) {
