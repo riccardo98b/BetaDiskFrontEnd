@@ -146,9 +146,7 @@
     max-width: 80%;
     margin: 1.25rem auto 0 auto;
   }
-  body {
-    background: #f2f2f2;
-  }
+
   @-webkit-keyframes plopp {
     0% {
       transform: translate(0, 0);
@@ -169,4 +167,11 @@
       opacity: 0;
     }
   }
+
+@media screen and (min-width: 1200px) {
+  .empty-cart {
+    max-width: 50vw;
+  }
+  
+}
   
