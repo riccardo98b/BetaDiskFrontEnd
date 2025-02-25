@@ -23,6 +23,7 @@ import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-pr
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
 import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.component';
+import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -45,13 +46,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['ADMIN'] },
     children: [
-      { path: '', redirectTo: 'prodotti-admin', pathMatch: 'full' },
+      { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
       { path: 'crea-prodotto', component: CreaProdottoComponent },
       { path: 'ordini', component: OrdiniAdminComponent },
       { path: 'clienti', component: ClientiAdminComponent },
       { path: 'modifica-prodotto', component: ModificaProdottoComponent },
       { path: 'prodotti-admin', component: ProdottiAdminComponent },
       { path: 'crea-admin', component: CreaAdminComponent },
+      { path: 'welcome-page', component: WelcomePageComponent },
     ],
   },
   {

@@ -69,6 +69,7 @@ import { FormRecensioneComponent } from './dialog/form-recensione/form-recension
 import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dialog-utente.component';
 import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
 import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.component';
+import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -110,6 +111,7 @@ registerLocaleData(localeIt, 'it');
     DialogUtenteComponent,
     CambiaPasswordComponent,
     CreaAdminComponent,
+    WelcomePageComponent,
   ],
   imports: [
     BrowserModule,

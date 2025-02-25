@@ -2,14 +2,21 @@
   <app-loader *ngIf="isLoading"></app-loader>
 
   <!-- Caso wishlist non esistente -->
-  <div *ngIf="wishlistNonEsiste && !isLoading" class="empty-wishlist">
+  <!-- <div *ngIf="wishlistNonEsiste && !isLoading" class="empty-wishlist">
     <p>La tua wishlist non esiste ancora. Aggiungi un <a routerLink="/prodotti">prodotto</a> per crearla!</p>
-  </div>
+  </div> -->
 
   <!-- Caso wishlist vuota -->
   <div *ngIf="!wishlistNonEsiste && wishlist.length === 0 && !isLoading" class="empty-wishlist">
     <p>La tua wishlist è vuota. Aggiungi <a routerLink="/prodotti">prodotti</a>!</p>
   </div>
+
+  <div *ngIf="nomeCliente" class="welcome-message">
+    <h3>Benvenuto, {{ nomeCliente }}!</h3>
+    <p>Esplora la tua wishlist e aggiungi nuovi prodotti!</p>
+  </div>
+
+
 
   <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
     <button (click)="clearAllFromWishlist()">Svuota Wishlist</button>
@@ -18,7 +25,7 @@
   <!-- Mostra la wishlist solo se ci sono prodotti -->
   <div class="row g-4 main-content" *ngIf="wishlist?.length > 0">
     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let prodotto of wishlist; trackBy: trackById">
-      <app-card [prodotto]="prodotto" [responsive]="false" [cartBadge]="cartBadge">
+      <app-card [prodotto]="prodotto" [responsive]="false" [cartBadge]="cartBadge"  [isWishlistPage]="true">
         <div id="card-buttons">
           <button mat-fab extended (click)="removeFromWishlist(prodotto)">Rimuovi dalla Wishlist</button>
           <button mat-fab extended (click)="addToCarrello(prodotto)">Aggiungi al Carrello</button>
