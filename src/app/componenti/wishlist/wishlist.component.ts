@@ -1,3 +1,4 @@
+import { ClienteService } from './../../servizi/cliente/cliente.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
 import { Prodotto } from '../../interfacce/Prodotto';
@@ -15,15 +16,17 @@ export class WishlistComponent implements OnInit {
   isLoading: boolean = true;
   currentUserId: number | null = null;
   wishlistNonEsiste: boolean = false;
+  nomeCliente: string | null = null;
 
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
   cartBadge: { [idProdotto: number]: number } = {};
 
-  constructor(private wishlistService: WishlistService, private carrelloService: CarrelloService) {}
+  constructor(private wishlistService: WishlistService, private carrelloService: CarrelloService,private clientService: ClienteService,) {}
 
   ngOnInit(): void {
     this.inizializzaWishlist();
+    this.recuperaCliente();
   }
 
   inizializzaWishlist(): void {
@@ -138,5 +141,24 @@ export class WishlistComponent implements OnInit {
         console.error('Errore durante lo svuotamento della wishlist:', error);
       }
     });
+  }
+  recuperaCliente(): void {
+    const idCliente = this.currentUserId;
+
+    if (idCliente) {
+      this.clientService.getCliente(idCliente).subscribe((response: any) => {
+        // Controlla e assegna "nome" dalla risposta, considerando che "rc" e "dati" sono presenti.
+        if (response.rc && response.dati) {
+          this.nomeCliente = response.dati.nome;  // Aggiunto "dati" e "nome"
+          console.log("Nome Cliente Recuperato:", this.nomeCliente);
+        } else {
+          console.error("Formato della risposta cliente non valido.");
+        }
+      }, error => {
+        console.error("Errore nel recupero del cliente:", error);
+      });
+    } else {
+      console.error("ID cliente non disponibile.");
+    }
   }
 }

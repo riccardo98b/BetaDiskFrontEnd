@@ -10,6 +10,12 @@
   <div *ngIf="!wishlistNonEsiste && wishlist.length === 0 && !isLoading" class="empty-wishlist">
     <p>La tua wishlist è vuota. Aggiungi <a routerLink="/prodotti">prodotti</a>!</p>
   </div>
+  <div *ngIf="nomeCliente" class="welcome-message">
+    <h3>Benvenuto, {{ nomeCliente }}!</h3>
+    <p>Esplora la tua wishlist e aggiungi nuovi prodotti!</p>
+  </div>
+
+
 
   <div *ngIf="wishlist.length > 0" class="clear-wishlist-btn-container">
     <button (click)="clearAllFromWishlist()">Svuota Wishlist</button>
