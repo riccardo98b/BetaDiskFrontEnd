@@ -180,13 +180,16 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Password</mat-label>
+      <mat-label>Nuova Password</mat-label>
       <input
         matInput
-        type="password"
+        [type]="passwordVisibile ? 'text' : 'password'"
         formControlName="password"
-        placeholder="Inserisci la tua password"
+        placeholder="Inserisci la tua nuova password"
       />
+      <mat-icon matSuffix (click)="toggleVisibilitaPassword()">
+        {{ passwordVisibile ? "visibility_off" : "visibility" }}
+      </mat-icon>
       <mat-error *ngIf="clienteForm.get('password')?.hasError('required')">
         La password è obbligatoria.
       </mat-error>
@@ -196,14 +199,20 @@
       <mat-label>Conferma Password</mat-label>
       <input
         matInput
-        type="password"
+        [type]="passwordVisibile ? 'text' : 'password'"
         formControlName="passwordDiConferma"
         placeholder="Conferma la tua password"
       />
+      <mat-icon matSuffix (click)="toggleVisibilitaPassword()">
+        {{ passwordVisibile ? "visibility_off" : "visibility" }}
+      </mat-icon>
       <mat-error
         *ngIf="clienteForm.get('passwordDiConferma')?.hasError('required')"
       >
-        La conferma password è obbligatoria.
+        La conferma della password è obbligatoria.
+      </mat-error>
+      <mat-error *ngIf="clienteForm.hasError('noMatch')">
+        Le password non corrispondono.
       </mat-error>
     </mat-form-field>
 

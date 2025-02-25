@@ -23,6 +23,7 @@ export class ProfiloComponent implements OnInit {
   immagineDefault: string =
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
   nomeClienteBenvenuto: string = '';
+  passwordVisibile: boolean = false;
 
   constructor(
     private clienteService: ClienteService,
@@ -187,7 +188,9 @@ export class ProfiloComponent implements OnInit {
       passwordDiConferma: '',
     });
   }
-
+  toggleVisibilitaPassword() {
+    this.passwordVisibile = !this.passwordVisibile;
+  }
   onRegistraCliente(): void {
     this.checkIfBothPasswordsAreEqual();
     this.registraClienteEUtente();

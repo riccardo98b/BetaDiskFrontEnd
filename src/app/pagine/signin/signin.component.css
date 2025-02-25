@@ -4,7 +4,9 @@
   align-items: center;
   min-height: 60vh;
 }
-
+.signin {
+  background: linear-gradient(135deg, #f0f2f8, #ffffff);
+}
 form {
   padding: 30px;
   border-radius: 8px;
@@ -35,16 +37,14 @@ label {
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 6px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #f9f9f9;
   transition: border 0.3s;
 }
 
 input:focus {
-  border-color: #007bff;
   outline: none;
 }
 

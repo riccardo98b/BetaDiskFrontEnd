@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-  <form class="mb-5" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+  <form class="mb-5 signin" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
     <p *ngIf="!logged && messaggioErrore" class="text-danger">
       {{ messaggioErrore }}
     </p>
@@ -7,59 +7,64 @@
     <p class="form-title">Accedi al tuo account</p>
 
     <div class="form-group">
-      <label for="email">Username:</label>
-      <input
-        type="text"
-        id="email"
-        formControlName="username"
-        placeholder="Inserisci il tuo username"
-        class="form-control"
-        autocomplete="current-password"
-      />
-      <div
-        *ngIf="
-          signinForm.get('username')?.invalid &&
-          signinForm.get('username')?.touched
-        "
-        class="text-danger"
-      >
-        <small *ngIf="signinForm.get('username')?.hasError('required')"
-          >L'username è obbligatoria</small
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          type="text"
+          id="email"
+          formControlName="username"
+          placeholder="Inserisci il tuo username"
+          autocomplete="current-password"
+        />
+        <mat-error
+          *ngIf="
+            signinForm.get('username')?.invalid &&
+            signinForm.get('username')?.touched
+          "
         >
-        <small *ngIf="signinForm.get('username')?.hasError('email')"
-          >Inserisci un username esistente</small
-        >
-      </div>
+          <small *ngIf="signinForm.get('username')?.hasError('required')"
+            >L'username è obbligatorio</small
+          >
+          <small *ngIf="signinForm.get('username')?.hasError('email')"
+            >Inserisci un username valido</small
+          >
+        </mat-error>
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        placeholder="Inserisci la tua password"
-        class="form-control"
-        autocomplete="current-password"
-      />
-      <div
-        *ngIf="
-          signinForm.get('password')?.invalid &&
-          signinForm.get('password')?.touched
-        "
-        class="text-danger"
-      >
-        <small *ngIf="signinForm.get('password')?.hasError('required')"
-          >La password è obbligatoria</small
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="passwordVisibile ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          placeholder="Inserisci la tua password"
+          autocomplete="current-password"
+        />
+        <mat-icon matSuffix (click)="toggleVisibilitaPassword()">
+          {{ passwordVisibile ? "visibility_off" : "visibility" }}
+        </mat-icon>
+        <mat-error
+          *ngIf="
+            signinForm.get('password')?.invalid &&
+            signinForm.get('password')?.touched
+          "
         >
-      </div>
+          <small *ngIf="signinForm.get('password')?.hasError('required')"
+            >La password è obbligatoria</small
+          >
+        </mat-error>
+      </mat-form-field>
     </div>
 
     <button
+      mat-raised-button
+      color="primary"
       class="w-100"
       type="submit"
-      mat-fab
-      extended
       [disabled]="!signinForm.valid"
     >
       Accedi
