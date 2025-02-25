@@ -3,7 +3,8 @@
   background-image: url("https://images.stockcake.com/public/5/8/c/58c20b20-4627-4bdf-be9b-d8b901e8b0c9_large/vinyl-record-collection-stockcake.jpg");
   background-repeat: no-repeat;
   height: 100%;
-  background-size: 1150px 554px;
+  width: 100%;
+  background-size: 100% 100%;
   display: flex;
   justify-content: center;
   align-items: center;
