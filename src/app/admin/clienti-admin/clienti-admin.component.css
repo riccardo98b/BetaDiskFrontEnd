@@ -23,3 +23,12 @@
   margin: 1% auto;
   box-shadow: none;
 }
+
+button[mat-flat-button] {
+  width: 100px;
+  background-color: rgb(37, 133, 197);
+}
+
+.reset-btn[mat-flat-button] {
+  background-color: rgb(217, 33, 33);
+}

@@ -1,10 +1,11 @@
-import { Component, inject, model } from '@angular/core';
+import { Component } from '@angular/core';
 import { OrdineService } from '../../servizi/ordine/ordine.service';
 import { Router } from '@angular/router';
 import { Ordine } from '../../interfacce/Ordine';
 import { MailService } from '../../servizi/mail/mail.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDataComponent } from '../../dialog/dialog-data/dialog-data.component';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-ordini-admin',
@@ -17,6 +18,7 @@ export class OrdiniAdminComponent {
   constructor(private serv: OrdineService,
     private router: Router,
     private mailServ: MailService,
+    private dialog: MatDialog
   ){}
     msg: string = '';
     rc: boolean = true;
@@ -47,13 +49,11 @@ export class OrdiniAdminComponent {
         idOrdine : id
       }
       this.serv.eliminaOrdine(request).subscribe((r:any) => {
-        this.msg = r.msg;
-        this.rc = r.rc;
-        this.router.navigate(['/admin/dashboard/ordini']).then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        });
+        if (r.rc) {
+          this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+        } else {
+          this.openDialog({titolo: "Errore", msg : r.msg })
+        }
       });
       this.isLoading=false;
   
@@ -65,10 +65,7 @@ export class OrdiniAdminComponent {
         idOrdine : id,
         spedito: true
       }
-      console.log(new Date(this.ordini[index].dataOrdine).toLocaleDateString("it-IT"))
       this.serv.updateOrdine(request).subscribe((r:any) => {
-        this.msg = r.msg;
-        this.rc = r.rc;
         if (r.rc) {
           let mailRequest = {
             nome: this.ordini[index].cliente.nome,
@@ -77,22 +74,18 @@ export class OrdiniAdminComponent {
             dataOrdine: new Date(this.ordini[index].dataOrdine).toLocaleDateString("it-IT")
           }
           this.mailServ.ordineSpedito(mailRequest).subscribe();
+          this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+        } else {
+          this.openDialog({titolo: "Errore", msg : r.msg })
         }
-        this.router.navigate(['/admin/dashboard/ordini']).then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        });
       });
       this.isLoading=false;
   
     }
 
-    dialog = inject(MatDialog);
-
     selectedDate:string = '';
   
-    openDialog() {
+    openDialogData() {
       this.mostra=false;
       const dialogRef = this.dialog.open(DialogDataComponent, {
         minWidth: '500px',
@@ -109,4 +102,12 @@ export class OrdiniAdminComponent {
       
     }
 
+    openDialog(inputDialog: any) {
+      this.dialog.open(PopUpComponent, {
+        width: '400px',
+        data: { titolo: inputDialog.titolo,
+          msg: inputDialog.msg,
+          reload: inputDialog.reload },
+      });
+    }
 }

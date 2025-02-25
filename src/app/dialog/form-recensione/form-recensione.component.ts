@@ -112,5 +112,6 @@ export class FormRecensioneComponent implements OnInit {
 
   closeDialog(): void {
     this.dialogRef.close();
+    window.location.reload();
   }
 }
