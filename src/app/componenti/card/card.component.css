@@ -41,7 +41,9 @@ img {
 i.bi {
   font-size: 1.5rem;
 }
-
+.bi{
+  cursor: pointer;
+}
 @media screen and (min-width: 800px) {
   .responsive-body {
     display: flex;
