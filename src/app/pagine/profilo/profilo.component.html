@@ -1,4 +1,4 @@
-<!-- EDIT MODE: FALSE TEMPLATE PROFILO-->
+<!-- EDIT MODE FALSE: TEMPLATE VISUALIZZAZIONE PROFILO-->
 
 <div *ngIf="!editMode" class="profile-container mt-4 mb-4">
   <div class="profile-header">
@@ -94,7 +94,7 @@
     />
   </div>
 
-  <!-- Form di modifica profilo -->
+  <!-- Form di modifica profilo MODALITE EDIT ATTIVA-->
   <form
     *ngIf="!isRegistrazione"
     [formGroup]="clienteForm"
@@ -176,43 +176,6 @@
       />
       <mat-error *ngIf="clienteForm.get('username')?.hasError('required')">
         Lo username è obbligatorio.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Nuova Password</mat-label>
-      <input
-        matInput
-        [type]="passwordVisibile ? 'text' : 'password'"
-        formControlName="password"
-        placeholder="Inserisci la tua nuova password"
-      />
-      <mat-icon matSuffix (click)="toggleVisibilitaPassword()">
-        {{ passwordVisibile ? "visibility_off" : "visibility" }}
-      </mat-icon>
-      <mat-error *ngIf="clienteForm.get('password')?.hasError('required')">
-        La password è obbligatoria.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Conferma Password</mat-label>
-      <input
-        matInput
-        [type]="passwordVisibile ? 'text' : 'password'"
-        formControlName="passwordDiConferma"
-        placeholder="Conferma la tua password"
-      />
-      <mat-icon matSuffix (click)="toggleVisibilitaPassword()">
-        {{ passwordVisibile ? "visibility_off" : "visibility" }}
-      </mat-icon>
-      <mat-error
-        *ngIf="clienteForm.get('passwordDiConferma')?.hasError('required')"
-      >
-        La conferma della password è obbligatoria.
-      </mat-error>
-      <mat-error *ngIf="clienteForm.hasError('noMatch')">
-        Le password non corrispondono.
       </mat-error>
     </mat-form-field>
 

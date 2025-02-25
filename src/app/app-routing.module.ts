@@ -21,6 +21,7 @@ import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 import { ClientiAdminComponent } from './admin/clienti-admin/clienti-admin.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
+import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -58,6 +59,12 @@ const routes: Routes = [
   {
     path: 'profilo',
     component: ProfiloComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['UTENTE', 'ADMIN'] },
+  },
+  {
+    path: 'cambia-password',
+    component: CambiaPasswordComponent,
     canActivate: [AuthGuard],
     data: { roles: ['UTENTE', 'ADMIN'] },
   },
