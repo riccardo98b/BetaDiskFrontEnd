@@ -32,14 +32,13 @@ export class CarrelloComponent implements OnInit {
         this.totale = r.dati.totale;
         if (this.totale == 0) {
           this.rc = false;
-          this.msg= "Il carrello è vuoto, inizia a fare acquisti da noi!"
         } else {
           this.prodottiCarrello = r.dati.prodotti;
         }
       } else {
         this.rc = r.rc;
-        this.msg = r.msg;
       }
+      
       this.isLoading = false
     });
   }
