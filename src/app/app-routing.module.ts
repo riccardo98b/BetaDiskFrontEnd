@@ -28,7 +28,6 @@ const routes: Routes = [
   { path: 'registrazione', component: RegistrazioneComponent },
   {
     path: 'carrello',
-    canActivate: [AuthGuard],
     data: { roles: ['UTENTE', 'ADMIN'] },
     component: PaginaCarrelloComponent,
     children: [

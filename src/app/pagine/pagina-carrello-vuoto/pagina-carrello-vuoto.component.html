@@ -52,13 +52,13 @@
     </svg>
   
     <h3>Il tuo carrello è vuoto</h3>
-    <div>
+    <ng-template #loggedIn> 
         <p>Il tuo carrello è vuoto.</p>
         <p>Inizia a fare acquisti da noi</p>
-        <p class=""><a href="">Registrati</a><a href="">Accedi</a></p>
-    </div>
-    <div>
+        <p class="d-flex justify-content-evenly"><a routerLink="/registrazione">Registrati</a><a routerLink="/signin">Accedi</a></p>
+    </ng-template>
+    <div *ngIf="isLoggedIn; else loggedIn">
         <p>Il tuo carrello è vuoto.</p>
-        <p>Inizia con i tuoi <a href="">acquisti</a></p>
+        <p>Inizia con i tuoi <a routerLink="/prodotti">acquisti</a></p>
     </div>
 </div>

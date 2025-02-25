@@ -1,5 +1,5 @@
 .empty-cart {
-    width: 50vw;
+    min-width: 50vw;
     margin: 0 auto;
     text-align: center;
   }
