@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { LoaderService } from '../../servizi/loader.service';
-import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -157,7 +157,11 @@ export class ProdottiComponent implements OnInit {
         quantita: 1,
       })
       .subscribe((resp : any) => {
-        this.openDialog({titolo: "Conferma", msg : resp.msg })
+        if (resp.rc) {
+          this.openDialog({titolo: "Conferma", msg : resp.msg, reload : true })
+        } else {
+          this.openDialog({titolo: "Errore", msg : resp.msg })
+        }
       });
   }
 
@@ -214,7 +218,8 @@ export class ProdottiComponent implements OnInit {
     this.dialog.open(PopUpComponent, {
       width: '400px',
       data: { titolo: inputDialog.titolo,
-         msg: inputDialog.msg },
+        msg: inputDialog.msg,
+        reload: inputDialog.reload },
     });
   }
 }
