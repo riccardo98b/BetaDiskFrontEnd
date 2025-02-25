@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Modifica {{ cliente.utente?.roles }}</h2>
+
+<mat-dialog-content>
+  <label for="email">Email</label>
+  <input
+    id="email"
+    type="email"
+    class="form-control my-2"
+    [(ngModel)]="email"
+    (change)="onChange()"
+    [placeholder]="'Inserisci nuova email'"
+  />
+
+  <label for="username">Username</label>
+  <input
+    id="username"
+    type="text"
+    class="form-control my-2"
+    [(ngModel)]="username"
+    (change)="onChange()"
+    [placeholder]="'Inserisci un nuovo username'"
+  />
+
+  <label class="d-block" for="role">Ruolo</label>
+  <mat-form-field class="my-2">
+    <mat-select
+      [(ngModel)]="roles"
+      id="roles"
+      [placeholder]="'Seleziona un ruolo'"
+    >
+      <mat-option value="ADMIN">Admin</mat-option>
+      <mat-option value="UTENTE">Utente</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onCancel()">Annulla</button>
+  <button mat-button (click)="onSaveUtente()">Salva</button>
+</mat-dialog-actions>

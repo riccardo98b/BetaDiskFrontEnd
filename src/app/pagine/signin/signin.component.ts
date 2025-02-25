@@ -18,6 +18,7 @@ export class SigninComponent {
   idUtente: number | null = null;
   idCliente: number | null = null;
   dataRegistrazione: Date | null = null;
+  passwordVisibile: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +31,10 @@ export class SigninComponent {
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
+  }
+
+  toggleVisibilitaPassword() {
+    this.passwordVisibile = !this.passwordVisibile;
   }
 
   onSubmit(): void {

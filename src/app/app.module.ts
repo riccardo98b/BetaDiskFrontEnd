@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { LOCALE_ID } from '@angular/core';
@@ -51,7 +52,7 @@ import { CheckoutComponent } from './pagine/checkout/checkout.component';
 import { PaginaCarrelloComponent } from './pagine/pagina-carrello/pagina-carrello.component';
 import { PresentazioneSectionComponent } from './componenti/presentazione-section/presentazione-section.component';
 import { CreaProdottoComponent } from './admin/crea-prodotto/crea-prodotto.component';
-import { PopUpComponent } from './componenti/pop-up/pop-up.component';
+import { PopUpComponent } from './dialog/pop-up/pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OrdiniComponent } from './pagine/ordini/ordini.component';
 import { RecensioniComponent } from './pagine/recensioni/recensioni.component';
@@ -59,9 +60,14 @@ import { RegistrazioneComponent } from './pagine/registrazione/registrazione.com
 import { OrdiniAdminComponent } from './admin/ordini-admin/ordini-admin.component';
 import { DialogDataComponent } from './dialog/dialog-data/dialog-data.component';
 import { Pagina403Component } from './pagine/pagina403/pagina403.component';
+import { ClientiAdminComponent } from './admin/clienti-admin/clienti-admin.component';
+import { DialogStringaComponent } from './dialog/dialog-stringa/dialog-stringa.component';
+import { DialogConfermaComponent } from './dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 import { PaginaCarrelloVuotoComponent } from './pagine/pagina-carrello-vuoto/pagina-carrello-vuoto.component';
+import { FormRecensioneComponent } from './dialog/form-recensione/form-recensione.component';
+import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dialog-utente.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -94,9 +100,14 @@ registerLocaleData(localeIt, 'it');
     OrdiniAdminComponent,
     DialogDataComponent,
     Pagina403Component,
+    ClientiAdminComponent,
+    DialogStringaComponent,
+    DialogConfermaComponent,
     ModificaProdottoComponent,
     ProdottiAdminComponent,
     PaginaCarrelloVuotoComponent,
+    FormRecensioneComponent,
+    DialogUtenteComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,6 +129,8 @@ registerLocaleData(localeIt, 'it');
     MatExpansionModule,
     MatBadgeModule,
     MatDatepickerModule,
+    MatMenuModule,
+    FormsModule,
     FormsModule,
     MatRadioModule,
   ],

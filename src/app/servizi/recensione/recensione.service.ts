@@ -35,4 +35,11 @@ export class RecensioneService {
     const url = this.authService.getURL('recensione/update');
     return this.http.post(url, body);
   }
+
+  getRecensioneById(idRecensione: number) {
+    const url = this.authService.getURL(
+      'recensione/listById?id=' + idRecensione
+    );
+    return this.http.get(url);
+  }
 }
