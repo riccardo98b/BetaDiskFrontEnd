@@ -2,14 +2,15 @@
   <app-loader *ngIf="isLoading"></app-loader>
 
   <!-- Caso wishlist non esistente -->
-  <div *ngIf="wishlistNonEsiste && !isLoading" class="empty-wishlist">
+  <!-- <div *ngIf="wishlistNonEsiste && !isLoading" class="empty-wishlist">
     <p>La tua wishlist non esiste ancora. Aggiungi un <a routerLink="/prodotti">prodotto</a> per crearla!</p>
-  </div>
+  </div> -->
 
   <!-- Caso wishlist vuota -->
   <div *ngIf="!wishlistNonEsiste && wishlist.length === 0 && !isLoading" class="empty-wishlist">
     <p>La tua wishlist è vuota. Aggiungi <a routerLink="/prodotti">prodotti</a>!</p>
   </div>
+
   <div *ngIf="nomeCliente" class="welcome-message">
     <h3>Benvenuto, {{ nomeCliente }}!</h3>
     <p>Esplora la tua wishlist e aggiungi nuovi prodotti!</p>
