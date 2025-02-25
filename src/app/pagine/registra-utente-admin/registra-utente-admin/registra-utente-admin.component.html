@@ -1,0 +1,49 @@
+<div class="profile-container mt-4 mb-4">
+  <div class="profile-header">
+    <h2>Registrazione Admin non cliente</h2>
+  </div>
+  <form [formGroup]="utenteForm" (ngSubmit)="registraUtente()">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        placeholder="Inserisci la tua email"
+      />
+      <mat-error *ngIf="utenteForm.get('email')?.hasError('required')">
+        L'email è obbligatoria.
+      </mat-error>
+      <mat-error *ngIf="utenteForm.get('email')?.hasError('email')">
+        Inserisci una email valida.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        formControlName="username"
+        placeholder="Inserisci il tuo username"
+      />
+      <mat-error *ngIf="utenteForm.get('username')?.hasError('required')">
+        Lo username è obbligatorio.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="d-flex gap-2 align-items-stretch">
+      <button mat-fab extended routerLink="/" class="btn-secondary-fab w-50">
+        Torna alla home
+      </button>
+      <button
+        class="w-50"
+        mat-fab
+        extended
+        type="submit"
+        [disabled]="utenteForm.invalid"
+      >
+        Registrati
+      </button>
+    </div>
+  </form>
+</div>

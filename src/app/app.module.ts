@@ -70,6 +70,7 @@ import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dial
 import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
 import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.component';
 import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
+import { RegistraUtenteAdminComponent } from './pagine/registra-utente-admin/registra-utente-admin/registra-utente-admin.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -112,6 +113,7 @@ registerLocaleData(localeIt, 'it');
     CambiaPasswordComponent,
     CreaAdminComponent,
     WelcomePageComponent,
+    RegistraUtenteAdminComponent,
   ],
   imports: [
     BrowserModule,

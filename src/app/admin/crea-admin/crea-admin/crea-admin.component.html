@@ -2,11 +2,26 @@
 
 <div class="container my-5 px-5">
   <p>Seleziona che tipologia di Admin si vuole creare</p>
-  <button mat-flat-button color="primary" class="mb-3">
+  <button
+    (click)="onDisplayChoice()"
+    mat-flat-button
+    color="primary"
+    class="mb-3"
+  >
     Crea Admin senza profilo cliente
   </button>
-  <button mat-flat-button color="primary" class="ms-3 mb-3">
+  <button
+    (click)="onDisplayChoice()"
+    mat-flat-button
+    color="primary"
+    class="ms-3 mb-3"
+  >
     Crea Admin con profilo cliente
   </button>
 </div>
-<app-registrazione></app-registrazione>
+<div *ngIf="sceltaForm">
+  <app-registrazione></app-registrazione>
+</div>
+<div *ngIf="!sceltaForm">
+  <app-registra-utente-admin></app-registra-utente-admin>
+</div>

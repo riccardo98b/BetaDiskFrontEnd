@@ -42,33 +42,18 @@ export class RegistrazioneComponent {
   }
 
   inizializzaForm(): void {
-    this.clienteForm = new FormGroup(
-      {
-        nome: new FormControl('', [Validators.required]),
-        cognome: new FormControl('', [Validators.required]),
-        immagineCliente: new FormControl(''),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        telefono: new FormControl('', [Validators.required]),
-        username: new FormControl(''),
-        via: new FormControl('', [Validators.required]),
-        comune: new FormControl('', [Validators.required]),
-        provincia: new FormControl('', [Validators.required]),
-        cap: new FormControl('', [Validators.required]),
-      },
-      { validators: this.passwordMatchValidator }
-    );
-  }
-
-  get passwordMatchValidator(): any {
-    return (formGroup: FormGroup) => {
-      const password = formGroup.get('password')?.value;
-      const confirmPassword = formGroup.get('passwordDiConferma')?.value;
-      if (password !== confirmPassword) {
-        formGroup.get('passwordDiConferma')?.setErrors({ mismatch: true });
-      } else {
-        formGroup.get('passwordDiConferma')?.setErrors(null);
-      }
-    };
+    this.clienteForm = new FormGroup({
+      nome: new FormControl('', [Validators.required]),
+      cognome: new FormControl('', [Validators.required]),
+      immagineCliente: new FormControl(''),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      telefono: new FormControl('', [Validators.required]),
+      username: new FormControl(''),
+      via: new FormControl('', [Validators.required]),
+      comune: new FormControl('', [Validators.required]),
+      provincia: new FormControl('', [Validators.required]),
+      cap: new FormControl('', [Validators.required]),
+    });
   }
 
   onSubmit(): void {
@@ -115,7 +100,6 @@ export class RegistrazioneComponent {
       email: this.clienteForm.value.email,
       username: this.clienteForm.value.username,
       roles: 'UTENTE',
-      isAdmin: false,
     };
   }
 
@@ -209,7 +193,6 @@ export class RegistrazioneComponent {
       password: randomPassword,
       username: this.clienteForm.value.username,
       roles: 'UTENTE',
-      isAdmin: false,
       idCliente: clienteId,
     };
     return this.utenteService.createUtente(utenteInvioForm);

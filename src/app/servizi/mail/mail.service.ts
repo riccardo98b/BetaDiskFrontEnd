@@ -18,6 +18,13 @@ export class MailService {
     return this.http.post(url, body);
   }
 
+  confermaRegistrazioneAdminNonCliente(body: {}) {
+    const url = this.authService.getURL(
+      'mail/conferma-registrazione-admin-no-utente'
+    );
+    return this.http.post(url, body);
+  }
+
   ordineSpedito(body: {}) {
     const url = this.authService.getURL('mail/ordine-spedito');
     return this.http.post(url, body);

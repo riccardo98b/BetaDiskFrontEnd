@@ -8,7 +8,5 @@ import { ProfiloService } from '../../servizi/profilo/profilo.service';
   styleUrl: './welcome-page.component.css',
 })
 export class WelcomePageComponent {
-  nomeClienteBenvenuto: string = '';
-
-  constructor(private profiloService: ProfiloService) {}
+  username: string = localStorage.getItem('username');
 }
