@@ -67,6 +67,7 @@ import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-pr
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 import { FormRecensioneComponent } from './dialog/form-recensione/form-recensione.component';
 import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dialog-utente.component';
+import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -106,6 +107,7 @@ registerLocaleData(localeIt, 'it');
     ProdottiAdminComponent,
     FormRecensioneComponent,
     DialogUtenteComponent,
+    WelcomePageComponent,
   ],
   imports: [
     BrowserModule,

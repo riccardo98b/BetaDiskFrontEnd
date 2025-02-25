@@ -21,6 +21,7 @@ import { Pagina403Component } from './pagine/pagina403/pagina403.component';
 import { ClientiAdminComponent } from './admin/clienti-admin/clienti-admin.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
+import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -43,12 +44,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['ADMIN'] },
     children: [
-      { path: '', redirectTo: 'prodotti-admin', pathMatch: 'full' },
+      { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
       { path: 'crea-prodotto', component: CreaProdottoComponent },
       { path: 'ordini', component: OrdiniAdminComponent },
       { path: 'clienti', component: ClientiAdminComponent },
       { path: 'modifica-prodotto', component: ModificaProdottoComponent },
       { path: 'prodotti-admin', component: ProdottiAdminComponent },
+      { path: 'welcome-page', component: WelcomePageComponent },
     ],
   },
   {

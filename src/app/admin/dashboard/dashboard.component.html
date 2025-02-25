@@ -28,6 +28,13 @@
           <mat-list-item
             class="link-admin"
             role="listitem"
+            routerLink="ordini"
+            [routerLinkActive]="'active'"
+            >Spedisci Ordini</mat-list-item
+          >
+          <mat-list-item
+            class="link-admin"
+            role="listitem"
             routerLink="clienti"
             [routerLinkActive]="'active'"
             >Gestione clienti</mat-list-item
@@ -38,13 +45,6 @@
             routerLink="pagina3"
             [routerLinkActive]="'active'"
             >Crea nuovo admin</mat-list-item
-          >
-          <mat-list-item
-            class="link-admin"
-            role="listitem"
-            routerLink="ordini"
-            [routerLinkActive]="'active'"
-            >Spedisci Ordini</mat-list-item
           >
         </mat-list>
       </mat-drawer>
