@@ -5,6 +5,7 @@ import { RecensioneService } from '../../servizi/recensione/recensione.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormRecensioneComponent } from '../../dialog/form-recensione/form-recensione.component';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-recensioni',
@@ -31,9 +32,9 @@ export class RecensioniComponent implements OnInit {
     this.serv.listaRecensioniUtente(this.idCliente).subscribe((r: any) => {
       if (r.rc) {
         this.recensioni = r.dati;
-      } else {
-        this.rc = r.rc;
-        this.msg = r.msg;
+      } 
+      if (this.recensioni.length == 0) {
+        this.openDialog({titolo: "Attenzione", msg: "Non hai ancora fatto acquisti da noi"})
       }
     });
     this.isLoading = false;
@@ -55,8 +56,11 @@ export class RecensioniComponent implements OnInit {
       idRecensione: id,
     };
     this.serv.eliminaRecensione(request).subscribe((r: any) => {
-      this.msg = r.msg;
-      this.rc = r.rc;
+      if (r.rc) {
+        this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+      } else {
+        this.openDialog({titolo: "Errore", msg : r.msg })
+      }
     });
     this.isLoading = false;
   }
@@ -77,6 +81,15 @@ export class RecensioniComponent implements OnInit {
         width: '400px',
         data: { prodotto: resp },
       });
+    });
+  }
+
+  openDialog(inputDialog: any) {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: { titolo: inputDialog.titolo,
+        msg: inputDialog.msg,
+        reload: inputDialog.reload },
     });
   }
 }

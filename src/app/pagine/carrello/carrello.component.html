@@ -1,16 +1,10 @@
 
-  <app-loader *ngIf="isLoading"></app-loader>
+<app-loader *ngIf="isLoading"></app-loader>
+<div *ngIf="!rc; else carrello"><app-pagina-carrello-vuoto></app-pagina-carrello-vuoto></div>
 
+<ng-template #carrello>
   <h2>Riepilogo del tuo carrello</h2>
-<!-- da aggiungere alert per carrello vuoto -->
-  <div *ngIf="msg != ''">
-    <div class="alert alert-success" *ngIf="rc" role="alert">
-      {{msg}}
-    </div>
-    <div class="alert alert-danger"  *ngIf="!rc" role="alert">
-      {{msg}}
-    </div>    
-  </div>
+
   <div class="container-sm" *ngIf="rc">
     <ul class="list-group-flush">
       <li class="list-group-item" *ngFor="let prodottoCarrello of prodottiCarrello">
@@ -69,4 +63,5 @@
       Acquista ora
     </button>
   </div>
+</ng-template>
 

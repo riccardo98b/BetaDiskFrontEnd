@@ -13,6 +13,12 @@ export class PopUpComponent {
   ) {}
 
   closeDialog(): void {
+    console.log(this.data)
+  
     this.dialogRef.close();
+    if(this.data.reload){
+      window.location.reload();
+    }
+   
   }
 }

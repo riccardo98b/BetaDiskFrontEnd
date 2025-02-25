@@ -3,6 +3,8 @@ import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { Router } from '@angular/router';
 import { Carrello } from '../../interfacce/Carrello';
 import { ProdottoCarrello } from '../../interfacce/ProdottoCarrello';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-carrello',
@@ -18,7 +20,10 @@ export class CarrelloComponent implements OnInit {
   rc: boolean = true;
   isLoading: boolean;
 
-  constructor(private serv: CarrelloService, private router: Router) {}
+  constructor(private serv: CarrelloService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -27,14 +32,13 @@ export class CarrelloComponent implements OnInit {
         this.totale = r.dati.totale;
         if (this.totale == 0) {
           this.rc = false;
-          this.msg= "Il carrello è vuoto, inizia a fare acquisti da noi!"
         } else {
           this.prodottiCarrello = r.dati.prodotti;
         }
       } else {
         this.rc = r.rc;
-        this.msg = r.msg;
       }
+      
       this.isLoading = false
     });
   }
@@ -44,13 +48,11 @@ export class CarrelloComponent implements OnInit {
       idCliente: this.idCliente,
     };
     this.serv.svuotaCarrello(request).subscribe((r: any) => {
-      this.msg = r.msg;
-      this.rc = r.rc;
-      this.router.navigate(['/carrello']).then(() => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      });
+      if (r.rc) {
+        this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+      } else {
+        this.openDialog({titolo: "Errore", msg : r.msg })
+      }
     });
   }
 
@@ -65,13 +67,11 @@ export class CarrelloComponent implements OnInit {
       quantita: 1
     }
     this.serv.removeProdotto(request).subscribe((r:any) => {
-      this.msg = r.msg;
-      this.rc = r.rc;
-      this.router.navigate(['/carrello']).then(() => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      });
+      if (r.rc) {
+        this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+      } else {
+        this.openDialog({titolo: "Errore", msg : r.msg })
+      }
     })
   }
 
@@ -82,13 +82,11 @@ export class CarrelloComponent implements OnInit {
       quantita: 1
     }
     this.serv.addProdotto(request).subscribe((r:any) => {
-      this.msg = r.msg;
-      this.rc = r.rc;
-      this.router.navigate(['/carrello']).then(() => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      });
+      if (r.rc) {
+        this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+      } else {
+        this.openDialog({titolo: "Errore", msg : r.msg })
+      }
     })
   }
 
@@ -99,17 +97,24 @@ export class CarrelloComponent implements OnInit {
       quantita: quantita
     }
     this.serv.removeProdotto(request).subscribe((r:any) => {
-      this.msg = r.msg;
-      this.rc = r.rc;
-      this.router.navigate(['/carrello']).then(() => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      });
+      if (r.rc) {
+        this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+      } else {
+        this.openDialog({titolo: "Errore", msg : r.msg })
+      }
     })
   }
 
   ordina(){
     this.router.navigate(['carrello/checkout']);
+  }
+
+  openDialog(inputDialog: any) {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: { titolo: inputDialog.titolo,
+        msg: inputDialog.msg,
+        reload: inputDialog.reload },
+    });
   }
 }

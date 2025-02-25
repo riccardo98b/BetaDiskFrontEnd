@@ -65,6 +65,7 @@ import { DialogStringaComponent } from './dialog/dialog-stringa/dialog-stringa.c
 import { DialogConfermaComponent } from './dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
+import { PaginaCarrelloVuotoComponent } from './pagine/pagina-carrello-vuoto/pagina-carrello-vuoto.component';
 import { FormRecensioneComponent } from './dialog/form-recensione/form-recensione.component';
 import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dialog-utente.component';
 import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
@@ -105,6 +106,7 @@ registerLocaleData(localeIt, 'it');
     DialogConfermaComponent,
     ModificaProdottoComponent,
     ProdottiAdminComponent,
+    PaginaCarrelloVuotoComponent,
     FormRecensioneComponent,
     DialogUtenteComponent,
     WelcomePageComponent,
