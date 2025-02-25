@@ -22,6 +22,7 @@ import { ClientiAdminComponent } from './admin/clienti-admin/clienti-admin.compo
 import { ModificaProdottoComponent } from './admin/modifica-prodotto/modifica-prodotto.component';
 import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.component';
 import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
+import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -50,6 +51,7 @@ const routes: Routes = [
       { path: 'clienti', component: ClientiAdminComponent },
       { path: 'modifica-prodotto', component: ModificaProdottoComponent },
       { path: 'prodotti-admin', component: ProdottiAdminComponent },
+      { path: 'crea-admin', component: CreaAdminComponent },
     ],
   },
   {

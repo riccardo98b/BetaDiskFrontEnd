@@ -68,6 +68,8 @@ import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.co
 import { FormRecensioneComponent } from './dialog/form-recensione/form-recensione.component';
 import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dialog-utente.component';
 import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
+import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.component';
+import { CreaUtenteComponent } from './componenti/crea-utente/crea-utente/crea-utente.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -108,6 +110,8 @@ registerLocaleData(localeIt, 'it');
     FormRecensioneComponent,
     DialogUtenteComponent,
     CambiaPasswordComponent,
+    CreaAdminComponent,
+    CreaUtenteComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { MailService } from '../../servizi/mail/mail.service';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 @Component({
   selector: 'app-profilo',
   standalone: false,
@@ -24,6 +26,7 @@ export class ProfiloComponent implements OnInit {
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
   nomeClienteBenvenuto: string = '';
   passwordVisibile: boolean = false;
+  randomPassword: string = '';
 
   constructor(
     private clienteService: ClienteService,
@@ -31,7 +34,8 @@ export class ProfiloComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private mailService: MailService,
-    private profiloService: ProfiloService
+    private profiloService: ProfiloService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -50,14 +54,6 @@ export class ProfiloComponent implements OnInit {
         email: new FormControl('', [Validators.required, Validators.email]),
         telefono: new FormControl('', [Validators.required]),
         username: new FormControl(''),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-        ]),
-        passwordDiConferma: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-        ]),
         via: new FormControl('', [Validators.required]),
         comune: new FormControl('', [Validators.required]),
         provincia: new FormControl('', [Validators.required]),
@@ -98,7 +94,6 @@ export class ProfiloComponent implements OnInit {
       email: clienteData.utente.email,
       telefono: clienteData.telefono,
       username: clienteData.utente.username,
-      password: clienteData.utente.password,
       via: clienteData.via,
       comune: clienteData.comune,
       provincia: clienteData.provincia,
@@ -165,7 +160,6 @@ export class ProfiloComponent implements OnInit {
       idUtente: this.utenteId,
       idCliente: this.clienteId,
       email: this.clienteForm.value.email,
-      password: this.clienteForm.value.password || null,
       username: this.clienteForm.value.username,
       roles: 'UTENTE',
       isAdmin: false,
@@ -180,6 +174,17 @@ export class ProfiloComponent implements OnInit {
     } else {
       console.log("Non è stato possibile aggiornare l'utente");
     }
+  }
+
+  generateRandomPassword(length: number): string {
+    const charset =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+    }
+    return password;
   }
 
   resetPasswordAfterSubmit(): void {
@@ -198,11 +203,13 @@ export class ProfiloComponent implements OnInit {
 
   registraClienteEUtente(): void {
     const clienteInvioForm = this.createClienteFormDatiRegistrazione();
+    const randomPassword = this.generateRandomPassword(12);
+
     this.clienteService
       .createCliente(clienteInvioForm)
       .pipe(
         switchMap((clienteResponse: any) =>
-          this.createUtentePerNuovoCliente(clienteResponse)
+          this.createUtentePerNuovoCliente(clienteResponse, randomPassword)
         ),
         catchError((errore) =>
           this.gestisciErrore(
@@ -212,7 +219,18 @@ export class ProfiloComponent implements OnInit {
         )
       )
       .subscribe((utenteResponse: any) => {
-        this.gestioneRispostaRegistrazione(utenteResponse);
+        this.gestioneRispostaRegistrazione(utenteResponse, randomPassword);
+        const dialogRef = this.dialog.open(DialogConfermaComponent, {
+          minWidth: '500px',
+          data: {
+            messaggio:
+              'Registrazione avvenuta con successo, controlla la tua email.',
+          },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log('Dialog di conferma chiuso con risultato: ', result);
+        });
       });
   }
 
@@ -230,11 +248,14 @@ export class ProfiloComponent implements OnInit {
     };
   }
 
-  createUtentePerNuovoCliente(clienteResponse: any): any {
+  createUtentePerNuovoCliente(
+    clienteResponse: any,
+    randomPassword: string
+  ): any {
     const clienteId = clienteResponse.dati.idCliente;
     const utenteInvioForm = {
       email: this.clienteForm.value.email,
-      password: this.clienteForm.value.password,
+      password: randomPassword,
       username: this.clienteForm.value.username,
       roles: 'UTENTE',
       isAdmin: false,
@@ -243,10 +264,13 @@ export class ProfiloComponent implements OnInit {
     return this.utenteService.createUtente(utenteInvioForm);
   }
 
-  gestioneRispostaRegistrazione(utenteResponse: any): void {
+  gestioneRispostaRegistrazione(
+    utenteResponse: any,
+    randomPassword: string
+  ): void {
     if (utenteResponse) {
       this.resetPasswordAfterSubmit();
-      this.invioEmailRegistrazione();
+      this.invioEmailRegistrazione(randomPassword);
       this.router.navigate(['/']);
     } else {
       console.log("Non è stato possibile creare l'utente");
@@ -267,11 +291,12 @@ export class ProfiloComponent implements OnInit {
     return of(null);
   }
 
-  invioEmailRegistrazione(): void {
+  invioEmailRegistrazione(randomPassword: string): void {
     const mailRequest = {
       toEmail: this.clienteForm.value.email,
       nome: this.clienteForm.value.nome,
       cognome: this.clienteForm.value.cognome,
+      password: randomPassword,
     };
     this.mailService.confermaRegistrazione(mailRequest).subscribe(
       (response) => {

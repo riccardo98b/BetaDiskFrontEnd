@@ -332,34 +332,6 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Password</mat-label>
-      <input
-        matInput
-        type="password"
-        formControlName="password"
-        placeholder="Inserisci la tua password"
-      />
-      <mat-error *ngIf="clienteForm.get('password')?.hasError('required')">
-        La password è obbligatoria.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Conferma Password</mat-label>
-      <input
-        matInput
-        type="password"
-        formControlName="passwordDiConferma"
-        placeholder="Conferma la tua password"
-      />
-      <mat-error
-        *ngIf="clienteForm.get('passwordDiConferma')?.hasError('required')"
-      >
-        La conferma password è obbligatoria.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="w-100">
       <mat-label>Via</mat-label>
       <input
         matInput
