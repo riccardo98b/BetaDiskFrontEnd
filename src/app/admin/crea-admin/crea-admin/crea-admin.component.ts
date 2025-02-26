@@ -17,8 +17,8 @@ import { DialogConfermaComponent } from '../../../dialog/dialog-conferma/dialog-
   styleUrl: './crea-admin.component.css',
 })
 export class CreaAdminComponent {
-  sceltaForm: boolean = false;
   onDisplayChoice() {
-    this.sceltaForm = !this.sceltaForm;
+    throw new Error('Method not implemented.');
   }
+  sceltaForm: string = 'admin-no-cliente';
 }

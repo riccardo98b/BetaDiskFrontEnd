@@ -5,5 +5,5 @@ export interface Utente {
   username: string;
   email: string;
   roles: string;
-  cliente: Cliente;
+  cliente?: Cliente;
 }

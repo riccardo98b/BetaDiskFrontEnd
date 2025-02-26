@@ -2,26 +2,22 @@
 
 <div class="container my-5 px-5">
   <p>Seleziona che tipologia di Admin si vuole creare</p>
-  <button
-    (click)="onDisplayChoice()"
-    mat-flat-button
-    color="primary"
-    class="mb-3"
-  >
-    Crea Admin senza profilo cliente
-  </button>
-  <button
-    (click)="onDisplayChoice()"
-    mat-flat-button
-    color="primary"
-    class="ms-3 mb-3"
-  >
-    Crea Admin con profilo cliente
-  </button>
-</div>
-<div *ngIf="sceltaForm">
-  <app-registrazione></app-registrazione>
-</div>
-<div *ngIf="!sceltaForm">
-  <app-registra-utente-admin></app-registra-utente-admin>
+  <!-- Select per scegliere il tipo di Admin -->
+  <mat-form-field appearance="fill" class="w-100 mb-3">
+    <mat-label>Seleziona il tipo di Admin</mat-label>
+    <mat-select [(value)]="sceltaForm">
+      <mat-option value="admin-no-cliente"
+        >Crea Admin senza profilo cliente</mat-option
+      >
+      <mat-option value="admin-cliente"
+        >Crea Admin con profilo cliente</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="sceltaForm === 'admin-cliente'">
+    <app-registrazione></app-registrazione>
+  </div>
+  <div *ngIf="sceltaForm === 'admin-no-cliente'">
+    <app-registra-utente-admin></app-registra-utente-admin>
+  </div>
 </div>

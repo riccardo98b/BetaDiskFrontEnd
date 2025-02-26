@@ -3,7 +3,7 @@ export interface SignIn {
   logged: boolean;
   role: string;
   idUtente: number;
-  idCliente: number;
+  idCliente: number | null;
   password: string;
-  dataRegistrazione: Date;
+  dataRegistrazione: Date | null;
 }

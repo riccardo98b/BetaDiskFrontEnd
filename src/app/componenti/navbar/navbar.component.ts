@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 
@@ -12,18 +11,20 @@ import { CarrelloService } from '../../servizi/carrello/carrello.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-  
   showNavbar: boolean = false;
   utenteId: number = 0;
   clienteId: number = 0;
   logged: boolean = false;
   role: string = '';
   nomeClienteBenvenuto: string = '';
+  adminUsername: string = '';
+  adminIsNotCliente: boolean = false;
+
   constructor(
     private authService: AuthService,
     private profiloService: ProfiloService, //,
     private router: Router,
-    private serviceCarrello: CarrelloService,
+    private serviceCarrello: CarrelloService
   ) {
     this.profiloService.nomeCliente$.subscribe((nome) => {
       this.nomeClienteBenvenuto = nome;
@@ -35,6 +36,7 @@ export class NavbarComponent implements OnInit {
     this.clienteId = this.authService.getClienteIdSessione();
     this.role = this.authService.getRuoloUtente();
     this.getProdottiCarrello(this.clienteId);
+    this.adminUsername = this.authService.getUsername();
   }
   // Toggle navbar al click dell'icona
   toggleNavbar() {
@@ -66,6 +68,11 @@ export class NavbarComponent implements OnInit {
     return this.authService.isAdmin();
   }
 
+  isAdminNotCliente(): boolean {
+    this.adminIsNotCliente = this.authService.isAdminNotCliente();
+    return this.adminIsNotCliente;
+  }
+
   isRoleValidAndIdClienteValidi(): boolean {
     return (
       (this.role === 'ADMIN' || this.role === 'UTENTE') && this.clienteId !== 0
@@ -73,18 +80,17 @@ export class NavbarComponent implements OnInit {
   }
 
   totalItem = 0;
-  getProdottiCarrello(clienteId:number) {
+  getProdottiCarrello(clienteId: number) {
     this.serviceCarrello.listaProdotti(clienteId).subscribe((r: any) => {
       if (r.rc) {
         r.dati.prodotti.forEach((p: any) => {
-          p.prodotto.prodottiCarrello.forEach((pc:any) =>{
+          p.prodotto.prodottiCarrello.forEach((pc: any) => {
             if (p.id == pc.id) {
               this.totalItem += pc.quantita;
             }
-          })
+          });
         });
       }
     });
   }
-
 }

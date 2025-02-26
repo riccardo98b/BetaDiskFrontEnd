@@ -102,12 +102,22 @@
           >
             <mat-icon>manage_accounts</mat-icon>
           </a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-item not-hover">Bentornato Admin</li>
+          <ul *ngIf="isAdmin()" class="dropdown-menu">
+            <li class="dropdown-item not-hover">
+              Bentornato {{ adminUsername }}
+            </li>
             <li>
               <a class="dropdown-item" routerLink="/admin/dashboard"
                 >Dashboard</a
               >
+            </li>
+            <li *ngIf="isAdminNotCliente()">
+              <a class="dropdown-item" routerLink="/cambia-password"
+                >Cambia Password</a
+              >
+            </li>
+            <li *ngIf="isAdminNotCliente()">
+              <a class="dropdown-item" routerLink="/">Diventa Cliente</a>
             </li>
           </ul>
         </li>
