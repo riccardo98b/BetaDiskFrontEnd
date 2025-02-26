@@ -14,12 +14,14 @@ export class CardComponent {
   @Input() prodotto: Prodotto;
   @Input() responsive: boolean;
   @Input() cartBadge: { [idProdotto: number]: number };
-  @Input() isWishlistPage: boolean = false; 
+  @Input() isWishlistPage: boolean = false;
 
   @Input() isInWishlist: boolean;
   @Output() toggleWishlist = new EventEmitter<Prodotto>();
 
-  currentUserId: number | null = localStorage.getItem('idCliente') ? +localStorage.getItem('idCliente') : null;
+  currentUserId: number | null = localStorage.getItem('idCliente')
+    ? +localStorage.getItem('idCliente')
+    : null;
   currentCliente: Cliente | null = null;
 
   constructor(
@@ -37,7 +39,7 @@ export class CardComponent {
         },
         error: (error) => {
           console.error('Errore nel recupero del cliente:', error);
-        }
+        },
       });
     } else {
       console.error('Nessun utente loggato');
@@ -46,31 +48,37 @@ export class CardComponent {
 
   preferitiWishlist(prodotto: Prodotto): void {
     if (!this.currentUserId || !this.currentCliente) {
-      console.error("Errore: Nessun utente loggato o dati cliente non disponibili.");
+      console.error(
+        'Errore: Nessun utente loggato o dati cliente non disponibili.'
+      );
       return;
     }
 
     if (this.isInWishlist) {
       // Se è nella wishlist, lo rimuove
-      this.wishlistService.removeProductFromWishlist(this.currentUserId, prodotto.idProdotto).subscribe({
-        next: () => {
-          console.log('Prodotto rimosso dalla wishlist');
-          this.toggleWishlist.emit(prodotto);
-        },
-        error: (error) => {
-          console.error('Errore nella rimozione dalla wishlist:', error);
-        }
-      });
+      this.wishlistService
+        .removeProductFromWishlist(this.currentUserId, prodotto.idProdotto)
+        .subscribe({
+          next: () => {
+            console.log('Prodotto rimosso dalla wishlist');
+            this.toggleWishlist.emit(prodotto);
+          },
+          error: (error) => {
+            console.error('Errore nella rimozione dalla wishlist:', error);
+          },
+        });
     } else {
-      this.wishlistService.addProductToWishlist(this.currentUserId, [prodotto.idProdotto]).subscribe({
-        next: () => {
-          console.log('Prodotto aggiunto alla wishlist');
-          this.toggleWishlist.emit(prodotto);
-        },
-        error: (error) => {
-          console.error('Errore durante l\'aggiunta alla wishlist:', error);
-        }
-      });
+      this.wishlistService
+        .addProductToWishlist(this.currentUserId, [prodotto.idProdotto])
+        .subscribe({
+          next: () => {
+            console.log('Prodotto aggiunto alla wishlist');
+            this.toggleWishlist.emit(prodotto);
+          },
+          error: (error) => {
+            console.error("Errore durante l'aggiunta alla wishlist:", error);
+          },
+        });
     }
   }
 }

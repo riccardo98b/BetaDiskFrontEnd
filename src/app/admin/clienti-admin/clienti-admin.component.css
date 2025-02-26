@@ -27,8 +27,22 @@
 button[mat-flat-button] {
   width: 100px;
   background-color: rgb(37, 133, 197);
+  margin: 0 1em;
 }
 
 .reset-btn[mat-flat-button] {
   background-color: rgb(217, 33, 33);
+  margin-top: 1em;
+}
+.container-header {
+  padding: 2em;
+  background: linear-gradient(135deg, #f0f2f8, #ffffff);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.bottoni {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
 }

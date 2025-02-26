@@ -1,7 +1,16 @@
 .presentazione {
   margin: 3em 0;
   padding: 1.5em;
-  background-color: #ff7635;
+  background-image: url("https://images.stockcake.com/public/5/8/c/58c20b20-4627-4bdf-be9b-d8b901e8b0c9_large/vinyl-record-collection-stockcake.jpg");
+  position: relative;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .sconti {
@@ -9,5 +18,46 @@
 }
 
 h1 {
-  margin-bottom: 1em;
+  padding: 3em 0;
+}
+
+.presentazione::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+h1,
+h3 {
+  position: relative;
+  color: rgb(0, 0, 0);
+  opacity: 1;
+  z-index: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.acquisti {
+  border: 3px solid black;
+  position: relative;
+  color: rgb(0, 0, 0);
+  opacity: 1;
+  z-index: 1;
+  padding: 0.8em;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  font-size: 1.1em;
+}
+
+h3 {
+  margin: 0;
 }
