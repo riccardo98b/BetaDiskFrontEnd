@@ -79,8 +79,7 @@
         [cartBadge]="cartBadge"
         [isInWishlist]="wishlistId.includes(prodotto.idProdotto)"
         [isWishlistPage]="false"
-        (toggleWishlist)="preferitiWishlist(prodotto)"
-      >
+        (toggleWishlist)="preferitiWishlist(prodotto)">
         <div id="card-buttons">
           <button
             [disabled]="prodotto.quantita == 0"

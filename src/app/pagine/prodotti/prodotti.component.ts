@@ -42,7 +42,7 @@ export class ProdottiComponent implements OnInit {
     });
     this.getTuttiProdotti();
     this.getProdottiCarrello();
-    this.loadWishlist();
+    this.caricaWishlist();
   }
 
   getProdottiCarrello() {
@@ -203,7 +203,7 @@ export class ProdottiComponent implements OnInit {
       });
   }
 
-  loadWishlist() {
+  caricaWishlist() {
     this.wishlistService.getWishlist(this.idCliente).subscribe({
       next: (data) => {
         this.wishlistId = data.dati.map((p: Prodotto) => p.idProdotto);

@@ -27,20 +27,18 @@
           <mat-icon></mat-icon>
         </div>
 
-        <!-- Wishlist -->
-        <!-- Cuore vuoto: visibile solo quando il prodotto non è nella wishlist -->
-        <i
+          <!-- Wishlist -->
+          <i
           class="bi bi-suit-heart"
-          [ngClass]="{ 'text-danger': isInWishlist }"
+          [ngClass]="{'text-danger': isInWishlist}"
           *ngIf="!isInWishlist && !isWishlistPage"
-          (click)="preferitiWishlist(prodotto)"
+          (click)="preferitiWishlist()"
         ></i>
 
-        <!-- Cuore pieno: visibile solo quando il prodotto è nella wishlist -->
         <i
           class="bi bi-suit-heart-fill text-danger"
           *ngIf="isInWishlist && !isWishlistPage"
-          (click)="preferitiWishlist(prodotto)"
+          (click)="preferitiWishlist()"
         ></i>
       </div>
 
