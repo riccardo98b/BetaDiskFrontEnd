@@ -7,13 +7,13 @@ import { AuthService } from '../../../auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { DialogConfermaComponent } from '../../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
+import { PopUpComponent } from '../../../dialog/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-registra-utente-admin',
   standalone: false,
   templateUrl: './registra-utente-admin.component.html',
-  styleUrl: './registra-utente-admin.component.css',
+  styleUrls: ['./registra-utente-admin.component.css'],
 })
 export class RegistraUtenteAdminComponent {
   utenteId: number = 0;
@@ -75,9 +75,19 @@ export class RegistraUtenteAdminComponent {
   gestioneRispostaRegistrazione(utenteResponse: any): void {
     if (utenteResponse) {
       this.invioEmailRegistrazione();
+      this.openDialog({
+        titolo: 'Conferma',
+        msg: 'Registrazione utente completata con successo.',
+        reload: true,
+      });
       this.router.navigate(['/']);
     } else {
       console.log("Non è stato possibile creare l'utente");
+      this.openDialog({
+        titolo: 'Errore',
+        msg: "Non è stato possibile creare l'utente.",
+        reload: false,
+      });
     }
   }
 
@@ -94,6 +104,11 @@ export class RegistraUtenteAdminComponent {
 
   gestisciErrore(errore: any, erroreMsg: string): Observable<any> {
     console.error(erroreMsg, errore);
+    this.openDialog({
+      titolo: 'Errore',
+      msg: erroreMsg,
+      reload: false,
+    });
     return of(null);
   }
 
@@ -113,5 +128,16 @@ export class RegistraUtenteAdminComponent {
           console.error("Errore durante l'invio della email:", error);
         }
       );
+  }
+
+  openDialog(inputDialog: any): void {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: {
+        titolo: inputDialog.titolo,
+        msg: inputDialog.msg,
+        reload: inputDialog.reload,
+      },
+    });
   }
 }
