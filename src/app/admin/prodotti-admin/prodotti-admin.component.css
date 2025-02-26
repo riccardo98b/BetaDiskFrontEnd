@@ -1,6 +1,4 @@
-.edit-btn {
-  color: #fff;
-  background-color: rgb(240, 189, 23);
+.del-btn, .edit-btn {
   z-index: 999;
   margin: 1% auto;
   box-shadow: none;
@@ -13,13 +11,3 @@
   box-shadow: none;
 }
 
-.delete-btn {
-  color: #fff;
-  background-color: rgb(212, 2, 2);
-  z-index: 999;
-  margin: 1% auto;
-  box-shadow: none;
-  margin-right: 5em;
-  margin: 1% auto;
-  box-shadow: none;
-}

@@ -1,24 +1,10 @@
-.del-btn {
-    color: #fff;
-    background-color: firebrick ;
+.del-btn, .check-btn {
     z-index: 999;
     margin: 1% auto;
     box-shadow: none;
 }
 
-.del-btn:hover {
-    box-shadow: none;
-}
-
-.check-btn {
-    color: #fff;
-    background-color: lightgreen ;
-    z-index: 999;
-    margin: 1% auto;
-    box-shadow: none;
-}
-
-.check-btn:hover {
+.del-btn:hover, .check-btn:hover  {
     box-shadow: none;
 }
 
