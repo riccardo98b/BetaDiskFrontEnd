@@ -3,7 +3,8 @@
   justify-content: space-around;
 }
 
-#filtri-prodotti {
+#filtri-prodotti,
+h6 {
   position: fixed;
   top: 150px;
   left: 0;
@@ -56,5 +57,7 @@
   .nav {
     display: flex;
     flex-direction: column;
+  }
+  .titolo-filtro {
   }
 }

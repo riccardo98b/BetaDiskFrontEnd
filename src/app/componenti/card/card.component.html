@@ -1,50 +1,50 @@
 <div class="card">
   <div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
-  <img
-    src="{{ prodotto?.immagineProdotto }}"
-    class="example-card"
-    [ngClass]="{ 'responsive-img': responsive }"
-    alt="immagine-prodotto"
-  />
-  <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
-    <h5 class="card-titolo" [ngClass]="{ 'titolo-dettaglio': responsive }">
-      {{ prodotto?.titolo }}
-    </h5>
-    <p class="card-artista">{{ prodotto?.artista }}</p>
-    <p class="card-formato">{{ prodotto?.formato }}</p>
-    <div>
-      <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
-    </div>
-
-    <!-- Carrello -->
-    <div class="d-flex justify-content-around mb-3">
-      <div *ngIf="cartBadge[prodotto?.idProdotto] > 0" class="pt-1">
-        <mat-icon [matBadge]="cartBadge[prodotto.idProdotto]">shopping_cart</mat-icon>
-      </div>
-      <div *ngIf="cartBadge[prodotto?.idProdotto] == null">
-        <mat-icon></mat-icon>
+    <img
+      src="{{ prodotto?.immagineProdotto }}"
+      class="example-card"
+      [ngClass]="{ 'responsive-img': responsive }"
+      alt="immagine-prodotto"
+    />
+    <div class="card-content" [ngClass]="{ 'responsive-content': responsive }">
+      <h5 class="card-titolo" [ngClass]="{ 'titolo-dettaglio': responsive }">
+        {{ prodotto?.titolo }}
+      </h5>
+      <p class="card-artista">{{ prodotto?.artista }}</p>
+      <p class="card-formato">{{ prodotto?.formato }}</p>
+      <div>
+        <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
       </div>
 
-  <!-- Wishlist -->
-<!-- Cuore vuoto: visibile solo quando il prodotto non è nella wishlist -->
-<i
-class="bi bi-suit-heart"
-[ngClass]="{'text-danger': isInWishlist}"
-*ngIf="!isInWishlist && !isWishlistPage"
-(click)="preferitiWishlist(prodotto)"
-></i>
+      <!-- Carrello -->
+      <div class="d-flex justify-content-around mb-3">
+        <div *ngIf="cartBadge[prodotto?.idProdotto] > 0" class="pt-1">
+          <mat-icon [matBadge]="cartBadge[prodotto.idProdotto]"
+            >shopping_cart</mat-icon
+          >
+        </div>
+        <div *ngIf="cartBadge[prodotto?.idProdotto] == null">
+          <mat-icon></mat-icon>
+        </div>
 
-<!-- Cuore pieno: visibile solo quando il prodotto è nella wishlist -->
-<i
-class="bi bi-suit-heart-fill text-danger"
-*ngIf="isInWishlist && !isWishlistPage"
-(click)="preferitiWishlist(prodotto)"
-></i>
+        <!-- Wishlist -->
+        <!-- Cuore vuoto: visibile solo quando il prodotto non è nella wishlist -->
+        <i
+          class="bi bi-suit-heart"
+          [ngClass]="{ 'text-danger': isInWishlist }"
+          *ngIf="!isInWishlist && !isWishlistPage"
+          (click)="preferitiWishlist(prodotto)"
+        ></i>
 
+        <!-- Cuore pieno: visibile solo quando il prodotto è nella wishlist -->
+        <i
+          class="bi bi-suit-heart-fill text-danger"
+          *ngIf="isInWishlist && !isWishlistPage"
+          (click)="preferitiWishlist(prodotto)"
+        ></i>
+      </div>
 
-
+      <ng-content for="div#card-buttons"></ng-content>
     </div>
-
-    <ng-content for="div#card-buttons"></ng-content>
   </div>
 </div>

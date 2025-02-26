@@ -22,3 +22,7 @@
 .mat {
   width: 25%;
 }
+
+.active {
+  background-color: #a99a97;
+}
