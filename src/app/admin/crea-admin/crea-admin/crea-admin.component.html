@@ -1,0 +1,27 @@
+<h2 class="mt-2 text-center">Crea nuovo Admin</h2>
+
+<div class="container my-5 px-5">
+  <p>Seleziona che tipologia di Admin si vuole creare</p>
+  <button
+    (click)="onDisplayChoice()"
+    mat-flat-button
+    color="primary"
+    class="mb-3"
+  >
+    Crea Admin senza profilo cliente
+  </button>
+  <button
+    (click)="onDisplayChoice()"
+    mat-flat-button
+    color="primary"
+    class="ms-3 mb-3"
+  >
+    Crea Admin con profilo cliente
+  </button>
+</div>
+<div *ngIf="sceltaForm">
+  <app-registrazione></app-registrazione>
+</div>
+<!-- <div *ngIf="!sceltaForm">
+  <app-registra-utente-admin></app-registra-utente-admin>
+</div> -->

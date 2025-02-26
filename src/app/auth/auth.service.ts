@@ -106,6 +106,7 @@ export class AuthService {
       'dataRegistrazione',
       response.dataRegistrazione.toString()
     );
+    localStorage.setItem('username', response.username.toString());
   }
   getUtenteIdSessione(): number | null {
     return +localStorage.getItem('idUtente');
