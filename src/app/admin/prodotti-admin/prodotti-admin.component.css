@@ -1,6 +1,5 @@
+.del-btn,
 .edit-btn {
-  color: #fff;
-  background-color: rgb(240, 189, 23);
   z-index: 999;
   margin: 1% auto;
   box-shadow: none;
@@ -11,26 +10,4 @@
 
 .edit-btn-btn:hover {
   box-shadow: none;
-}
-
-.delete-btn {
-  color: #fff;
-  background-color: rgb(212, 2, 2);
-  z-index: 999;
-  margin: 1% auto;
-  box-shadow: none;
-  margin-right: 5em;
-  margin: 1% auto;
-  box-shadow: none;
-}
-button[mat-flat-button] {
-  width: 100px;
-  background-color: rgb(37, 133, 197);
-  margin: 0 1em;
-}
-.bottoni {
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
-  margin-bottom: 2em;
 }
