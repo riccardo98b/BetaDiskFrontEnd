@@ -11,6 +11,10 @@ ul {
     padding-left: 0rem;
 }
 
+.row {
+    background-color: #c7ccdb;
+}
+
 .button-container, .totale, .card-text {
     display: flex;
     justify-content: space-between;
@@ -43,7 +47,7 @@ div.card-text p {
 
 .del-btn {
     color: #fff;
-    background-color: firebrick ;
+    background-color: firebrick !important;
 }
 
 .card {
