@@ -1,55 +1,67 @@
 <div class="container">
-  <h2 class="my-3 text-center">Gestione clienti</h2>
+  <div class="container-header">
+    <h2 class="my-3 text-center">Gestione clienti</h2>
 
-  <h4 class="text-center mb-4">Inizia a cercare un cliente per:</h4>
+    <h4 class="text-center mb-4">Inizia a cercare un cliente per:</h4>
 
-  <div class="bottoni row m-4 justify-content-center flex-wrap g-1 text-center">
-    <div class="col-3">
-      <button mat-flat-button color="primary" (click)="cercaNome()">
-        Nome
-      </button>
-    </div>
-    <div class="col-3">
-      <button mat-flat-button color="primary" (click)="cercaCognome()">
-        Cognome
-      </button>
-    </div>
-    <div class="col-3">
-      <button mat-flat-button color="primary" (click)="cercaComune()">
-        Comune
-      </button>
-    </div>
-    <div class="col-3">
-      <button mat-flat-button color="primary" (click)="cercaProvincia()">
-        Provincia
-      </button>
-    </div>
-    <div class="col-3">
-      <button mat-flat-button color="primary" (click)="cercaCap()">CAP</button>
-    </div>
+    <div class="row bottoni g-2">
+      <div class="col-sm-6 col-md-6 col-lg-3 col-xl-1">
+        <button mat-flat-button color="primary" (click)="cercaNome()">
+          Nome
+        </button>
+      </div>
 
-    <div class="col-3">
-      <button mat-flat-button color="primary" (click)="cercaEmail()">
-        Email
-      </button>
-    </div>
+      <div class="col-sm-6 col-md-6 col-lg-3 col-xl-1">
+        <button mat-flat-button color="primary" (click)="cercaCognome()">
+          Cognome
+        </button>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-3 col-xl-1">
+        <button mat-flat-button color="primary" (click)="cercaComune()">
+          Comune
+        </button>
+      </div>
 
-    <div id="filtro-ruoli-utente" class="col-3">
-      <button mat-flat-button [matMenuTriggerFor]="menu">
-        {{ ruoloSelezionato || "Ruolo" }}
-      </button>
+      <div class="col-sm-6 col-md-6 col-lg-3 col-xl-1">
+        <button mat-flat-button color="primary" (click)="cercaProvincia()">
+          Provincia
+        </button>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-3 col-xl-1">
+        <button mat-flat-button color="primary" (click)="cercaCap()">
+          CAP
+        </button>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-3 col-xl-1">
+        <button mat-flat-button color="primary" (click)="cercaEmail()">
+          Email
+        </button>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-3 col-xl-1">
+        <button
+          mat-flat-button
+          [matMenuTriggerFor]="menu"
+          id="filtro-ruoli-utente"
+        >
+          {{ ruoloSelezionato || "Ruolo" }}
+        </button>
+      </div>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="setRuolo('UTENTE')">Utente</button>
         <button mat-menu-item (click)="setRuolo('ADMIN')">Admin</button>
       </mat-menu>
     </div>
 
-    <div class="col-3">
+    <div class="d-flex justify-content-end">
       <button (click)="reset()" mat-flat-button class="reset-btn">
         <mat-icon class="d-inline-block align-middle">close</mat-icon> Reset
       </button>
     </div>
   </div>
+
   <div class="row pt-4">
     <div class="col-4"><p class="text-center">Nome e cognome</p></div>
     <div class="col-4 text-end">
@@ -63,73 +75,68 @@
         }}
       </p>
     </div>
-
-    <div>
-      <mat-accordion>
-        <mat-expansion-panel
-          hideToggle
-          *ngFor="let cliente of clienti"
-          class="list-group-item list-items"
-        >
-          <mat-expansion-panel-header>
-            <mat-panel-title class="w-5 d-flex justify-content-center">
-              <div class="fw-bold">
-                {{ cliente.nome }} {{ cliente.cognome }}
-              </div>
-            </mat-panel-title>
-            <mat-panel-description class="d-flex justify-content-center">
-              <div>
-                <span class="fw-bold">Username:</span>
-                {{ cliente.utente?.username }}
-              </div>
-            </mat-panel-description>
+  </div>
+  <div>
+    <mat-accordion>
+      <mat-expansion-panel
+        hideToggle
+        *ngFor="let cliente of clienti"
+        class="list-group-item list-items"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title class="w-5 d-flex justify-content-center">
+            <div class="fw-bold">{{ cliente.nome }} {{ cliente.cognome }}</div>
+          </mat-panel-title>
+          <mat-panel-description class="d-flex justify-content-center">
             <div>
-              <button
-                mat-mini-fab
-                class="edit-btn m-2"
-                aria-label="edit-btn"
-                (click)="
-                  $event.stopPropagation(); modificaCliente(cliente.idCliente)
-                "
-              >
-                <mat-icon>edit_note</mat-icon>
-              </button>
-              <button
-                mat-mini-fab
-                class="delete-btn"
-                aria-label="delete-btn"
-                (click)="
-                  $event.stopPropagation(); eliminaCliente(cliente.idCliente)
-                "
-              >
-                <mat-icon>close</mat-icon>
-              </button>
+              <span class="fw-bold">Username:</span>
+              {{ cliente.utente?.username }}
             </div>
-          </mat-expansion-panel-header>
+          </mat-panel-description>
           <div>
-            <p>
-              <span class="fw-medium">Email:</span> {{ cliente.utente?.email }}
-            </p>
-            <p>
-              <span class="fw-medium">Ruolo:</span>
-              {{ cliente.utente?.roles }}
-            </p>
-            <p>
-              <span class="fw-medium">Telefono: </span>{{ cliente.telefono }}
-            </p>
-            <p><span class="fw-medium">Via:</span> {{ cliente.via }}</p>
-            <p><span class="fw-medium">Comune:</span> {{ cliente.comune }}</p>
-            <p>
-              <span class="fw-medium">Provincia: </span>{{ cliente.provincia }}
-            </p>
-            <p><span class="fw-medium">CAP:</span> {{ cliente.cap }}</p>
-            <p>
-              <span class="fw-medium">Cliente registrato dal: </span>
-              {{ cliente.dataRegistrazione | date : "longDate" }}
-            </p>
+            <button
+              mat-mini-fab
+              class="edit-btn m-2"
+              aria-label="edit-btn"
+              (click)="
+                $event.stopPropagation(); modificaCliente(cliente.idCliente)
+              "
+            >
+              <mat-icon>edit_note</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              class="delete-btn"
+              aria-label="delete-btn"
+              (click)="
+                $event.stopPropagation(); eliminaCliente(cliente.idCliente)
+              "
+            >
+              <mat-icon>close</mat-icon>
+            </button>
           </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
+        </mat-expansion-panel-header>
+        <div>
+          <p>
+            <span class="fw-medium">Email:</span> {{ cliente.utente?.email }}
+          </p>
+          <p>
+            <span class="fw-medium">Ruolo:</span>
+            {{ cliente.utente?.roles }}
+          </p>
+          <p><span class="fw-medium">Telefono: </span>{{ cliente.telefono }}</p>
+          <p><span class="fw-medium">Via:</span> {{ cliente.via }}</p>
+          <p><span class="fw-medium">Comune:</span> {{ cliente.comune }}</p>
+          <p>
+            <span class="fw-medium">Provincia: </span>{{ cliente.provincia }}
+          </p>
+          <p><span class="fw-medium">CAP:</span> {{ cliente.cap }}</p>
+          <p>
+            <span class="fw-medium">Cliente registrato dal: </span>
+            {{ cliente.dataRegistrazione | date : "longDate" }}
+          </p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
