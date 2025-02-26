@@ -24,7 +24,6 @@ export class ProdottiComponent implements OnInit {
   filtriPresenti: boolean = false;
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
- 
 
   wishlistId: number[] = [];
 
@@ -43,7 +42,7 @@ export class ProdottiComponent implements OnInit {
     });
     this.getTuttiProdotti();
     this.getProdottiCarrello();
-    this.loadWishlist();
+    this.caricaWishlist();
   }
 
   getProdottiCarrello() {
@@ -156,11 +155,11 @@ export class ProdottiComponent implements OnInit {
         idCliente: this.idCliente,
         quantita: 1,
       })
-      .subscribe((resp : any) => {
+      .subscribe((resp: any) => {
         if (resp.rc) {
-          this.openDialog({titolo: "Conferma", msg : resp.msg, reload : true })
+          this.openDialog({ titolo: 'Conferma', msg: resp.msg, reload: true });
         } else {
-          this.openDialog({titolo: "Errore", msg : resp.msg })
+          this.openDialog({ titolo: 'Errore', msg: resp.msg });
         }
       });
   }
@@ -204,7 +203,7 @@ export class ProdottiComponent implements OnInit {
       });
   }
 
-  loadWishlist() {
+  caricaWishlist() {
     this.wishlistService.getWishlist(this.idCliente).subscribe({
       next: (data) => {
         this.wishlistId = data.dati.map((p: Prodotto) => p.idProdotto);
@@ -217,9 +216,11 @@ export class ProdottiComponent implements OnInit {
   openDialog(inputDialog: any) {
     this.dialog.open(PopUpComponent, {
       width: '400px',
-      data: { titolo: inputDialog.titolo,
+      data: {
+        titolo: inputDialog.titolo,
         msg: inputDialog.msg,
-        reload: inputDialog.reload },
+        reload: inputDialog.reload,
+      },
     });
   }
 }

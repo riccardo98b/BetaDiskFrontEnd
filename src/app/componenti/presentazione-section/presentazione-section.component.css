@@ -43,11 +43,24 @@ h3 {
 
 .acquisti {
   border: 3px solid black;
+  border-radius: 14px;
   position: relative;
   color: rgb(0, 0, 0);
   opacity: 1;
   z-index: 1;
   padding: 0.8em;
+  transition: all 0.5s;
+}
+
+.acquisti:hover {
+  border-color: #e1e5ee;
+  background-color: #2a324b;
+  transition: all 0.5s;
+}
+
+.acquisti:hover h3{
+  color: #e1e5ee;
+  transition: all 0.5s;
 }
 
 a {

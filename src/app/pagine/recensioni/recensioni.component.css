@@ -1,7 +1,5 @@
 .del-btn,
 .edit-btn {
-  color: #fff;
-  background-color: rgb(240, 189, 23);
   z-index: 999;
   margin: 1% auto;
   box-shadow: none;
@@ -14,13 +12,4 @@
 .edit-btn:hover {
   box-shadow: none;
 }
-.del-btn {
-  color: #fff;
-  background-color: rgb(212, 2, 2);
-  z-index: 999;
-  margin: 1% auto;
-  box-shadow: none;
-  margin-right: 5em;
-  margin: 1% auto;
-  box-shadow: none;
-}
+
