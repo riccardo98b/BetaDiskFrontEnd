@@ -8,7 +8,7 @@
         [cartBadge]="cartBadge"
         [isInWishlist]="wishlistId.includes(prodottoSelezionato.idProdotto)"
         [isWishlistPage]="false"
-        (toggleWishlist)="addToWishlist(prodottoSelezionato)"
+        (toggleWishlist)="wishlistId.includes(prodottoSelezionato.idProdotto) ? removeFromWishlist(prodottoSelezionato) : addToWishlist(prodottoSelezionato)"
       >
         <div id="card-infos">
           <p class="card-artista">{{ prodottoSelezionato?.descrizione }}</p>

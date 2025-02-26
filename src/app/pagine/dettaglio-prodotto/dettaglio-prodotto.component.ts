@@ -52,7 +52,7 @@ export class DettaglioProdottoComponent implements OnInit {
 
     this.getProdotto();
     this.getProdottiCarrello();
-    this.loadWishlist();
+    this.caricaWishlist();
   }
 
   getProdottiCarrello() {
@@ -138,22 +138,37 @@ export class DettaglioProdottoComponent implements OnInit {
   }
 
   removeFromWishlist(prodotto: Prodotto) {
+    console.log("Tentativo di rimozione dalla wishlist:", prodotto.idProdotto);
+
     this.wishlistService
       .removeProductFromWishlist(this.idCliente, prodotto.idProdotto)
       .subscribe({
-        next: () => {
-          this.wishlistId = this.wishlistId.filter(
-            (id) => id !== prodotto.idProdotto
-          );
-          this.getProdotto();
+        next: (response) => {
+          console.log("Risposta dal server:", response);
+
+          if (response.rc === true) {
+            console.log("Prodotto rimosso con successo dalla wishlist");
+
+            this.wishlistId = this.wishlistId.filter(
+              (id) => id !== prodotto.idProdotto
+            );
+
+            console.log("Nuova lista wishlistId:", this.wishlistId);
+
+            this.caricaWishlist();
+          } else {
+            console.warn("Errore nella rimozione:", response.msg);
+          }
         },
         error: (error) => {
-          console.error("Errore durante la rimozione dalla wishlist:", error);
+          console.error("Errore nella chiamata API removeProductFromWishlist:", error);
         },
       });
   }
 
-  loadWishlist() {
+
+
+  caricaWishlist() {
     this.wishlistService.getWishlist(this.idCliente).subscribe({
       next: (data) => {
         this.wishlistId = data.dati.map((p: Prodotto) => p.idProdotto);
