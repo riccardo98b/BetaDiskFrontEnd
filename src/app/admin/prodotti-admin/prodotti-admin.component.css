@@ -7,7 +7,7 @@
   box-shadow: none;
 }
 
-.edit-btn-btn:hover {
+.edit-btn:hover, .del-btn:hover {
   box-shadow: none;
 }
 
