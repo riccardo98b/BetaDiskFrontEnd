@@ -24,7 +24,7 @@ export class ProdottiComponent implements OnInit {
   filtriPresenti: boolean = false;
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
-
+ 
 
   wishlistId: number[] = [];
 
@@ -165,6 +165,7 @@ export class ProdottiComponent implements OnInit {
       });
   }
 
+  //Prodotti preferiti della wishlist
   preferitiWishlist(prodotto: Prodotto) {
     if (this.wishlistId.includes(prodotto.idProdotto)) {
       this.removeFromWishlist(prodotto);
@@ -213,7 +214,6 @@ export class ProdottiComponent implements OnInit {
       },
     });
   }
-
   openDialog(inputDialog: any) {
     this.dialog.open(PopUpComponent, {
       width: '400px',
