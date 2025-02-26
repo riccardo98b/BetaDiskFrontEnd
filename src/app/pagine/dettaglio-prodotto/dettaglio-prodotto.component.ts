@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ProdottiService } from '../../servizi/prodotti/prodotti.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Prodotto } from '../../interfacce/Prodotto';
-import { response } from 'express';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoaderService } from '../../servizi/loader.service';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
+import { WishlistService } from '../../servizi/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-dettaglio-prodotto',
@@ -26,6 +26,7 @@ export class DettaglioProdottoComponent implements OnInit {
   qntForm: FormGroup;
   stelle: number = 0;
   cartBadge: { [idProdotto: number]: number } = {};
+  wishlistId: number[] = [];
 
   constructor(
     private service: ProdottiService,
@@ -33,6 +34,7 @@ export class DettaglioProdottoComponent implements OnInit {
     private serviceCarrello: CarrelloService,
     private formBuilder: FormBuilder,
     private loader: LoaderService,
+    private wishlistService: WishlistService,
     private dialog: MatDialog
   ) {
     this.idProdotto = +this.route.snapshot.paramMap.get('idProdotto')!;
@@ -48,6 +50,7 @@ export class DettaglioProdottoComponent implements OnInit {
 
     this.getProdotto();
     this.getProdottiCarrello();
+    this.loadWishlist();
   }
 
   getProdottiCarrello() {
@@ -114,6 +117,49 @@ export class DettaglioProdottoComponent implements OnInit {
       data: { titolo: inputDialog.titolo,
         msg: inputDialog.msg,
         reload: inputDialog.reload },
+    });
+  }
+
+
+  //WISHLIST
+  addToWishlist(prodotto: Prodotto) {
+    this.wishlistService
+      .addProductToWishlist(this.idCliente, [prodotto.idProdotto])
+      .subscribe({
+        next: () => {
+          this.wishlistId.push(prodotto.idProdotto);
+          this.getProdotto();
+        },
+        error: (error) => {
+          console.error("Errore durante l'aggiunta alla wishlist:", error);
+        },
+      });
+  }
+
+  removeFromWishlist(prodotto: Prodotto) {
+    this.wishlistService
+      .removeProductFromWishlist(this.idCliente, prodotto.idProdotto)
+      .subscribe({
+        next: () => {
+          this.wishlistId = this.wishlistId.filter(
+            (id) => id !== prodotto.idProdotto
+          );
+          this.getProdotto();
+        },
+        error: (error) => {
+          console.error("Errore durante la rimozione dalla wishlist:", error);
+        },
+      });
+  }
+
+  loadWishlist() {
+    this.wishlistService.getWishlist(this.idCliente).subscribe({
+      next: (data) => {
+        this.wishlistId = data.dati.map((p: Prodotto) => p.idProdotto);
+      },
+      error: (error) => {
+        console.error('Errore nel recupero della wishlist:', error);
+      },
     });
   }
 }

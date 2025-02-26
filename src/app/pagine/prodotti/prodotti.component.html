@@ -73,13 +73,13 @@
       *ngFor="let prodotto of data"
     >
 
-      <app-card
-        [prodotto]="prodotto"
-        [responsive]="false"
-        [cartBadge]="cartBadge"
-        [isInWishlist]="wishlistId.includes(prodotto.idProdotto)"
-        [isWishlistPage]="false"
-        (toggleWishlist)="preferitiWishlist(prodotto)">
+    <app-card
+    [prodotto]="prodotto"
+    [responsive]="false"
+    [cartBadge]="cartBadge"
+    [isInWishlist]="wishlistId.includes(prodotto.idProdotto)"
+    [isWishlistPage]="false"
+    (toggleWishlist)="preferitiWishlist(prodotto)">
         <div id="card-buttons">
           <button
             [disabled]="prodotto.quantita == 0"
