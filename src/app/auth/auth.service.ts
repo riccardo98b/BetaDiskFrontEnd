@@ -167,6 +167,10 @@ export class AuthService {
     return this.getRuoloUtente() === 'ADMIN' && !this.getClienteIdSessione();
   }
 
+  isNotCliente(): boolean {
+    return !this.getClienteIdSessione();
+  }
+
   isUtente(): boolean {
     console.log('Ruolo utente:', this.getRuoloUtente());
     return this.getRuoloUtente() === 'UTENTE';
