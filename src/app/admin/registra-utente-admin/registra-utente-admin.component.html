@@ -1,6 +1,6 @@
 <div class="profile-container mt-4 mb-4">
   <div class="profile-header">
-    <h2>Registrazione Admin non cliente</h2>
+    <h2>Crea Admin non cliente</h2>
   </div>
   <form [formGroup]="utenteForm" (ngSubmit)="registraUtente()">
     <mat-form-field appearance="fill" class="w-100">
@@ -47,7 +47,7 @@
         type="submit"
         [disabled]="utenteForm.invalid"
       >
-        Registrati
+        Crea
       </button>
     </div>
   </form>

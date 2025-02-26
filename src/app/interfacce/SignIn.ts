@@ -6,4 +6,5 @@ export interface SignIn {
   idCliente: number | null;
   password: string;
   dataRegistrazione: Date | null;
+  email: string;
 }

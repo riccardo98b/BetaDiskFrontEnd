@@ -118,6 +118,10 @@ export class AuthService {
       'username',
       response.username ? response.username.toString() : ''
     );
+    localStorage.setItem(
+      'email',
+      response.email ? response.email.toString() : ''
+    );
   }
 
   getUtenteIdSessione(): number | null {

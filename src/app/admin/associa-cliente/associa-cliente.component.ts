@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { ClienteService } from '../../../servizi/cliente/cliente.service';
-import { UtenteService } from '../../../servizi/utente/utente.service';
+import { ClienteService } from '../../servizi/cliente/cliente.service';
+import { UtenteService } from '../../servizi/utente/utente.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
-import { MailService } from '../../../servizi/mail/mail.service';
-import { ProfiloService } from '../../../servizi/profilo/profilo.service';
+import { AuthService } from '../../auth/auth.service';
+import { MailService } from '../../servizi/mail/mail.service';
+import { ProfiloService } from '../../servizi/profilo/profilo.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DialogConfermaComponent } from '../../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
+import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 import { Observable, catchError, of, switchMap } from 'rxjs';
-import { PopUpComponent } from '../../../dialog/pop-up/pop-up.component';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-associa-cliente',
@@ -133,7 +133,7 @@ export class AssociaClienteComponent {
     const utenteUpdateForm = {
       idCliente: clienteId,
       idUtente: localStorage.getItem('idUtente'),
-      email: 'riccardobelloni98@gmail.com',
+      email: localStorage.getItem('email'),
       username: localStorage.getItem('username'),
     };
 

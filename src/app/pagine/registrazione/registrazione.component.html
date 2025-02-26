@@ -1,6 +1,6 @@
 <div class="profile-container mt-4 mb-4">
   <div class="profile-header">
-    <h2>Registrazione</h2>
+    <h2>{{ titolo }}</h2>
   </div>
   <form [formGroup]="clienteForm" (ngSubmit)="onRegistraCliente()">
     <mat-form-field appearance="fill" class="w-100">
@@ -129,8 +129,13 @@
     <div class="d-flex gap-2 align-items-stretch">
       <!-- Bottoni modalita registrazione-->
 
-      <button mat-fab extended routerLink="/" class="btn-secondary-fab w-50">
-        Torna alla home
+      <button
+        mat-fab
+        extended
+        [routerLink]="routerLinkUrl"
+        class="btn-secondary-fab w-50"
+      >
+        {{ bottoneAnnulla }}
       </button>
       <button
         class="w-50"
