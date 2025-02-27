@@ -20,22 +20,12 @@
   padding: 1em;
 }
 
-.example-card {
-  height: 80%;
-  display: flex;
-  justify-content: space-between;
-}
-
 .immagine-prodotto {
-  height: 150px;
-  width: 150px;
-}
-
-img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
+
 .card-prezzo {
   font-size: 1.3em;
 }
