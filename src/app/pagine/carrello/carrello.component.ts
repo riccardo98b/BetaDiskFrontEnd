@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarrelloService } from '../../servizi/carrello/carrello.service';
 import { Router } from '@angular/router';
-import { Carrello } from '../../interfacce/Carrello';
 import { ProdottoCarrello } from '../../interfacce/ProdottoCarrello';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
