@@ -27,6 +27,7 @@ import { WelcomePageComponent } from './admin/welcome-page/welcome-page.componen
 import { RegistraUtenteAdminComponent } from './admin/registra-utente-admin/registra-utente-admin.component';
 import { AssociaClienteComponent } from './admin/associa-cliente/associa-cliente.component';
 import { CancellaAccountComponent } from './pagine/cancella-account/cancella-account/cancella-account.component';
+import { Pagina500Component } from './pagine/pagina500/pagina500.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -110,6 +111,7 @@ const routes: Routes = [
     data: { roles: ['UTENTE', 'ADMIN'] },
   },
   { path: 'forbidden', component: Pagina403Component },
+  { path: 'error500', component: Pagina500Component },
   { path: '**', component: Pagina404Component },
 ];
 

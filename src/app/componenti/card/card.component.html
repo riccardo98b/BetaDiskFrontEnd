@@ -2,7 +2,7 @@
   <div class="card-body" [ngClass]="{ 'responsive-body': responsive }">
     <img
       src="{{ prodotto?.immagineProdotto }}"
-      class="example-card"
+      class="immagine-prodotto"
       [ngClass]="{ 'responsive-img': responsive }"
       alt="immagine-prodotto"
     />
@@ -11,6 +11,7 @@
         {{ prodotto?.titolo }}
       </h5>
       <p class="card-artista">{{ prodotto?.artista }}</p>
+      <p class="card-genere">{{ prodotto?.genere }}</p>
       <p class="card-formato">{{ prodotto?.formato }}</p>
       <div>
         <p class="card-prezzo">{{ prodotto?.prezzo | currency : "EUR" }}</p>
@@ -27,10 +28,10 @@
           <mat-icon></mat-icon>
         </div>
 
-          <!-- Wishlist -->
-          <i
+        <!-- Wishlist -->
+        <i
           class="bi bi-suit-heart"
-          [ngClass]="{'text-danger': isInWishlist}"
+          [ngClass]="{ 'text-danger': isInWishlist }"
           *ngIf="!isInWishlist && !isWishlistPage"
           (click)="preferitiWishlist()"
         ></i>

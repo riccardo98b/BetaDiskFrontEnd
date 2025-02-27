@@ -20,22 +20,12 @@
   padding: 1em;
 }
 
-.example-card {
-  height: 80%;
-  display: flex;
-  justify-content: space-between;
-}
-
 .immagine-prodotto {
-  height: 150px;
-  width: 150px;
-}
-
-img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
+
 .card-prezzo {
   font-size: 1.3em;
 }
@@ -44,7 +34,8 @@ i.bi {
   font-size: 1.5rem;
 }
 
-.bi-suit-heart, .bi-suit-heart-fill{
+.bi-suit-heart,
+.bi-suit-heart-fill {
   cursor: pointer;
 }
 @media screen and (min-width: 800px) {
@@ -67,4 +58,7 @@ i.bi {
 
 .card-formato {
   margin-top: 1em;
+}
+.card-genere {
+  font-style: italic;
 }

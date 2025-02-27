@@ -1,7 +1,7 @@
 <div class="container my-5 px-5">
     <p>Selezionare una data dalla quale cercare gli ordini fino ad oggi o mostra tutti gli ordini</p>
-    <button mat-flat-button color="primary" (click)="elenco('')" class="mb-3">Visualizza tutti gli ordini</button>
-    <button mat-flat-button color="primary" (click)="openDialogData()" class="ms-3 mb-3">Scegli data</button>
+    <button mat-flat-button (click)="elenco('')" class="mb-3">Visualizza tutti gli ordini</button>
+    <button mat-flat-button (click)="openDialogData()" class="ms-3 mb-3">Scegli data</button>
 
     <div *ngIf="mostra">
         <h3 class="mb-4">Riepilogo degli ordini richiesti</h3>
