@@ -7,6 +7,8 @@ import { LoaderService } from '../../servizi/loader.service';
 import { WishlistService } from '../../servizi/wishlist/wishlist.service';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
+import { catchError, retry } from 'rxjs';
+import { error } from 'console';
 
 @Component({
   selector: 'app-prodotti',
@@ -46,7 +48,8 @@ export class ProdottiComponent implements OnInit {
   }
 
   getProdottiCarrello() {
-    this.serviceCarrello.listaProdotti(this.idCliente).subscribe((r: any) => {
+    this.serviceCarrello.listaProdotti(this.idCliente).subscribe({
+      next: (r: any) => {
       this.loader.startLoader();
       if (r.rc) {
         r.dati.prodotti.forEach((p: any) => {
@@ -58,7 +61,10 @@ export class ProdottiComponent implements OnInit {
         });
       }
       this.loader.stopLoader();
-    });
+    }, error: (err) => {
+      this,this.route.navigate(['/error500']);
+    } 
+  });
   }
 
   getTuttiProdotti() {
