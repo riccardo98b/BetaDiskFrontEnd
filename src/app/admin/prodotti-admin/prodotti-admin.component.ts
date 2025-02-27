@@ -29,7 +29,8 @@ export class ProdottiAdminComponent implements OnInit {
 
   getTuttiProdotti() {
     this.loader.startLoader();
-    this.service.listAll().subscribe((resp) => {
+    this.service.listAll().subscribe({
+     next: (resp) => {
       this.response = resp;
       if (this.response.rc === true) {
         this.data = this.response.dati;
@@ -37,7 +38,10 @@ export class ProdottiAdminComponent implements OnInit {
         this.openDialog();
       }
       this.loader.stopLoader();
-    });
+    }, error: (err) => {
+      this,this.route.navigate(['/error500']);
+    }
+  });
   }
 
   deleteProdotto(idProdotto: number) {

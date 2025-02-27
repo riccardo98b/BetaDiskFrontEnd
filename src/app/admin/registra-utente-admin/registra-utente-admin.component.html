@@ -1,6 +1,6 @@
 <div class="profile-container mt-4 mb-4">
   <div class="profile-header">
-    <h2>Registrazione Admin non cliente</h2>
+    <h2>Crea Admin non cliente</h2>
   </div>
   <form [formGroup]="utenteForm" (ngSubmit)="registraUtente()">
     <mat-form-field appearance="fill" class="w-100">
@@ -32,8 +32,13 @@
     </mat-form-field>
 
     <div class="d-flex gap-2 align-items-stretch">
-      <button mat-fab extended routerLink="/" class="btn-secondary-fab w-50">
-        Torna alla home
+      <button
+        mat-fab
+        extended
+        routerLink="/admin/dashboard/welcome-page"
+        class="btn-secondary-fab w-50"
+      >
+        Torna alla dashboard
       </button>
       <button
         class="w-50"
@@ -42,7 +47,7 @@
         type="submit"
         [disabled]="utenteForm.invalid"
       >
-        Registrati
+        Crea
       </button>
     </div>
   </form>

@@ -10,9 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field'; // Aggiungi MatFormFieldModule
-import { MatInputModule } from '@angular/material/input'; // Aggiungi MatInputModule
-import { MatTooltipModule } from '@angular/material/tooltip'; // Aggiungi MatTooltipModule (opzionale)
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatError } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -71,7 +71,8 @@ import { DialogUtenteComponent } from './dialog/dialog-utente/dialog-utente/dial
 import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
 import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.component';
 import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
-import { RegistraUtenteAdminComponent } from './pagine/registra-utente-admin/registra-utente-admin/registra-utente-admin.component';
+import { RegistraUtenteAdminComponent } from './admin/registra-utente-admin/registra-utente-admin.component';
+import { AssociaClienteComponent } from './admin/associa-cliente/associa-cliente.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -116,6 +117,7 @@ registerLocaleData(localeIt, 'it');
     CreaAdminComponent,
     WelcomePageComponent,
     RegistraUtenteAdminComponent,
+    AssociaClienteComponent,
   ],
   imports: [
     BrowserModule,

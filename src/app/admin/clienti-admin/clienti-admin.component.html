@@ -63,18 +63,15 @@
   </div>
 
   <div class="row pt-4">
-    <div class="col-4"><p class="text-center">Nome e cognome</p></div>
-    <div class="col-4 text-end">
-      <p class="">
-        {{
-          clienti.length === 0
-            ? "Nessun risultato trovato corrispondente ai criteri di ricerca"
-            : clienti.length === 1
-            ? "1 risultato trovato"
-            : clienti.length + " risultati trovati"
-        }}
-      </p>
-    </div>
+    <p>
+      {{
+        clienti.length === 0
+          ? "Nessun risultato trovato corrispondente ai criteri di ricerca"
+          : clienti.length === 1
+          ? "1 risultato trovato"
+          : clienti.length + " risultati trovati"
+      }}
+    </p>
   </div>
   <div>
     <mat-accordion>
@@ -85,7 +82,9 @@
       >
         <mat-expansion-panel-header>
           <mat-panel-title class="w-5 d-flex justify-content-center">
-            <div class="fw-bold">{{ cliente.nome }} {{ cliente.cognome }}</div>
+            <div class="fw-bold">
+              Cliente: {{ cliente.nome }} {{ cliente.cognome }}
+            </div>
           </mat-panel-title>
           <mat-panel-description class="d-flex justify-content-center">
             <div>
@@ -98,12 +97,25 @@
               mat-mini-fab
               class="edit-btn m-2"
               aria-label="edit-btn"
+              *ngIf="!cliente.utente?.roles.includes('ADMIN')"
               (click)="
                 $event.stopPropagation(); modificaCliente(cliente.idCliente)
               "
             >
               <mat-icon>edit_note</mat-icon>
             </button>
+            <button
+              mat-mini-fab
+              class="admin-btn m-2"
+              aria-label="admin-btn"
+              (click)="$event.stopPropagation()"
+              *ngIf="cliente.utente?.roles.includes('ADMIN')"
+              data-bs-toggle="tooltip"
+              title="Questo cliente è un admin, non è possibile effettuare modifiche"
+            >
+              <mat-icon>security</mat-icon>
+            </button>
+
             <button
               mat-mini-fab
               class="del-btn"

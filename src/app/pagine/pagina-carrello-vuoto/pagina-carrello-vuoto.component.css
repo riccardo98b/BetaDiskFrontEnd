@@ -147,6 +147,14 @@
     margin: 1.25rem auto 0 auto;
   }
 
+  a {
+    color: #2a324b;
+  }
+
+ a:active {
+    color: #f7c59f;
+  }
+
   @-webkit-keyframes plopp {
     0% {
       transform: translate(0, 0);

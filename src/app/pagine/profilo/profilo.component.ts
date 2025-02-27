@@ -8,6 +8,8 @@ import { AuthService } from '../../auth/auth.service';
 import { MailService } from '../../servizi/mail/mail.service';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
 import { MatDialog } from '@angular/material/dialog';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
+
 @Component({
   selector: 'app-profilo',
   standalone: false,
@@ -148,15 +150,45 @@ export class ProfiloComponent implements OnInit {
 
   gestioneRispostaUpdate(utenteResponse: any): void {
     if (utenteResponse) {
+      this.openDialog({
+        titolo: 'Conferma',
+        msg: 'Dati utente aggiornati con successo.',
+        reload: true,
+      });
       this.editMode = false;
-      window.location.reload();
     } else {
-      console.log("Non è stato possibile aggiornare l'utente");
+      this.openDialog({
+        titolo: 'Errore',
+        msg: utenteResponse.msg,
+        reload: false,
+      });
     }
   }
 
   gestisciErrore(errore: any, erroreMsg: string): Observable<any> {
     console.error(erroreMsg, errore);
+    this.openDialog({
+      titolo: 'Errore',
+      msg: erroreMsg,
+      reload: false,
+    });
     return of(null);
+  }
+
+  openDialog(inputDialog: any): void {
+    const dialogRef = this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: {
+        titolo: inputDialog.titolo,
+        msg: inputDialog.msg,
+        reload: inputDialog.reload,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.reload) {
+        window.location.reload();
+      }
+    });
   }
 }

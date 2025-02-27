@@ -1,4 +1,5 @@
-.del-btn, .edit-btn {
+.del-btn,
+ .edit-btn {
   z-index: 999;
   margin: 1% auto;
   box-shadow: none;

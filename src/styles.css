@@ -16,6 +16,13 @@ button[mat-mini-fab]:not(button[disabled]),
 button[mat-fab]:not(button[disabled]) {
     color: #e1e5ee;
     background-color: #24324b;
+    transition: all .5s;
+}
+
+button[mat-mini-fab]:not(button[disabled]):hover,
+button[mat-fab]:not(button[disabled]):hover {
+  color: #24324b;
+  background-color: #e1e5ee;
 }
 
 .del-btn {
@@ -28,5 +35,5 @@ button[mat-fab]:not(button[disabled]) {
 
 
 .check-btn {
-  background-color: lightgreen !important;
+  background-color: #26A96C !important;
 }
