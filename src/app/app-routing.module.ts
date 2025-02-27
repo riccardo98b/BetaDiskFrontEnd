@@ -24,7 +24,8 @@ import { ProdottiAdminComponent } from './admin/prodotti-admin/prodotti-admin.co
 import { CambiaPasswordComponent } from './pagine/cambia-password/cambia-password/cambia-password.component';
 import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.component';
 import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
-import { RegistraUtenteAdminComponent } from './pagine/registra-utente-admin/registra-utente-admin/registra-utente-admin.component';
+import { RegistraUtenteAdminComponent } from './admin/registra-utente-admin/registra-utente-admin.component';
+import { AssociaClienteComponent } from './admin/associa-cliente/associa-cliente.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -60,6 +61,13 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'admin/associa-cliente',
+    component: AssociaClienteComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
+  },
+
   {
     path: 'dettaglio-prodotto/:idProdotto',
     component: DettaglioProdottoComponent,

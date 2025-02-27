@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ClienteService } from '../../servizi/cliente/cliente.service';
 import { UtenteService } from '../../servizi/utente/utente.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +17,7 @@ import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-con
   styleUrls: ['./registrazione.component.css'],
   standalone: false,
 })
-export class RegistrazioneComponent {
+export class RegistrazioneComponent implements OnChanges {
   clienteId: number = 0;
   utenteId: number = 0;
   clienteForm!: FormGroup;
@@ -26,7 +26,12 @@ export class RegistrazioneComponent {
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
   passwordVisibile: boolean = false;
   randomPassword: string = '';
+  @Input() sceltaForm!: string;
 
+  titolo: string = 'Registrazione';
+  bottoneAnnulla: string = 'Torna alla home';
+  bottoneSubmit: string = 'Registrati';
+  routerLinkUrl: string = '';
   constructor(
     private clienteService: ClienteService,
     private utenteService: UtenteService,
@@ -56,6 +61,25 @@ export class RegistrazioneComponent {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['sceltaForm']) {
+      this.updateContentBasedOnSelection();
+    }
+  }
+
+  updateContentBasedOnSelection(): void {
+    if (this.sceltaForm === 'admin-cliente') {
+      this.titolo = 'Creazione Admin con profilo cliente';
+      this.bottoneAnnulla = 'Torna alla dashboard';
+      this.bottoneSubmit = 'Crea';
+      this.routerLinkUrl = '/admin/dashboard/welcome-page';
+    } else {
+      this.titolo = 'Registrazione';
+      this.bottoneAnnulla = 'Torna alla home';
+      this.routerLinkUrl = '/';
+      this.bottoneSubmit = 'Registrati';
+    }
+  }
   onSubmit(): void {
     this.invioDatiCliente();
   }

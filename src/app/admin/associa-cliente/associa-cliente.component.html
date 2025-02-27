@@ -1,8 +1,8 @@
 <div class="profile-container mt-4 mb-4">
   <div class="profile-header">
-    <h2>{{ titolo }}</h2>
+    <h2>Crea cliente</h2>
   </div>
-  <form [formGroup]="clienteForm" (ngSubmit)="onRegistraCliente()">
+  <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>Immagine cliente</mat-label>
       <input
@@ -38,34 +38,6 @@
       />
       <mat-error *ngIf="clienteForm.get('cognome')?.hasError('required')">
         Il cognome è obbligatorio.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Email</mat-label>
-      <input
-        matInput
-        type="email"
-        formControlName="email"
-        placeholder="Inserisci la tua email"
-      />
-      <mat-error *ngIf="clienteForm.get('email')?.hasError('required')">
-        L'email è obbligatoria.
-      </mat-error>
-      <mat-error *ngIf="clienteForm.get('email')?.hasError('email')">
-        Inserisci una email valida.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Username</mat-label>
-      <input
-        matInput
-        formControlName="username"
-        placeholder="Inserisci il tuo username"
-      />
-      <mat-error *ngIf="clienteForm.get('username')?.hasError('required')">
-        Lo username è obbligatorio.
       </mat-error>
     </mat-form-field>
 
@@ -129,13 +101,8 @@
     <div class="d-flex gap-2 align-items-stretch">
       <!-- Bottoni modalita registrazione-->
 
-      <button
-        mat-fab
-        extended
-        [routerLink]="routerLinkUrl"
-        class="btn-secondary-fab w-50"
-      >
-        {{ bottoneAnnulla }}
+      <button mat-fab extended routerLink="/" class="btn-secondary-fab w-50">
+        Torna alla home
       </button>
       <button
         class="w-50"
@@ -144,7 +111,7 @@
         type="submit"
         [disabled]="clienteForm.invalid"
       >
-        {{ bottoneSubmit }}
+        Crea
       </button>
     </div>
   </form>

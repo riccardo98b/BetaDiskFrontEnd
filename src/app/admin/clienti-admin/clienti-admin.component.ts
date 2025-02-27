@@ -5,6 +5,7 @@ import { ClienteService } from '../../servizi/cliente/cliente.service';
 import { UtenteService } from '../../servizi/utente/utente.service';
 import { DialogStringaComponent } from '../../dialog/dialog-stringa/dialog-stringa.component';
 import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-clienti-admin',
@@ -33,10 +34,13 @@ export class ClientiAdminComponent {
       (response: any) => {
         if (response.rc === true && response.dati) {
           this.clienti = response.dati;
+        } else {
+          this.showPopUp('Errore', 'Impossibile caricare i dati dei clienti.');
         }
       },
       (errore) => {
         console.error('Errore nel caricamento dei clienti:', errore);
+        this.showPopUp('Errore', 'Errore nel caricamento dei clienti.');
       }
     );
   }
@@ -56,56 +60,40 @@ export class ClientiAdminComponent {
       });
     }
   }
-
   eliminaCliente(idCliente: number): void {
     const cliente = this.clienti.find((c) => c.idCliente === idCliente);
     if (cliente) {
       const clienteBody = { idCliente: cliente.idCliente };
-      this.clienteService
-        .deleteCliente(clienteBody)
-        .subscribe((response: any) => {
+
+      // Elimina il cliente
+      this.clienteService.deleteCliente(clienteBody).subscribe(
+        (response: any) => {
+          console.log('Risposta eliminazione cliente: ', response); // Log della risposta
           if (response.rc === true) {
             console.log('Cliente eliminato con successo');
-            if (cliente.utente) {
-              const utenteBody = { idUtente: cliente.utente.idUtente };
-              this.utenteService.deleteUtente(utenteBody).subscribe(
-                (utenteResponse: any) => {
-                  if (response.rc === true) {
-                    console.log('Utente associato eliminato con successo');
-                    this.clienti = this.clienti.filter(
-                      (c) => c.idCliente !== idCliente
-                    );
-                    const dialogRef = this.dialog.open(
-                      DialogConfermaComponent,
-                      {
-                        minWidth: '500px',
-                        data: { messaggio: 'Cliente  eliminato con successo!' },
-                      }
-                    );
 
-                    dialogRef.afterClosed().subscribe((result) => {
-                      console.log(
-                        'Dialog di conferma chiuso con risultato: ',
-                        result
-                      );
-                    });
-                  } else {
-                    console.error(
-                      "Errore durante l'eliminazione dell'utente associato:",
-                      utenteResponse
-                    );
-                  }
-                },
-                (error) => {
-                  console.error(
-                    "Errore durante l'eliminazione dell'utente associato:",
-                    error
-                  );
-                }
-              );
-            }
+            // Rimuovi il cliente eliminato dalla lista
+            this.clienti = this.clienti.filter(
+              (c) => c.idCliente !== idCliente
+            );
+
+            // Mostra il pop-up di conferma
+            this.showPopUp('Conferma', response.msg);
+          } else {
+            this.showPopUp(
+              'Errore',
+              "Errore durante l'eliminazione del cliente."
+            );
           }
-        });
+        },
+        (errore) => {
+          console.error("Errore durante l'eliminazione del cliente:", errore);
+          this.showPopUp(
+            'Errore',
+            "Errore durante l'eliminazione del cliente."
+          );
+        }
+      );
     }
   }
 
@@ -118,6 +106,7 @@ export class ClientiAdminComponent {
     this.tipoRicerca = 'cognome';
     this.openDialog();
   }
+
   cercaCap() {
     this.tipoRicerca = 'cap';
     this.openDialog();
@@ -127,6 +116,7 @@ export class ClientiAdminComponent {
     this.tipoRicerca = 'email';
     this.openDialog();
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogStringaComponent, {
       minWidth: '500px',
@@ -143,10 +133,12 @@ export class ClientiAdminComponent {
       }
     });
   }
+
   cercaProvincia() {
     this.tipoRicerca = 'provincia';
     this.openDialog();
   }
+
   cercaComune() {
     this.tipoRicerca = 'comune';
     this.openDialog();
@@ -171,6 +163,8 @@ export class ClientiAdminComponent {
               this.getClienteById(idCliente);
             }
           });
+        } else {
+          this.showPopUp('Errore', 'Nessun utente trovato.');
         }
       });
     } else {
@@ -179,6 +173,8 @@ export class ClientiAdminComponent {
         .subscribe((response: any) => {
           if (response.rc === true && response.dati) {
             this.clienti = response.dati;
+          } else {
+            this.showPopUp('Errore', 'Nessun cliente trovato.');
           }
         });
     }
@@ -238,5 +234,16 @@ export class ClientiAdminComponent {
   reset(): void {
     this.clienti = [];
     this.caricaDatiClienti();
+  }
+
+  showPopUp(titolo: string, messaggio: string): void {
+    this.dialog.open(PopUpComponent, {
+      width: '400px',
+      data: {
+        titolo: titolo,
+        msg: messaggio,
+        reload: false,
+      },
+    });
   }
 }

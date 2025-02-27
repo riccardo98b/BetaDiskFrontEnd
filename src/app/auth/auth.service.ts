@@ -80,7 +80,6 @@ export class AuthService {
   }
 
   private gestisciConfig() {
-    //   const valoreConfig = localStorage.getItem('config');
     const valoreConfig = localStorage.getItem('config');
     if (valoreConfig) {
       console.log('Config trovato nel localStorage:', valoreConfig);
@@ -99,15 +98,32 @@ export class AuthService {
   }
 
   private setSessione(response: SignIn): void {
-    localStorage.setItem('idUtente', response.idUtente.toString());
-    localStorage.setItem('idCliente', response.idCliente.toString());
-    localStorage.setItem('ruoloUtente', response.role.toString());
+    localStorage.setItem(
+      'idUtente',
+      response.idUtente ? response.idUtente.toString() : ''
+    );
+    localStorage.setItem(
+      'idCliente',
+      response.idCliente ? response.idCliente.toString() : ''
+    );
+    localStorage.setItem(
+      'ruoloUtente',
+      response.role ? response.role.toString() : ''
+    );
     localStorage.setItem(
       'dataRegistrazione',
-      response.dataRegistrazione.toString()
+      response.dataRegistrazione ? response.dataRegistrazione.toString() : ''
     );
-    localStorage.setItem('username', response.username.toString());
+    localStorage.setItem(
+      'username',
+      response.username ? response.username.toString() : ''
+    );
+    localStorage.setItem(
+      'email',
+      response.email ? response.email.toString() : ''
+    );
   }
+
   getUtenteIdSessione(): number | null {
     return +localStorage.getItem('idUtente');
   }
@@ -116,6 +132,10 @@ export class AuthService {
   }
   getRuoloUtente(): string | null {
     return localStorage.getItem('ruoloUtente');
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('username');
   }
   logout(): void {
     // pulisco la session storage
@@ -144,8 +164,15 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    //console.log('Ruolo utente:', this.getRuoloUtente());
     return this.getRuoloUtente() === 'ADMIN';
+  }
+
+  isAdminNotCliente(): boolean {
+    return this.getRuoloUtente() === 'ADMIN' && !this.getClienteIdSessione();
+  }
+
+  isNotCliente(): boolean {
+    return !this.getClienteIdSessione();
   }
 
   isUtente(): boolean {
