@@ -81,7 +81,7 @@ export class ClientiAdminComponent {
               (errore) => this.handleDeleteError(errore)
             );
         } else {
-          console.log('Eliminazione cliente annullata');
+          //console.log('Eliminazione cliente annullata');
         }
       });
   }
@@ -105,7 +105,6 @@ export class ClientiAdminComponent {
   }
 
   handleDeleteError(errore: any): void {
-    console.error("Errore durante l'eliminazione del cliente:", errore);
     this.showPopUp('Errore', "Errore durante l'eliminazione del cliente.");
   }
 
@@ -145,9 +144,6 @@ export class ClientiAdminComponent {
     dialogRef.afterClosed().subscribe((result) => {
       this.campoSelezionato = result;
       if (this.campoSelezionato) {
-        console.log(
-          `Hai cercato un ${this.tipoRicerca}: ${this.campoSelezionato}`
-        );
         this.cercaClientiDopoCheck(this.campoSelezionato, this.tipoRicerca);
       }
     });

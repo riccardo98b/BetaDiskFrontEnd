@@ -18,12 +18,10 @@ export class DialogConfermaComponent {
   }
 
   onConfirm(): void {
-    console.log('Conferma');
     this.dialogRef.close(true);
   }
 
   onCancel(): void {
-    console.log('Annulla');
     this.dialogRef.close(false);
   }
 }

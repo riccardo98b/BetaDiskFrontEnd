@@ -7,7 +7,6 @@ import { MailService } from '../../servizi/mail/mail.service';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 import { Observable, catchError, of, switchMap } from 'rxjs';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 
@@ -39,11 +38,9 @@ export class AssociaClienteComponent {
 
   ngOnInit(): void {
     this.inizializzaForm();
-    console.log('Componente AssociaCliente inizializzato');
   }
 
   inizializzaForm(): void {
-    console.log('Inizializzazione del form Cliente');
     this.clienteForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
@@ -68,27 +65,21 @@ export class AssociaClienteComponent {
   }
 
   onSubmit(): void {
-    console.log('Submit del form cliente');
     this.creaClienteEAssociaIdCliente();
   }
 
   creaClienteEAssociaIdCliente(): void {
-    console.log('Creazione cliente e associazione idCliente...');
     const clienteFormData = this.creaClienteFormData();
 
     this.clienteService
       .createCliente(clienteFormData)
       .pipe(
         switchMap((clienteResponse: any) => {
-          console.log('Risposta dalla creazione del cliente:', clienteResponse);
-
           const clienteId = clienteResponse?.dati?.idCliente;
           if (!clienteId) {
-            console.error('Errore: idCliente non trovato nella risposta');
             throw new Error('idCliente non trovato nella risposta');
           }
 
-          console.log('idCliente ottenuto:', clienteId);
           return this.associaIdClienteAUtente(clienteId);
         }),
         catchError((errore) => {
@@ -109,7 +100,6 @@ export class AssociaClienteComponent {
   }
 
   creaClienteFormData(): any {
-    console.log('Creazione dei dati del cliente per la registrazione');
     return {
       nome: this.clienteForm.value.nome,
       cognome: this.clienteForm.value.cognome,
@@ -124,12 +114,6 @@ export class AssociaClienteComponent {
   }
 
   associaIdClienteAUtente(clienteId: number): Observable<any> {
-    console.log(
-      'Associazione idCliente:',
-      clienteId,
-      'con utente:',
-      localStorage.getItem('idUtente')
-    );
     const utenteUpdateForm = {
       idCliente: clienteId,
       idUtente: localStorage.getItem('idUtente'),
@@ -171,10 +155,10 @@ export class AssociaClienteComponent {
 
     this.mailService.confermaRegistrazione(mailRequest).subscribe(
       (response) => {
-        console.log('Email di conferma registrazione inviata:', response);
+        //console.log('Email di conferma registrazione inviata:', response);
       },
       (error) => {
-        console.error("Errore durante l'invio dell'email:", error);
+        //console.error("Errore durante l'invio dell'email:", error);
       }
     );
   }

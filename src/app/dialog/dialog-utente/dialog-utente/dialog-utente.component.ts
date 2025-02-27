@@ -30,7 +30,7 @@ export class DialogUtenteComponent {
   }
 
   onChange(): void {
-    console.log('Email modificata:', this.email);
+    //console.log('Email modificata:', this.email);
   }
 
   onSaveUtente(): void {
@@ -44,11 +44,10 @@ export class DialogUtenteComponent {
 
     this.utenteService.updateUtente(updateData).subscribe(
       (response) => {
-        console.log('Utente aggiornato con successo:', response);
         this.dialogRef.close();
       },
       (error) => {
-        console.error("Errore durante l'aggiornamento dell'utente:", error);
+        //console.error("Errore durante l'aggiornamento dell'utente:", error);
       }
     );
   }

@@ -55,12 +55,10 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/']).then(() => {
       window.location.reload();
-      console.log('Navigazione completata verso /');
     });
     this.logged = false;
   }
 
-  // Chiudi la navbar quando si clicca su un link
   closeNavbar() {
     this.showNavbar = false;
   }

@@ -28,12 +28,10 @@ export class CancellaAccountComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log('Inizializzazione del componente');
     this.inizializzaForm();
   }
 
   inizializzaForm(): void {
-    console.log('Inizializzando il form di cancellazione account');
     this.passwordForm = new FormGroup(
       {
         passwordCorrente: new FormControl('', [
@@ -75,9 +73,6 @@ export class CancellaAccountComponent {
       .verifyCurrentPassword(idUtente, passwordCorrente)
       .subscribe(
         (response) => {
-          console.log('Password verificata con successo');
-          console.log('Risposta della verifica password:', response);
-
           const dialogRef = this.dialog.open(DialogConfermaComponent, {
             minWidth: '500px',
             data: {
@@ -90,12 +85,11 @@ export class CancellaAccountComponent {
               console.log('Utente ha confermato la cancellazione');
               this.eliminaAccount(utenteInvioForm);
             } else {
-              console.log('Utente ha annullato la cancellazione');
+              //console.log('Utente ha annullato la cancellazione');
             }
           });
         },
         (errore) => {
-          console.log('Errore durante la verifica della password');
           this.messaggioErrore = 'Password non corretta';
           this.gestisciErrore(
             errore,
@@ -120,25 +114,15 @@ export class CancellaAccountComponent {
   }
 
   eliminaAccount(idUtente: number): void {
-    console.log(
-      `Tentativo di eliminare l'account per l'utente con ID: ${idUtente}`
-    );
     this.utenteService.deleteUtente(idUtente).subscribe(
       (response) => {
-        console.log('Account eliminato con successo');
-        console.log('Risposta della cancellazione:', response);
-
         this.authService.logout();
-        console.log('Utente disconnesso');
 
         localStorage.clear();
-        console.log('LocalStorage pulito');
 
         this.router.navigate(['/']);
-        console.log('Torna alla home');
       },
       (errore) => {
-        console.log("Errore durante l'eliminazione dell'account");
         this.messaggioErrore = "Errore durante l'eliminazione dell'account";
         this.gestisciErrore(
           errore,

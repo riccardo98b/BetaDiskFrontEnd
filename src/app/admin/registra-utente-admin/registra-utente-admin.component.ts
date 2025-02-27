@@ -24,23 +24,19 @@ export class RegistraUtenteAdminComponent {
   constructor(
     private utenteService: UtenteService,
     private router: Router,
-    private authService: AuthService,
     private mailService: MailService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    console.log('Inizializzazione del componente...');
     this.inizializzaForm();
   }
 
   inizializzaForm(): void {
-    console.log('Inizializzo il form utente...');
     this.utenteForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       username: new FormControl('', Validators.required),
     });
-    console.log('Form utente inizializzato:', this.utenteForm);
   }
 
   onSubmit(): void {
@@ -49,15 +45,12 @@ export class RegistraUtenteAdminComponent {
   }
 
   registraUtente(): void {
-    console.log('Inizio registrazione utente...');
     const utenteInvioForm = this.createUtenteFormData();
-    console.log('Dati utente da inviare:', utenteInvioForm);
 
     this.utenteService
       .createUtente(utenteInvioForm)
       .pipe(
         catchError((errore) => {
-          console.error("Errore nella registrazione dell'utente:", errore);
           return this.gestisciErrore(
             errore,
             "Errore durante la registrazione dell'utente:"
@@ -65,18 +58,12 @@ export class RegistraUtenteAdminComponent {
         })
       )
       .subscribe((utenteResponse) => {
-        console.log(
-          "Risposta dalla registrazione dell'utente:",
-          utenteResponse
-        );
         this.gestioneRispostaRegistrazione(utenteResponse);
       });
   }
 
   createUtenteFormData(): any {
-    console.log('Generazione della password random...');
     this.randomPassword = this.generateRandomPassword(12);
-    console.log('Password random generata:', this.randomPassword);
 
     const formData = {
       email: this.utenteForm.value.email,
@@ -84,14 +71,11 @@ export class RegistraUtenteAdminComponent {
       username: this.utenteForm.value.username,
       roles: 'ADMIN',
     };
-    console.log('Dati per la registrazione utente:', formData);
     return formData;
   }
 
   gestioneRispostaRegistrazione(utenteResponse: any): void {
-    console.log('Gestisco la risposta della registrazione...');
     if (utenteResponse && utenteResponse.rc) {
-      console.log('Registrazione completata con successo.');
       this.invioEmailRegistrazione();
       this.openDialog({
         titolo: 'Conferma',
@@ -100,7 +84,6 @@ export class RegistraUtenteAdminComponent {
       });
       this.router.navigate(['/admin/dashboard/welcome-page']);
     } else {
-      console.log('Errore nella registrazione:', utenteResponse.msg);
       this.openDialog({
         titolo: 'Errore',
         msg:
@@ -113,9 +96,6 @@ export class RegistraUtenteAdminComponent {
   }
 
   generateRandomPassword(length: number): string {
-    console.log(
-      `Generazione di una password casuale di lunghezza ${length}...`
-    );
     const charset =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
     let password = '';
@@ -123,12 +103,10 @@ export class RegistraUtenteAdminComponent {
       const randomIndex = Math.floor(Math.random() * charset.length);
       password += charset[randomIndex];
     }
-    console.log('Password generata:', password);
     return password;
   }
 
   gestisciErrore(errore: any, erroreMsg: string): Observable<any> {
-    console.error(erroreMsg, errore);
     this.openDialog({
       titolo: 'Errore',
       msg: erroreMsg,
@@ -138,7 +116,6 @@ export class RegistraUtenteAdminComponent {
   }
 
   invioEmailRegistrazione(): void {
-    console.log('Invio email di registrazione...');
     const mailRequest = {
       toEmail: this.utenteForm.value.email,
       username: this.utenteForm.value.username,
@@ -148,16 +125,15 @@ export class RegistraUtenteAdminComponent {
       .confermaRegistrazioneAdminNonCliente(mailRequest)
       .subscribe(
         (response) => {
-          console.log('Email di conferma registrazione inviata:', response);
+          //console.log('Email di conferma registrazione inviata:', response);
         },
         (error) => {
-          console.error("Errore nell'invio della email:", error);
+          //console.error("Errore nell'invio della email:", error);
         }
       );
   }
 
   openDialog(inputDialog: any): void {
-    console.log('Apro il dialogo con i seguenti dati:', inputDialog);
     const dialogRef = this.dialog.open(PopUpComponent, {
       width: '400px',
       data: {
@@ -168,12 +144,9 @@ export class RegistraUtenteAdminComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log('Dialogo chiuso.');
       if (inputDialog.reload) {
-        console.log('Ricarico la pagina...');
         window.location.reload();
       } else {
-        console.log('Reindirizzo alla homepage...');
         this.router.navigate(['/']);
       }
     });

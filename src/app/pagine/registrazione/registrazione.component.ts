@@ -132,7 +132,7 @@ export class RegistrazioneComponent implements OnChanges {
       this.resetPasswordAfterSubmit();
       window.location.reload();
     } else {
-      console.log("Non è stato possibile aggiornare l'utente");
+      //console.log("Non è stato possibile aggiornare l'utente");
     }
   }
 
@@ -249,10 +249,10 @@ export class RegistrazioneComponent implements OnChanges {
     };
     this.mailService.confermaRegistrazione(mailRequest).subscribe(
       (response) => {
-        console.log('Email di conferma registrazione inviata ', response);
+        //console.log('Email di conferma registrazione inviata ', response);
       },
       (error) => {
-        console.error("Errore durante l'invio della email:", error);
+        // console.error("Errore durante l'invio della email:", error);
       }
     );
   }

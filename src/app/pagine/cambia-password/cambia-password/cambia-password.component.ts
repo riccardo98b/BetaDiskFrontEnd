@@ -81,7 +81,6 @@ export class CambiaPasswordComponent {
       .changePassword(idUtente, passwordCorrente, nuovaPassword)
       .subscribe(
         (response) => {
-          console.log('Password cambiata con successo');
           this.resetPasswordAfterSubmit();
           const dialogRef = this.dialog.open(DialogConfermaComponent, {
             minWidth: '500px',
@@ -121,7 +120,7 @@ export class CambiaPasswordComponent {
   }
 
   gestisciErrore(errore: any, erroreMsg: string): Observable<any> {
-    console.error(erroreMsg, errore);
+    //console.error(erroreMsg, errore);
     return of(null);
   }
 }

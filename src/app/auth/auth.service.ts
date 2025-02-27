@@ -27,12 +27,11 @@ export class AuthService {
         console.log(response);
 
         if (response && response.logged) {
-          console.log('Login effettuato con successo');
           this.setSessione(response);
           this.gestisciConfig();
           this.setRottaPerRuolo();
         } else {
-          console.log('Credenziali non valide');
+          //console.log('Credenziali non valide');
         }
       })
     );
@@ -45,36 +44,30 @@ export class AuthService {
   private setRottaPerRuolo(): void {
     this.router;
     if (this.isAdmin()) {
-      console.log('Ruolo: Amministratore');
       this.router.navigate(['/admin/dashboard']).then(() => {
         window.location.reload();
-        console.log('Navigazione completata verso /admin/dashboard');
       });
     } else if (this.isUtente() && this.getClienteIdSessione != null) {
       this.router.navigate(['/profilo']).then(() => {
         window.location.reload();
-        console.log('Navigazione completata verso /');
       });
     } else if (this.isUtente()) {
       console.log('Ruolo: Utente');
       this.router.navigate(['/profilo']).then(() => {
         window.location.reload();
-        console.log('Navigazione completata verso /');
       });
     } else {
-      console.log('Credenziali non valide');
+      //console.log('Credenziali non valide');
     }
   }
 
   private buildURL() {
     this.config.getConfig().subscribe((response: any) => {
-      console.log('Risposta dal config:', response);
       if (response && response.domain && response.port) {
         let url = 'http://' + response.domain + ':' + response.port + '/rest/';
-        console.log('URL costruito:', url);
         localStorage.setItem('config', url);
       } else {
-        console.error('Config non valido:', response);
+        //console.error('Config non valido:', response);
       }
     });
   }
@@ -82,18 +75,16 @@ export class AuthService {
   private gestisciConfig() {
     const valoreConfig = localStorage.getItem('config');
     if (valoreConfig) {
-      console.log('Config trovato nel localStorage:', valoreConfig);
+      // console.log('Config trovato nel localStorage:', valoreConfig);
     } else {
-      console.log('Config non trovato');
+      //console.log('Config non trovato');
       this.buildURL();
     }
   }
   getURL(component: string): string {
     const config = localStorage.getItem('config');
-    console.log('Config URL:', config);
     if (!config) this.buildURL();
     const fullUrl = config ? config + component : '';
-    console.log('URL completo:', fullUrl);
     return fullUrl;
   }
 
@@ -141,7 +132,6 @@ export class AuthService {
     // pulisco la session storage
     localStorage.clear();
     this.router.navigate(['/']);
-    console.log('Logout effettuato con successo');
     this.logoutSubject.next();
     this.unsubscribeAll();
   }
@@ -176,7 +166,6 @@ export class AuthService {
   }
 
   isUtente(): boolean {
-    console.log('Ruolo utente:', this.getRuoloUtente());
     return this.getRuoloUtente() === 'UTENTE';
   }
 }
