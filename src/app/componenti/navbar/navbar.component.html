@@ -110,6 +110,7 @@
                 >Dashboard</a
               >
             </li>
+
             <li *ngIf="isAdminNotCliente()">
               <a class="dropdown-item" routerLink="/cambia-password"
                 >Cambia Password</a
@@ -118,6 +119,11 @@
             <li *ngIf="isAdminNotCliente()">
               <a class="dropdown-item" routerLink="admin/associa-cliente"
                 >Diventa Cliente</a
+              >
+            </li>
+            <li *ngIf="isAdminNotCliente()">
+              <a class="dropdown-item" routerLink="elimina-account"
+                >Elimina account</a
               >
             </li>
           </ul>

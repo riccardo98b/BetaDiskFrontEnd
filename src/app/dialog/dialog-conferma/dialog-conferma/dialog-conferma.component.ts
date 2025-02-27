@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogConfermaComponent {
   messaggio: string = '';
+  titolo: string = 'Operazione';
   dialogRef = inject<MatDialogRef<DialogConfermaComponent>>(
     MatDialogRef<DialogConfermaComponent>
   );

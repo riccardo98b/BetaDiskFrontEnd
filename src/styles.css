@@ -38,3 +38,7 @@ button[mat-fab]:not(button[disabled]):hover {
 .check-btn {
   background-color: lightgreen !important;
 }
+
+.error-msg-input {
+  font-size: 1em;
+}
