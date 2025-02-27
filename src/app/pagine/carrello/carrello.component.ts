@@ -27,20 +27,24 @@ export class CarrelloComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.serv.listaProdotti(this.idCliente).subscribe((r: any) => {
-      if (r.rc) {
-        this.totale = r.dati.totale;
-        if (this.totale == 0) {
-          this.rc = false;
+    this.serv.listaProdotti(this.idCliente).subscribe({
+      next: (r: any) => {
+        if (r.rc) {
+          this.totale = r.dati.totale;
+          if (this.totale == 0) {
+            this.rc = false;
+          } else {
+            this.prodottiCarrello = r.dati.prodotti;
+          }
         } else {
-          this.prodottiCarrello = r.dati.prodotti;
+          this.rc = r.rc;
         }
-      } else {
-        this.rc = r.rc;
-      }
-      
-      this.isLoading = false
-    });
+        
+        this.isLoading = false
+    }, error: (err) => {
+      this,this.router.navigate(['/error500']);
+    }
+  });
   }
 
   svuotaCarrello() {
