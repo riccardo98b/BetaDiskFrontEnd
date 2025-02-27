@@ -3,8 +3,7 @@
   justify-content: space-around;
 }
 
-#filtri-prodotti,
-h6 {
+#filtri-prodotti {
   position: fixed;
   top: 150px;
   left: 0;
@@ -79,4 +78,38 @@ a {
 .dropdown-menu {
   max-height: 250px;
   overflow-y: auto;
+}
+.paginator {
+  align-items: center;
+}
+
+.paginator span{
+  background-color: #c7ccdb;
+  color: #24324b;
+  box-shadow: 3px 3px 8px #767b91;
+  border: none;
+  cursor: pointer;
+}
+
+.paginator span:hover {
+  background-color: #24324b;
+  color: #c7ccdb;
+}
+
+.paginator a {
+  text-decoration: none;
+}
+
+.paginator .active span {
+  background-color: #24324b;
+  color: #c7ccdb;
+}
+
+.paginator .active span:hover {
+  background-color: #c7ccdb;
+  color: #24324b;
+}
+
+.paginator h5 {
+  margin-right: 25px;
 }
