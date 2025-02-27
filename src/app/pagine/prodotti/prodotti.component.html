@@ -100,4 +100,15 @@
       >
     </div>
   </div>
+  <div class="paginator mt-5 d-flex justify-content-center">
+    
+    <div class="mx-6"><h5>sei a pagina {{paginaCorrente}}</h5></div>
+    <nav class="mt-2">
+      <ul class="pagination pagination-lg">
+        <li class="page-item" [ngClass]="{'active': paginaCorrente == i+1}" *ngFor="let pagina of [].constructor(pagine); index as i">
+         <span class="page-link" (click)="getTuttiProdottiVetrina(i+1)">{{i+1}}</span>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>

@@ -17,6 +17,11 @@ export class ProdottiService {
     return this.http.get<Prodotto[]>(url);
   }
 
+  listAllVetrina(pagina: number): Observable<Prodotto[]> {
+    const url = this.authService.getURL('prodotto/list-vetrina?pag=' + pagina);
+    return this.http.get<Prodotto[]>(url);
+  }
+
   prodottoPerId(idProdotto: number): Observable<Prodotto> {
     const url = this.authService.getURL(
       'prodotto/list?idProdotto=' + idProdotto

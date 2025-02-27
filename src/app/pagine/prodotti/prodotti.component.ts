@@ -26,6 +26,8 @@ export class ProdottiComponent implements OnInit {
   filtriPresenti: boolean = false;
   idCliente = +localStorage.getItem('idCliente')!;
   cartBadge: { [idProdotto: number]: number } = {};
+  pagine: number =0;
+  paginaCorrente = 0;
 
   wishlistId: number[] = [];
 
@@ -43,6 +45,8 @@ export class ProdottiComponent implements OnInit {
       this.isLoading = state;
     });
     this.getTuttiProdotti();
+    this.getTuttiProdottiVetrina(1);
+  
     this.getProdottiCarrello();
     this.caricaWishlist();
   }
@@ -72,7 +76,22 @@ export class ProdottiComponent implements OnInit {
     this.service.listAll().subscribe((resp) => {
       this.response = resp;
       if (this.response.rc === true) {
+         let data = this.response.dati;
+        this.pagine =  Math.round(data.length / 12);
+      } else {
+        this.openDialog(this.response);
+      }
+      this.loader.stopLoader();
+    });
+  }
+
+  getTuttiProdottiVetrina(i: number) {
+    this.loader.startLoader();
+    this.service.listAllVetrina(i).subscribe((resp) => {
+      this.response = resp;
+      if (this.response.rc === true) {
         this.data = this.response.dati;
+        this.paginaCorrente=i;
       } else {
         this.openDialog(this.response);
       }
