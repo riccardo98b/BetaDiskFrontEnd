@@ -73,6 +73,7 @@ import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.com
 import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
 import { RegistraUtenteAdminComponent } from './admin/registra-utente-admin/registra-utente-admin.component';
 import { AssociaClienteComponent } from './admin/associa-cliente/associa-cliente.component';
+import { CancellaAccountComponent } from './pagine/cancella-account/cancella-account/cancella-account.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -118,6 +119,7 @@ registerLocaleData(localeIt, 'it');
     WelcomePageComponent,
     RegistraUtenteAdminComponent,
     AssociaClienteComponent,
+    CancellaAccountComponent,
   ],
   imports: [
     BrowserModule,

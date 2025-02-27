@@ -14,8 +14,8 @@ img[alt="logo"] {
 
 button[mat-mini-fab]:not(button[disabled]),
 button[mat-fab]:not(button[disabled]) {
-    color: #e1e5ee;
-    background-color: #24324b;
+  color: #e1e5ee;
+  background-color: #24324b;
 }
 
 .del-btn {
@@ -26,7 +26,10 @@ button[mat-fab]:not(button[disabled]) {
   background-color: rgb(240, 189, 23) !important;
 }
 
-
 .check-btn {
   background-color: lightgreen !important;
+}
+
+.error-msg-input {
+  font-size: 1em;
 }

@@ -97,21 +97,43 @@
               mat-mini-fab
               class="edit-btn m-2"
               aria-label="edit-btn"
-              *ngIf="!cliente.utente?.roles.includes('ADMIN')"
+              *ngIf="
+                !cliente.utente?.roles.includes('ADMIN') ||
+                cliente.idCliente === adminClienteId
+              "
+              [disabled]="
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+              "
               (click)="
                 $event.stopPropagation(); modificaCliente(cliente.idCliente)
               "
             >
-              <mat-icon>edit_note</mat-icon>
+              <mat-icon>{{
+                cliente.idCliente === adminClienteId ? "security" : "edit_note"
+              }}</mat-icon>
             </button>
             <button
               mat-mini-fab
               class="admin-btn m-2"
               aria-label="admin-btn"
               (click)="$event.stopPropagation()"
-              *ngIf="cliente.utente?.roles.includes('ADMIN')"
-              data-bs-toggle="tooltip"
-              title="Questo cliente è un admin, non è possibile effettuare modifiche"
+              *ngIf="
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+              "
+              data-bs-toggle="
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+                  ? 'tooltip'
+                  : null
+              "
+              [title]="
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+                  ? 'Non è possibile modificare un account di un altro admin '
+                  : ''
+              "
             >
               <mat-icon>security</mat-icon>
             </button>
@@ -120,8 +142,24 @@
               mat-mini-fab
               class="del-btn"
               aria-label="delete-btn"
+              [disabled]="
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+              "
               (click)="
                 $event.stopPropagation(); eliminaCliente(cliente.idCliente)
+              "
+              data-bs-toggle="
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+                  ? 'tooltip'
+                  : null
+              "
+              [title]="
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+                  ? 'Non è possibile eliminare un account di un altro admin '
+                  : ''
               "
             >
               <mat-icon>close</mat-icon>

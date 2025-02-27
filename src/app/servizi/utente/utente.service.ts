@@ -56,4 +56,16 @@ export class UtenteService {
     };
     return this.http.post<Utente>(url, body);
   }
+
+  verifyCurrentPassword(
+    idUtente: number,
+    passwordCorrente: string
+  ): Observable<any> {
+    const url = this.authService.getURL('utente/verifyCurrentPassword');
+    const body = {
+      idUtente,
+      passwordCorrente,
+    };
+    return this.http.post<Utente>(url, body);
+  }
 }

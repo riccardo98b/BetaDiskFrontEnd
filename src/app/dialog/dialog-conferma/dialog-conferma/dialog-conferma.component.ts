@@ -15,4 +15,14 @@ export class DialogConfermaComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     this.messaggio = data.messaggio;
   }
+
+  onConfirm(): void {
+    console.log('Conferma');
+    this.dialogRef.close(true);
+  }
+
+  onCancel(): void {
+    console.log('Annulla');
+    this.dialogRef.close(false);
+  }
 }

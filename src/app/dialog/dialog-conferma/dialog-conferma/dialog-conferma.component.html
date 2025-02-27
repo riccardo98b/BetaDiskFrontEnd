@@ -3,5 +3,6 @@
   <p>{{ messaggio }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Ok</button>
+  <button (click)="onCancel()" mat-button mat-dialog-close>Annulla</button>
+  <button (click)="onConfirm()" mat-button mat-dialog-close>Ok</button>
 </mat-dialog-actions>

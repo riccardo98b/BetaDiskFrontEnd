@@ -26,6 +26,7 @@ import { CreaAdminComponent } from './admin/crea-admin/crea-admin/crea-admin.com
 import { WelcomePageComponent } from './admin/welcome-page/welcome-page.component';
 import { RegistraUtenteAdminComponent } from './admin/registra-utente-admin/registra-utente-admin.component';
 import { AssociaClienteComponent } from './admin/associa-cliente/associa-cliente.component';
+import { CancellaAccountComponent } from './pagine/cancella-account/cancella-account/cancella-account.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -81,6 +82,12 @@ const routes: Routes = [
   {
     path: 'cambia-password',
     component: CambiaPasswordComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['UTENTE', 'ADMIN'] },
+  },
+  {
+    path: 'elimina-account',
+    component: CancellaAccountComponent,
     canActivate: [AuthGuard],
     data: { roles: ['UTENTE', 'ADMIN'] },
   },

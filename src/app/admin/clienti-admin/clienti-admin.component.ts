@@ -6,6 +6,8 @@ import { UtenteService } from '../../servizi/utente/utente.service';
 import { DialogStringaComponent } from '../../dialog/dialog-stringa/dialog-stringa.component';
 import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clienti-admin',
@@ -18,15 +20,18 @@ export class ClientiAdminComponent {
   campoSelezionato: string = '';
   tipoRicerca: string = '';
   ruoloSelezionato: string = '';
-
+  adminClienteId: number | null;
   constructor(
     private clienteService: ClienteService,
     private utenteService: UtenteService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.caricaDatiClienti();
+    this.adminClienteId = this.authService.getClienteIdSessione();
   }
 
   caricaDatiClienti(): void {
@@ -62,39 +67,53 @@ export class ClientiAdminComponent {
   }
   eliminaCliente(idCliente: number): void {
     const cliente = this.clienti.find((c) => c.idCliente === idCliente);
-    if (cliente) {
-      const clienteBody = { idCliente: cliente.idCliente };
 
-      // Elimina il cliente
-      this.clienteService.deleteCliente(clienteBody).subscribe(
-        (response: any) => {
-          console.log('Risposta eliminazione cliente: ', response); // Log della risposta
-          if (response.rc === true) {
-            console.log('Cliente eliminato con successo');
+    if (!cliente) return;
 
-            // Rimuovi il cliente eliminato dalla lista
-            this.clienti = this.clienti.filter(
-              (c) => c.idCliente !== idCliente
+    this.openConfirmDialog()
+      .afterClosed()
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.clienteService
+            .deleteCliente({ idCliente: cliente.idCliente })
+            .subscribe(
+              (response) => this.handleDeleteResponse(response, idCliente),
+              (errore) => this.handleDeleteError(errore)
             );
-
-            // Mostra il pop-up di conferma
-            this.showPopUp('Conferma', response.msg);
-          } else {
-            this.showPopUp(
-              'Errore',
-              "Errore durante l'eliminazione del cliente."
-            );
-          }
-        },
-        (errore) => {
-          console.error("Errore durante l'eliminazione del cliente:", errore);
-          this.showPopUp(
-            'Errore',
-            "Errore durante l'eliminazione del cliente."
-          );
+        } else {
+          console.log('Eliminazione cliente annullata');
         }
-      );
+      });
+  }
+
+  openConfirmDialog() {
+    return this.dialog.open(DialogConfermaComponent, {
+      minWidth: '500px',
+      data: { messaggio: 'Sei sicuro di voler eliminare questo cliente?' },
+    });
+  }
+
+  handleDeleteResponse(response: any, idCliente: number): void {
+    if (response.rc) {
+      this.clienti = this.clienti.filter((c) => c.idCliente !== idCliente);
+      this.clearUserData();
+      this.showPopUp('Conferma', response.msg);
+      this.router.navigate(['/']);
+    } else {
+      this.showPopUp('Errore', "Errore durante l'eliminazione del cliente.");
     }
+  }
+
+  handleDeleteError(errore: any): void {
+    console.error("Errore durante l'eliminazione del cliente:", errore);
+    this.showPopUp('Errore', "Errore durante l'eliminazione del cliente.");
+  }
+
+  clearUserData(): void {
+    localStorage.clear();
+    console.log('LocalStorage pulito');
+    this.authService.logout();
+    console.log('Utente disconnesso');
   }
 
   cercaNome(): void {
@@ -145,7 +164,6 @@ export class ClientiAdminComponent {
   }
 
   cercaClientiDopoCheck(query: string, tipoRicerca: string): void {
-    // Prepara i parametri per la ricerca
     let nome = tipoRicerca === 'nome' ? query : '';
     let cognome = tipoRicerca === 'cognome' ? query : '';
     let cap = tipoRicerca === 'cap' ? query : '';
