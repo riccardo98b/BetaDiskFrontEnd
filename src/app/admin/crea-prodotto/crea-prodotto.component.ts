@@ -74,7 +74,7 @@ export class CreaProdottoComponent implements OnInit {
   openDialog() {
     this.dialog.open(PopUpComponent, {
       width: '400px',
-      data: { message: this.response.msg },
+      data: { titolo: 'Errore', msg: this.response.msg },
     });
   }
 }

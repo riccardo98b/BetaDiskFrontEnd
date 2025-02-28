@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
 import { MailService } from '../../servizi/mail/mail.service';
 import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-registrazione',
@@ -179,7 +180,7 @@ export class RegistrazioneComponent implements OnChanges {
       )
       .subscribe((utenteResponse: any) => {
         this.gestioneRispostaRegistrazione(utenteResponse, randomPassword);
-        const dialogRef = this.dialog.open(DialogConfermaComponent, {
+        const dialogRef = this.dialog.open(PopUpComponent, {
           minWidth: '500px',
           data: {
             messaggio:

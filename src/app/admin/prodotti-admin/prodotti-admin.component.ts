@@ -30,18 +30,19 @@ export class ProdottiAdminComponent implements OnInit {
   getTuttiProdotti() {
     this.loader.startLoader();
     this.service.listAll().subscribe({
-     next: (resp) => {
-      this.response = resp;
-      if (this.response.rc === true) {
-        this.data = this.response.dati;
-      } else {
-        this.openDialog();
-      }
-      this.loader.stopLoader();
-    }, error: (err) => {
-      this,this.route.navigate(['/error500']);
-    }
-  });
+      next: (resp) => {
+        this.response = resp;
+        if (this.response.rc === true) {
+          this.data = this.response.dati;
+        } else {
+          this.openDialog();
+        }
+        this.loader.stopLoader();
+      },
+      error: (err) => {
+        this, this.route.navigate(['/error500']);
+      },
+    });
   }
 
   deleteProdotto(idProdotto: number) {
@@ -72,7 +73,7 @@ export class ProdottiAdminComponent implements OnInit {
   openDialog() {
     this.dialog.open(PopUpComponent, {
       width: '400px',
-      data: { message: this.response.msg },
+      data: { titolo: 'Errore', msg: this.response.msg },
     });
   }
 }
