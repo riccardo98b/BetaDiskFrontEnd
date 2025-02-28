@@ -6,6 +6,7 @@ import { MailService } from '../../servizi/mail/mail.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDataComponent } from '../../dialog/dialog-data/dialog-data.component';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
+import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 
 @Component({
   selector: 'app-ordini-admin',
@@ -48,13 +49,22 @@ export class OrdiniAdminComponent {
       let request = {
         idOrdine : id
       }
-      this.serv.eliminaOrdine(request).subscribe((r:any) => {
-        if (r.rc) {
-          this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
-        } else {
-          this.openDialog({titolo: "Errore", msg : r.msg })
-        }
-      });
+       const dialogRef = this.dialog.open(DialogConfermaComponent, {
+                      minWidth: '500px',
+                      data: {
+                        messaggio: 'Sei sicuro di voler eliminare il tuo ordine?'
+                      },
+                    });
+          dialogRef.afterClosed().subscribe((confirmed) => {
+                      if (confirmed) {
+                        this.serv.eliminaOrdine(request).subscribe((r:any) => {
+                          if (r.rc) {
+                            this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+                          } else {
+                            this.openDialog({titolo: "Errore", msg : r.msg })
+                          }
+                        });
+                      }});
       this.isLoading=false;
   
     }
