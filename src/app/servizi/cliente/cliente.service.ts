@@ -39,7 +39,6 @@ export class ClienteService {
 
   getCliente(idCliente: number): Observable<Cliente> {
     const url = this.authService.getURL('cliente/listById?id=') + idCliente;
-    console.log('URL completo', url);
     return this.http.get<Cliente>(url);
   }
 
