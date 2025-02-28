@@ -45,13 +45,9 @@ div.card-text p {
     min-width: 100%;
 }
 
-.del-btn {
-    color: #fff;
-    background-color: firebrick !important;
-}
-
 .card {
     overflow: hidden;
+    box-shadow: 3px 3px 8px #767b91;
 }
 
 .card a {
