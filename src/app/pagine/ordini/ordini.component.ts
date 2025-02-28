@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { OrdineService } from '../../servizi/ordine/ordine.service';
 import { Router } from '@angular/router';
 import { Ordine } from '../../interfacce/Ordine';
+import { MatDialog } from '@angular/material/dialog';
+import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
+import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 
 
 @Component({
@@ -12,7 +15,10 @@ import { Ordine } from '../../interfacce/Ordine';
 })
 export class OrdiniComponent implements OnInit{
 
-  constructor(private serv: OrdineService, private router: Router){}
+  constructor(private serv: OrdineService,
+     private router: Router,
+     private dialog: MatDialog
+  ){}
   idCliente = +localStorage.getItem('idCliente')!;
   msg: string = '';
   rc: boolean = true;
@@ -39,16 +45,44 @@ export class OrdiniComponent implements OnInit{
     let request = {
       idOrdine : id
     }
-    this.serv.eliminaOrdine(request).subscribe((r:any) => {
-      this.msg = r.msg;
-      this.rc = r.rc;
-      this.router.navigate(['/profilo/ordini']).then(() => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      });
-    });
-    this.isLoading=false;
+    const dialogRef = this.dialog.open(DialogConfermaComponent, {
+                minWidth: '500px',
+                data: {
+                  messaggio: 'Sei sicuro di voler eliminare il tuo ordine?'
+                },
+              });
+    dialogRef.afterClosed().subscribe((confirmed) => {
+                if (confirmed) {
+                  this.serv.eliminaOrdine(request).subscribe((r:any) => {
+                    if (r.rc) {
+                      this.openDialog({titolo: "Conferma", msg : r.msg, reload : true })
+                    } else {
+                      this.openDialog({titolo: "Errore", msg : r.msg })
+                    }
+                  });
+                }});
 
-  }
+    // this.serv.eliminaOrdine(request).subscribe((r:any) => {
+    //   this.msg = r.msg;
+    //   this.rc = r.rc;
+      
+    //   this.router.navigate(['/profilo/ordini']).then(() => {
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 1500);
+    //   });
+    this.isLoading=false;
+    };
+  
+
+
+
+    openDialog(inputDialog: any) {
+      this.dialog.open(PopUpComponent, {
+        width: '400px',
+        data: { titolo: inputDialog.titolo,
+          msg: inputDialog.msg,
+          reload: inputDialog.reload },
+      });
+    }
 }
