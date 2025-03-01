@@ -46,7 +46,7 @@
           [matMenuTriggerFor]="menu"
           id="filtro-ruoli-utente"
         >
-          {{ ruoloSelezionato || "Ruolo" }}
+          {{ ruoloSelezionato || "Ruolo Clienti" }}
         </button>
       </div>
       <mat-menu #menu="matMenu">
@@ -80,30 +80,37 @@
         *ngFor="let cliente of clienti"
         class="list-group-item list-items"
       >
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class="d-flex align-items-center">
           <mat-panel-title class="w-5 d-flex justify-content-center">
-            <div class="fw-bold">
-              Cliente: {{ cliente.nome }} {{ cliente.cognome }}
+            <div class="fw-bold" *ngIf="cliente.utente">
+              <span> {{ cliente.nome }} {{ cliente.cognome }} </span>
             </div>
+            <div class="fw-bold" *ngIf="!cliente.utente">Utente cancellato</div>
           </mat-panel-title>
-          <mat-panel-description class="d-flex justify-content-center">
-            <div>
+
+          <mat-panel-description
+            class="d-flex justify-content-center align-items-center"
+          >
+            <div *ngIf="cliente.utente" class="d-flex align-items-center">
               <span class="fw-bold">Username:</span>
-              {{ cliente.utente?.username }}
+              <div class="ms-2">{{ cliente.utente?.username }}</div>
             </div>
           </mat-panel-description>
-          <div>
+
+          <div class="d-flex align-items-center">
             <button
               mat-mini-fab
               class="edit-btn m-2"
               aria-label="edit-btn"
               *ngIf="
-                !cliente.utente?.roles.includes('ADMIN') ||
-                cliente.idCliente === adminClienteId
+                cliente.utente &&
+                (!cliente.utente?.roles.includes('ADMIN') ||
+                  cliente.idCliente === adminClienteId)
               "
               [disabled]="
-                cliente.utente?.roles.includes('ADMIN') &&
-                cliente.idCliente !== adminClienteId
+                !cliente.utente ||
+                (cliente.utente?.roles.includes('ADMIN') &&
+                  cliente.idCliente !== adminClienteId)
               "
               (click)="
                 $event.stopPropagation(); modificaCliente(cliente.idCliente)
@@ -115,62 +122,80 @@
             </button>
             <button
               mat-mini-fab
+              class="unavailable-btn m-2"
+              aria-label="edit-btn"
+              *ngIf="!cliente.utente"
+              (click)="$event.stopPropagation()"
+              data-bs-toggle="tooltip"
+              title="Non è possibile eseguire operazioni su un utente cancellato"
+            >
+              <mat-icon> person_off </mat-icon>
+            </button>
+
+            <button
+              mat-mini-fab
               class="admin-btn m-2"
               aria-label="admin-btn"
-              (click)="$event.stopPropagation()"
               *ngIf="
+                cliente.utente &&
                 cliente.utente?.roles.includes('ADMIN') &&
                 cliente.idCliente !== adminClienteId
               "
-              data-bs-toggle="
-                cliente.utente?.roles.includes('ADMIN') &&
-                cliente.idCliente !== adminClienteId
-                  ? 'tooltip'
-                  : null
-              "
-              [title]="
-                cliente.utente?.roles.includes('ADMIN') &&
-                cliente.idCliente !== adminClienteId
-                  ? 'Non è possibile modificare un account di un altro admin '
-                  : ''
-              "
+              (click)="$event.stopPropagation()"
+              data-bs-toggle="tooltip"
+              title="Non è possibile effettuare operazioni su un altro admin"
             >
               <mat-icon>security</mat-icon>
             </button>
 
             <button
               mat-mini-fab
-              class="del-btn"
+              class="del-btn m-2"
               aria-label="delete-btn"
+              *ngIf="
+                cliente.utente &&
+                (!cliente.utente?.roles.includes('ADMIN') ||
+                  cliente.idCliente === adminClienteId)
+              "
               [disabled]="
-                cliente.utente?.roles.includes('ADMIN') &&
-                cliente.idCliente !== adminClienteId
+                !cliente.utente ||
+                (cliente.utente?.roles.includes('ADMIN') &&
+                  cliente.idCliente !== adminClienteId)
               "
               (click)="
                 $event.stopPropagation(); eliminaCliente(cliente.idCliente)
               "
-              data-bs-toggle="
-                cliente.utente?.roles.includes('ADMIN') &&
-                cliente.idCliente !== adminClienteId
-                  ? 'tooltip'
-                  : null
-              "
-              [title]="
-                cliente.utente?.roles.includes('ADMIN') &&
-                cliente.idCliente !== adminClienteId
-                  ? 'Non è possibile eliminare un account di un altro admin '
-                  : ''
-              "
             >
               <mat-icon>close</mat-icon>
             </button>
+
+            <button
+              mat-mini-fab
+              class="admin-btn m-2"
+              aria-label="admin-btn"
+              *ngIf="
+                cliente.utente &&
+                cliente.utente?.roles.includes('ADMIN') &&
+                cliente.idCliente !== adminClienteId
+              "
+              (click)="$event.stopPropagation()"
+              data-bs-toggle="tooltip"
+              title="Non è possibile cancellare un account di un altro admin"
+            >
+              <mat-icon>disabled_by_default</mat-icon>
+            </button>
           </div>
         </mat-expansion-panel-header>
+
         <div>
-          <p>
+          <p *ngIf="!cliente.utente">
+            <span class="fw-medium"> Nome e cognome: </span>
+            {{ cliente.nome }} {{ cliente.cognome }}
+          </p>
+          <p *ngIf="cliente.utente">
             <span class="fw-medium">Email:</span> {{ cliente.utente?.email }}
           </p>
-          <p>
+          <p *ngIf="cliente.utente">
             <span class="fw-medium">Ruolo:</span>
             {{ cliente.utente?.roles }}
           </p>

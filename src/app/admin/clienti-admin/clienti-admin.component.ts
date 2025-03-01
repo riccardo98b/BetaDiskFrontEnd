@@ -21,6 +21,7 @@ export class ClientiAdminComponent {
   tipoRicerca: string = '';
   ruoloSelezionato: string = '';
   adminClienteId: number | null;
+
   constructor(
     private clienteService: ClienteService,
     private utenteService: UtenteService,
@@ -60,59 +61,57 @@ export class ClientiAdminComponent {
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        console.log('Dialogo chiuso con risultato: ', result);
         this.caricaDatiClienti();
       });
     }
   }
+
   eliminaCliente(idCliente: number): void {
     const cliente = this.clienti.find((c) => c.idCliente === idCliente);
 
     if (!cliente) return;
+    const utenteId = cliente.utente?.idUtente;
 
     this.openConfirmDialog()
       .afterClosed()
-      .subscribe((confirmed) => {
-        if (confirmed) {
-          this.clienteService
-            .deleteCliente({ idCliente: cliente.idCliente })
-            .subscribe(
-              (response) => this.handleDeleteResponse(response, idCliente),
-              (errore) => this.handleDeleteError(errore)
-            );
+      .subscribe((risposta: any) => {
+        if (risposta) {
+          this.utenteService.deleteUtente({ idUtente: utenteId }).subscribe(
+            (response) => this.handleDeleteResponse(response, idCliente),
+            (errore) => this.handleDeleteError(errore)
+          );
         } else {
           //console.log('Eliminazione cliente annullata');
         }
       });
   }
 
-  openConfirmDialog() {
-    return this.dialog.open(DialogConfermaComponent, {
-      minWidth: '500px',
-      data: { messaggio: 'Sei sicuro di voler eliminare questo cliente?' },
-    });
-  }
-
-  handleDeleteResponse(response: any, idCliente: number): void {
+  handleDeleteResponse(response: any, idCliente: number) {
     if (response.rc) {
       this.clienti = this.clienti.filter((c) => c.idCliente !== idCliente);
-      this.clearUserData();
-      this.showPopUp('Conferma', response.msg);
-      this.router.navigate(['/']);
+
+      if (idCliente === this.adminClienteId) {
+        this.showPopUp('Conferma', response.msg).subscribe(() => {
+          this.clearUserData();
+          this.authService.logout();
+          this.router.navigate(['/']);
+        });
+      } else {
+        this.showPopUp('Conferma', response.msg);
+      }
     } else {
       this.showPopUp('Errore', "Errore durante l'eliminazione del cliente.");
     }
   }
 
   handleDeleteError(errore: any): void {
+    console.error('Errore durante la cancellazione del cliente:', errore);
     this.showPopUp('Errore', "Errore durante l'eliminazione del cliente.");
   }
 
   clearUserData(): void {
     localStorage.clear();
-    console.log('LocalStorage pulito');
     this.authService.logout();
-    console.log('Utente disconnesso');
   }
 
   cercaNome(): void {
@@ -146,6 +145,13 @@ export class ClientiAdminComponent {
       if (this.campoSelezionato) {
         this.cercaClientiDopoCheck(this.campoSelezionato, this.tipoRicerca);
       }
+    });
+  }
+
+  openConfirmDialog() {
+    return this.dialog.open(DialogConfermaComponent, {
+      minWidth: '500px',
+      data: { messaggio: 'Sei sicuro di voler eliminare questo cliente?' },
     });
   }
 
@@ -215,6 +221,7 @@ export class ClientiAdminComponent {
     this.ruoloSelezionato = ruolo;
     this.utenteService.utentePerRuolo(ruolo).subscribe(
       (response: any) => {
+        console.log('Risposta dalla ricerca utenti per ruolo:', response);
         if (response.rc === true && response.dati) {
           const utenti = response.dati;
           this.clienti = [];
@@ -250,14 +257,15 @@ export class ClientiAdminComponent {
     this.caricaDatiClienti();
   }
 
-  showPopUp(titolo: string, messaggio: string): void {
-    this.dialog.open(PopUpComponent, {
+  showPopUp(titolo: string, messaggio: string): any {
+    const dialogRef = this.dialog.open(PopUpComponent, {
       width: '400px',
       data: {
         titolo: titolo,
         msg: messaggio,
-        reload: false,
+        reload: true,
       },
     });
+    return dialogRef.afterClosed();
   }
 }

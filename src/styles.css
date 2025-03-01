@@ -39,6 +39,10 @@ button[mat-fab]:not(button[disabled]):hover {
   background-color: lightgreen !important;
 }
 
+.unavailable-btn {
+  background-color: #808080 !important;
+}
+
 .error-msg-input {
   font-size: 1em;
 }
