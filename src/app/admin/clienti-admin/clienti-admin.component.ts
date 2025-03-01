@@ -221,7 +221,6 @@ export class ClientiAdminComponent {
     this.ruoloSelezionato = ruolo;
     this.utenteService.utentePerRuolo(ruolo).subscribe(
       (response: any) => {
-        console.log('Risposta dalla ricerca utenti per ruolo:', response);
         if (response.rc === true && response.dati) {
           const utenti = response.dati;
           this.clienti = [];
