@@ -9,7 +9,6 @@ import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { ProfiloService } from '../../servizi/profilo/profilo.service';
 import { MailService } from '../../servizi/mail/mail.service';
-import { DialogConfermaComponent } from '../../dialog/dialog-conferma/dialog-conferma/dialog-conferma.component';
 import { PopUpComponent } from '../../dialog/pop-up/pop-up.component';
 
 @Component({
@@ -33,6 +32,9 @@ export class RegistrazioneComponent implements OnChanges {
   bottoneAnnulla: string = 'Torna alla home';
   bottoneSubmit: string = 'Registrati';
   routerLinkUrl: string = '';
+  ruolo: string = 'UTENTE';
+  msgRegistrazione: string =
+    'Registrazione avvenuta con successo, controlla la tua email.';
   constructor(
     private clienteService: ClienteService,
     private utenteService: UtenteService,
@@ -48,16 +50,32 @@ export class RegistrazioneComponent implements OnChanges {
   }
 
   inizializzaForm(): void {
+    const telefonoRegex =
+      '^\\+?\\d{1,3}[\\s-]?\\(?\\d{1,4}\\)?[\\s-]?\\d{1,4}[\\s-]?\\d{1,4}$';
+    const usernamePattern = '^[a-zA-Z0-9-_]{3,15}$'; // Solo lettere, numeri, trattini,underscores,3-15 caratteri
+
     this.clienteForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
       immagineCliente: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
-      telefono: new FormControl('', [Validators.required]),
-      username: new FormControl(''),
+      telefono: new FormControl('', [
+        Validators.required,
+        Validators.pattern(telefonoRegex),
+      ]),
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(15),
+        Validators.pattern(usernamePattern),
+      ]),
       via: new FormControl('', [Validators.required]),
       comune: new FormControl('', [Validators.required]),
-      provincia: new FormControl('', [Validators.required]),
+      provincia: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(2),
+      ]),
       cap: new FormControl('', [Validators.required]),
     });
   }
@@ -74,34 +92,10 @@ export class RegistrazioneComponent implements OnChanges {
       this.bottoneAnnulla = 'Torna alla dashboard';
       this.bottoneSubmit = 'Crea';
       this.routerLinkUrl = '/admin/dashboard/welcome-page';
-    } else {
-      this.titolo = 'Registrazione';
-      this.bottoneAnnulla = 'Torna alla home';
-      this.routerLinkUrl = '/';
-      this.bottoneSubmit = 'Registrati';
+      this.ruolo = 'ADMIN';
+      this.msgRegistrazione =
+        'Creazione account admin completata con successo.';
     }
-  }
-  onSubmit(): void {
-    this.invioDatiCliente();
-  }
-
-  invioDatiCliente(): void {
-    const clienteInvioForm = this.createClienteFormData();
-    const utenteInvioForm = this.createUtenteFormData();
-
-    this.clienteService
-      .updateCliente(clienteInvioForm)
-      .pipe(
-        switchMap((clienteResponse) => {
-          return this.utenteService.updateUtente(utenteInvioForm);
-        }),
-        catchError((errore) => {
-          return this.gestisciErrore(errore, "Errore durante l'aggiornamento:");
-        })
-      )
-      .subscribe((utenteResponse) => {
-        this.gestioneRispostaUpdate(utenteResponse);
-      });
   }
 
   createClienteFormData(): any {
@@ -124,17 +118,8 @@ export class RegistrazioneComponent implements OnChanges {
       idCliente: this.clienteId,
       email: this.clienteForm.value.email,
       username: this.clienteForm.value.username,
-      roles: 'UTENTE',
+      roles: this.ruolo,
     };
-  }
-
-  gestioneRispostaUpdate(utenteResponse: any): void {
-    if (utenteResponse) {
-      this.resetPasswordAfterSubmit();
-      window.location.reload();
-    } else {
-      //console.log("Non è stato possibile aggiornare l'utente");
-    }
   }
 
   generateRandomPassword(length: number): string {
@@ -154,9 +139,11 @@ export class RegistrazioneComponent implements OnChanges {
       passwordDiConferma: '',
     });
   }
+
   toggleVisibilitaPassword() {
     this.passwordVisibile = !this.passwordVisibile;
   }
+
   onRegistraCliente(): void {
     this.registraClienteEUtente();
   }
@@ -183,14 +170,12 @@ export class RegistrazioneComponent implements OnChanges {
         const dialogRef = this.dialog.open(PopUpComponent, {
           minWidth: '500px',
           data: {
-            messaggio:
-              'Registrazione avvenuta con successo, controlla la tua email.',
+            titolo: 'Registrazione completata',
+            msg: this.msgRegistrazione,
           },
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
-          console.log('Dialog di conferma chiuso con risultato: ', result);
-        });
+        dialogRef.afterClosed().subscribe((result) => {});
       });
   }
 
@@ -217,7 +202,7 @@ export class RegistrazioneComponent implements OnChanges {
       email: this.clienteForm.value.email,
       password: randomPassword,
       username: this.clienteForm.value.username,
-      roles: 'UTENTE',
+      roles: this.ruolo,
       idCliente: clienteId,
     };
     return this.utenteService.createUtente(utenteInvioForm);
@@ -228,7 +213,6 @@ export class RegistrazioneComponent implements OnChanges {
     randomPassword: string
   ): void {
     if (utenteResponse) {
-      this.resetPasswordAfterSubmit();
       this.invioEmailRegistrazione(randomPassword);
       this.router.navigate(['/']);
     } else {
@@ -250,10 +234,10 @@ export class RegistrazioneComponent implements OnChanges {
     };
     this.mailService.confermaRegistrazione(mailRequest).subscribe(
       (response) => {
-        //console.log('Email di conferma registrazione inviata ', response);
+        // console.log('Email di conferma registrazione inviata ', response);
       },
       (error) => {
-        // console.error("Errore durante l'invio della email:", error);
+        //console.error("Errore durante l'invio della email:", error);
       }
     );
   }
