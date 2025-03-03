@@ -41,11 +41,16 @@ export class AssociaClienteComponent {
   }
 
   inizializzaForm(): void {
+    const telefonoRegex =
+      '^\\+?\\d{1,3}[\\s-]?\\(?\\d{1,4}\\)?[\\s-]?\\d{1,4}[\\s-]?\\d{1,4}$';
     this.clienteForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
       immagineCliente: new FormControl(''),
-      telefono: new FormControl('', [Validators.required]),
+      telefono: new FormControl('', [
+        Validators.required,
+        Validators.pattern(telefonoRegex),
+      ]),
       via: new FormControl('', [Validators.required]),
       comune: new FormControl('', [Validators.required]),
       provincia: new FormControl('', [Validators.required]),
@@ -94,7 +99,6 @@ export class AssociaClienteComponent {
         })
       )
       .subscribe((utenteResponse) => {
-        console.log("Risposta dopo l'associazione utente:", utenteResponse);
         this.gestisciRispostaRegistrazione(utenteResponse);
       });
   }
@@ -126,7 +130,6 @@ export class AssociaClienteComponent {
 
   gestisciRispostaRegistrazione(utenteResponse: any): void {
     if (utenteResponse) {
-      console.log('Associazione completata con successo');
       this.inviaEmailRegistrazione();
       this.openDialog({
         titolo: 'Conferma',
@@ -135,7 +138,6 @@ export class AssociaClienteComponent {
       });
       this.router.navigate(['/']);
     } else {
-      console.log("Non è stato possibile associare il cliente all'utente");
       this.openDialog({
         titolo: 'Errore',
         msg: utenteResponse.msg,

@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (!this.authService.isAuthenticated()) {
-      if (this.authService.isLoggedOut()) {
+      if (!this.authService.isAdmin()) {
         this.router.navigate(['/forbidden']);
         return false;
       }
@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
       if (requiredRoles.includes(userRole)) {
         return true;
       } else {
-        if (userRole === 'UTENTE') {
+        if (userRole !== 'ADMIN') {
           this.router.navigate(['/forbidden']);
           return false;
         }

@@ -76,13 +76,13 @@ export class CancellaAccountComponent {
           const dialogRef = this.dialog.open(DialogConfermaComponent, {
             minWidth: '500px',
             data: {
+              titolo: 'Cancellazione account',
               messaggio: 'Sei sicuro di voler eliminare il tuo account?',
             },
           });
 
           dialogRef.afterClosed().subscribe((confirmed) => {
             if (confirmed) {
-              console.log('Utente ha confermato la cancellazione');
               this.eliminaAccount(utenteInvioForm);
             } else {
               //console.log('Utente ha annullato la cancellazione');
