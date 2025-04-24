@@ -1,7 +1,7 @@
 ## 🎨 BetaDisk FrontEnd
 
 
-<img src="./public/assets/Betadisk.png" />
+<img src="public/assets/Betadisk.png" />
 
 
 **BetaDisk FrontEnd** è l’interfaccia utente per l’eCommerce di prodotti musicali. Il progetto è stato sviluppato con **Angular 19**.
