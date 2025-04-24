@@ -1,4 +1,54 @@
-# FinalProject
+## 🎨 BetaDisk FrontEnd
+
+**BetaDisk FrontEnd** è l’interfaccia utente per l’eCommerce di prodotti musicali. Il progetto è stato sviluppato con **Angular 19**.
+
+### ✨ Funzionalità principali
+
+- 🖼️ **Visualizzazione prodotti** 
+- 🔍 **Filtri sui prodotti **
+- 🛒 **Aggiunta prodotti Carrello ** 
+- 💖 **Wishlist** per utenti registrati
+- 🛍️ **Acquisto con conferma ordine** e metodo di pagamento in contrassegno
+- 📝 **Sistema di recensioni** utilizzabile su un prodotto solo dopo l'acquisto
+- 🔐 **Gestione autenticazione e ruoli utente/admin**
+- 📊 **Dashboard Admin** per controllo e gestione del sito
+
+### 🛠️ Stack Tecnologico
+
+- **Framework:** Angular 19  
+- **Linguaggi:** TypeScript, HTML, SCSS  
+- **Librerie:** RxJS, Angular Material, Bootstrap 
+- **Routing e Guards** per navigazione sicura  
+- **Gestione Stato:** Servizi e LocalStorage
+
+---
+
+🔗 [Repository GitHub](https://github.com/riccardo98b/BetaDiskFrontEnd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# HOW TO RUN THIS PROJECT:
+# Project info
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
 
